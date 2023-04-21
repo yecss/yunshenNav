@@ -1,0 +1,1598 @@
+[
+  {
+    "name": "🐳 日常",
+    "children": [
+      {
+        "name": "听歌",
+        "children": [],
+        "web": [
+          { "url": "https://tool.liumingye.cn/music/#/", "title": "Music" }
+        ]
+      },
+      {
+        "name": "看剧",
+        "children": [],
+        "web": [
+          { "url": "https://www.btnull.nu/", "title": "无名小站" },
+          { "url": "https://ddys.tv/", "title": "低端影视" },
+          {
+            "url": "https://shimo.im/sheets/wQTgYdKWdXVrQgkd/MODOC",
+            "title": "340+优质UP"
+          },
+          { "url": "https://u.gitcafe.net/#hydy", "title": "小纸条" },
+          { "url": "https://czzy01.com/", "title": " 厂长资源" },
+          { "url": "http://549.tv/", "title": "影视森林" }
+        ]
+      },
+      {
+        "name": "待看影视",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.bilibili.com/video/BV1Vg4y1p7HJ/?spm_id_from=333.851.b_7265636f6d6d656e64.3&vd_source=4866b7cfde4a08de2ba06a6ef4c96869",
+            "title": "极简主义"
+          },
+          {
+            "url": "http://www.360doc.com/content/22/1202/11/54226927_1058498615.shtml",
+            "title": "纪录片"
+          },
+          {
+            "url": "https://czzy01.com/v_play/bXZfMzIxLW5tXzE=.html",
+            "title": "海贼王"
+          },
+          {
+            "url": "https://search.bilibili.com/all?keyword=%E8%BE%A9%E8%AE%BA%E8%B5%9B&from_source=webtop_search&spm_id_from=333.1007&search_source=5",
+            "title": "辩论赛"
+          },
+          {
+            "url": "https://www3.nhk.or.jp/nhkworld/zh/ondemand/category/15/?type=tvEpisode&",
+            "title": "纪录片"
+          }
+        ]
+      },
+      {
+        "name": "我的",
+        "children": [],
+        "web": [{ "url": "https://bento.me/yecss", "title": "bento" }]
+      },
+      {
+        "name": "导航",
+        "children": [],
+        "web": [
+          { "url": "https://www.code-nav.cn/", "title": "编程导航" },
+          { "url": "http://www.hippter.com/", "title": "HiPPTER" },
+          { "url": "https://www.xue8nav.com/", "title": "学吧导航" },
+          { "url": "https://go.itab.link/", "title": "新标签页" },
+          { "url": "https://www.51kim.com/", "title": "氪主页" },
+          { "url": "https://www.slwxdh.com/", "title": "搜罗万象导航" },
+          { "url": "https://e.juejin.cn/#/", "title": "掘金酱" }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "⭐ SZPT",
+    "children": [
+      {
+        "name": "SZPT",
+        "children": [],
+        "web": [
+          { "url": "http://vpn5.szpt.edu.cn/", "title": "WebVPN" },
+          { "url": "http://10.1.44.15/home/article/", "title": "人工智能平台" },
+          { "url": "https://istudy.szpt.edu.cn/portal", "title": "深职i学习" },
+          {
+            "url": "https://user.icve.com.cn/learning/u/student/teaching/index.action",
+            "title": "智慧职教"
+          },
+          {
+            "url": "https://passport2.chaoxing.com/login?fid=&newversion=true&refer=https://i.chaoxing.com",
+            "title": "学习通"
+          }
+        ]
+      },
+      {
+        "name": "代刷",
+        "children": [],
+        "web": [
+          { "url": "https://jpvsmtm.ddzyyy.com/?cid=70", "title": "WK代看 -" },
+          {
+            "url": "https://github.com/hsjzhcq/hcqHome",
+            "title": "简单好用的刷课脚本"
+          },
+          { "url": "http://www.tm99.top/#/", "title": "天民代看" },
+          { "url": "https://cx.icodef.com/", "title": "超星慕课小工具" }
+        ]
+      },
+      {
+        "name": "题库",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.jhq8.cn/daan/2022/09/1290350.html",
+            "title": "精华吧"
+          },
+          { "url": "https://www.examk.com/", "title": "易可在亩" }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "🥟 博客",
+    "children": [
+      {
+        "name": "软件资源",
+        "children": [],
+        "web": [
+          { "url": "https://www.ghxi.com/", "title": "果核剥壳 " },
+          { "url": "https://www.sharertv.com/", "title": "分享迷 " },
+          { "url": "https://www.softgk.com/", "title": "软极客" },
+          { "url": "https://www.abskoop.com/", "title": "A姐分享" },
+          { "url": "https://www.ajihuo.com/", "title": "IDEA激活码" },
+          { "url": "http://www.itmind.net/", "title": "小白学堂" },
+          { "url": "https://asmz.wss.cc/", "title": "安什么装" },
+          { "url": "https://msdn.itellyou.cn/", "title": "MSDN, 我告诉你" },
+          { "url": "https://www.runningcheese.com/", "title": "奔跑中的奶酪" },
+          { "url": "https://www.423down.com/", "title": "423Down" }
+        ]
+      },
+      {
+        "name": "技术博客",
+        "children": [],
+        "web": [
+          { "url": "https://www.kingname.info/", "title": "谢乾坤 " },
+          { "url": "https://www.lovestu.com/", "title": "Lovestu " },
+          {
+            "url": "https://www.cnblogs.com/Leophen/default.html?page=2",
+            "title": "Leophen "
+          },
+          {
+            "url": "https://www.jianshu.com/u/58f183c39554",
+            "title": "rollingstarky "
+          },
+          {
+            "url": "https://blog.csdn.net/wangguchao?type=blog",
+            "title": "口袋里のInit"
+          },
+          { "url": "https://www.cnblogs.com/shihaiying/", "title": "石海莹 " },
+          { "url": "https://www.lilichao.com/", "title": "李立超 " },
+          { "url": "https://www.jiangruitao.com/", "title": "姜瑞涛" },
+          { "url": "https://mrhope.site/", "title": " Mr.Hope" },
+          {
+            "url": "https://www.crockford.com/2022.html",
+            "title": "Douglas Crockford's 2022 Appearances"
+          },
+          { "url": "https://xpoet.cn/", "title": "XPoet's Blog" },
+          {
+            "url": "https://www.zhangxinxu.com/life/",
+            "title": "张鑫旭-鑫空间-鑫生活"
+          },
+          {
+            "url": "https://blog.csdn.net/weixin_43550562?type=blog",
+            "title": "星期五の夜"
+          },
+          {
+            "url": "https://pjchender.blogspot.com/",
+            "title": "PJCHENder那些沒告訴你的小細節"
+          },
+          { "url": "http://uinio.com/", "title": "UinIO.com 电子技术博客" },
+          {
+            "url": "https://juejin.cn/user/1645288319627576/posts",
+            "title": "源心锁 "
+          },
+          { "url": "https://jerryzou.com/", "title": "拒绝之味" }
+        ]
+      },
+      {
+        "name": "生活记录",
+        "children": [],
+        "web": [{ "url": "https://zgq.ink/", "title": "gq's blog" }]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "🍀 前端",
+    "children": [
+      {
+        "name": "web学习",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.yuque.com/fechaichai/qeamqf/xbai87",
+            "title": "React基础"
+          },
+          { "url": "https://web.dev/learn/", "title": "web.dev" },
+          { "url": "http://www.godbasin.com/", "title": "被删的前端游乐场" },
+          {
+            "url": "https://zh.javascript.info/",
+            "title": "现代 JavaScript 教程"
+          },
+          {
+            "url": "https://tgideas.qq.com/doc/frontend/spec/common/info.html",
+            "title": "页面头部 · TGideas文档库"
+          },
+          { "url": "https://js.bloglab.cn/", "title": "JavaScript高级" },
+          {
+            "url": "https://www.yuque.com/fe9/basic",
+            "title": "前端九部 - 入门者手册2019 · 语雀"
+          },
+          {
+            "url": "https://github.com/stephentian/33-js-concepts?utm_source=gold_browser_extension",
+            "title": "每个 JavaScript 工程师都应懂的33个概念"
+          },
+          {
+            "url": "https://hu-snail.github.io/vue3-resource/",
+            "title": "Home | Vue3-resource"
+          },
+          {
+            "url": "https://zh.b-ok.cc/?signAll=1&ts=1149",
+            "title": "数字图书馆"
+          },
+          {
+            "url": "https://www.algochurn.com/frontend",
+            "title": "Frontend Churn - Practice the most popular front-end questions"
+          },
+          {
+            "url": "https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md",
+            "title": "JS刷题"
+          },
+          {
+            "url": "https://github.com/sisterAn/JavaScript-Algorithms",
+            "title": "GitHub - sisterAn/JavaScript-Algorithms: 基础理论+JS框架应用+实践，从0到1构建整个前端算法体系"
+          },
+          {
+            "url": "https://juejin.cn/user/3299001336599693/posts",
+            "title": "青训营笔记"
+          }
+        ]
+      },
+      {
+        "name": "工具",
+        "children": [],
+        "web": [
+          { "url": "https://code.juejin.cn/", "title": "码上掘金" },
+          {
+            "url": "https://cn.vuejs.org/examples/#hello-world",
+            "title": "Examples | Vue.js"
+          },
+          {
+            "url": "https://wx.cloudstudio.net/dashboard/workspace",
+            "title": "CloudStudio"
+          }
+        ]
+      },
+      {
+        "name": "Vue",
+        "children": [],
+        "web": [
+          { "url": "https://v1.vuepress.vuejs.org/zh/", "title": "VuePress" },
+          { "url": "https://uno.antfu.me/?s=red", "title": "UnoCSS" },
+          {
+            "url": "https://github.com/vuejs/awesome-vue#date-picker",
+            "title": "awesome-vue"
+          },
+          {
+            "url": "https://github.com/SevenOutman/vue-aplayer/blob/develop/docs/README.zh-CN.md",
+            "title": "vue-aplayer/README.zh-CN.md at develop · SevenOutman/vue-aplayer"
+          }
+        ]
+      },
+      {
+        "name": "前端挑战",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.frontendmentor.io/challenges/qr-code-component-iux_sIO_H/hub",
+            "title": "Frontend Mentor | QR code component hub"
+          },
+          {
+            "url": "https://www.frontendpractice.com/",
+            "title": "Frontend Practice | Become a better frontend developer."
+          },
+          { "url": "https://bento.me/zuozizhen", "title": "左子祯 - Bento" },
+          { "url": "https://www.icodethis.com/", "title": "iCodeThis" }
+        ]
+      },
+      {
+        "name": "前端库",
+        "children": [],
+        "web": [
+          {
+            "url": "https://github.com/typicode/json-server",
+            "title": "json-server"
+          },
+          { "url": "http://mockjs.com/examples.html", "title": "Mock.js" },
+          { "url": "https://mock.mengxuegu.com/", "title": "Easy Mock" },
+          {
+            "url": "https://axios-http.com/zh/docs/intro",
+            "title": "Axios Docs"
+          },
+          {
+            "url": "http://antv.antfin.com/zh-cn/index.html",
+            "title": "蚂蚁数据可视化 - AntV"
+          },
+          {
+            "url": "https://www.nuxtjs.org.cn/getting-started/installation.html#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE",
+            "title": "Nuxt 3 - 中文文档"
+          },
+          {
+            "url": "https://neteasecloudmusicapi.js.org/#/?id=%e6%90%9c%e7%b4%a2",
+            "title": "网易云音乐 NodeJS 版 API"
+          },
+          {
+            "url": "https://daisyui.com/",
+            "title": "daisyUI — Tailwind CSS Components"
+          },
+          {
+            "url": "https://vuesax.com/docs/components/#default",
+            "title": "Button | Vue.js Framework Components - Vuesax"
+          },
+          {
+            "url": "https://tommyrunner.github.io/web-loading/",
+            "title": "webloading"
+          },
+          { "url": "https://motion.dev/", "title": "motion" }
+        ]
+      },
+      {
+        "name": "前端样式",
+        "children": [],
+        "web": [
+          {
+            "url": "https://animatedbackgrounds.me/#model7",
+            "title": "Animated Backgrounds"
+          }
+        ]
+      },
+      {
+        "name": "面试相关",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.yuque.com/cuggz/interview",
+            "title": "前端面试汇总"
+          },
+          {
+            "url": "https://github.com/febobo/web-interview",
+            "title": "febobo/web-interview: 语音打卡社群维护的前端面试题库，包含不限于Vue面试题，React面试题，JS面试题，HTTP面试题，工程化面试题，CSS面试题，算法面试题，大厂面试题，高频面试题"
+          },
+          {
+            "url": "https://www.zhipin.com/job_detail/464dfc5e4d3251a31XV83dy1EFJW.html?lid=7pGsk7U6qeA.search.2&securityId=uCsdEYthnRYuw-W1bqqJ1TpeBP2JZbOevxjJf8y9Tzvlq4p7JMi_OXRAFDJ-AoWAjVQYVk-7dEQEaCUfGY39ibZlwIzgLmUANaQFbu3eiJXMyxDURV8b&sessionId=",
+            "title": "「前端开发招聘」_深滔招聘-BOSS直聘"
+          },
+          {
+            "url": "https://www.cnblogs.com/bingcola/p/15181610.html",
+            "title": "大厂高频核心前端面试题总结"
+          },
+          {
+            "url": "https://interviewguide.cn/#/README",
+            "title": "阿秀的求职笔记"
+          },
+          { "url": "https://www.iamshuaidi.com/", "title": "帅地玩编程" },
+          { "url": "https://www.cnblogs.com/pssp", "title": "追梦子 - 博客园" },
+          {
+            "url": "https://yuchengkai.cn/docs/frontend/#%E8%BD%ACboolean",
+            "title": "JS | 前端进阶之道"
+          },
+          {
+            "url": "https://www.nowcoder.com/discuss/296586",
+            "title": "本科生秋招经验总结帖_笔经面经_牛客网"
+          },
+          {
+            "url": "https://lucifer.ren/fe-interview/#/",
+            "title": "大前端面试宝典 - 图解前端"
+          },
+          {
+            "url": "https://github.com/Sunny-117/js-challenges",
+            "title": "Sunny-117/js-challenges: 集锦前端JavaScript编程题，Not just for interviews"
+          }
+        ]
+      },
+      {
+        "name": "开源",
+        "children": [],
+        "web": [
+          {
+            "url": "https://github.com/mkkkkkkq/repository-",
+            "title": "mkkkkkkq/repository-"
+          },
+          {
+            "url": "https://github.com/Kaiyiwing/qwerty-learner",
+            "title": "qwerty-learn"
+          },
+          {
+            "url": "https://github.com/Hope-Studio/inNENU-miniapp",
+            "title": "Hope-Studio/inNENU-miniapp: in 东师小程序"
+          },
+          {
+            "url": "https://github.com/girliemac?tab=repositories",
+            "title": "girliemac (girliemac) / Repositories"
+          },
+          {
+            "url": "https://github.com/cmiscm/leonsans",
+            "title": "cmiscm/leonsans: Leon Sans is a geometric sans-serif typeface made with code in 2019 by Jongmin Kim."
+          },
+          { "url": "https://www.libhunt.com/", "title": "libhunt" }
+        ]
+      },
+      {
+        "name": "资源库",
+        "children": [],
+        "web": [
+          { "url": "https://cdn.baomitu.com/", "title": "静态资源托管库" },
+          { "url": "https://www.alpinejs.cn/", "title": "Alpine.js" },
+          {
+            "url": "https://aui.github.io/art-template/zh-cn/index.html",
+            "title": "art-template"
+          },
+          {
+            "url": "https://music.clwl.online/",
+            "title": "SinKingMusic - 一款专业的html5播放器"
+          },
+          {
+            "url": "https://github.com/sivan/heti",
+            "title": "sivan/heti: 赫蹏（hètí）是专为中文内容展示设计的排版样式增强。它基于通行的中文排版规范而来，可以为网站的读者带来更好的文章阅读体验。"
+          },
+          {
+            "url": "https://mattboldt.com/demos/typed-js/",
+            "title": "JavaScript Animated Typing with Typed.js | by Matt Boldt"
+          },
+          {
+            "url": "https://fontawesome.com/icons",
+            "title": "Icons | Font Awesome"
+          },
+          {
+            "url": "https://aplayer.js.org/#/zh-Hans/",
+            "title": "首页 - APlayer"
+          },
+          { "url": "https://navnav.co/", "title": "All | NavNav+" },
+          {
+            "url": "https://github.com/datejs/Datejs",
+            "title": "datejs/Datejs: A JavaScript Date and Time Library"
+          },
+          {
+            "url": "https://uiverse.io/AqFox/young-dragon-29",
+            "title": "Spinner by AqFox"
+          }
+        ]
+      },
+      {
+        "name": "云平台",
+        "children": [],
+        "web": [
+          {
+            "url": "https://workbench.aliyun.com/",
+            "title": "阿里云-云开发平台"
+          },
+          {
+            "url": "https://console.cloud.tencent.com/tcb/env/index?rid=1",
+            "title": "腾讯云-云开发"
+          },
+          { "url": "https://vercel.com/dashboard", "title": " Vercel" },
+          {
+            "url": "https://console-e1.leancloud.cn/apps",
+            "title": "LeanCloud"
+          },
+          { "url": "https://dash.cloudflare.com/", "title": "Cloudflare" },
+          {
+            "url": "https://console.cloud.tencent.com/lighthouse/instance",
+            "title": "服务器 - 轻量应用服务器 - 控制台"
+          },
+          { "url": "https://os.osrc.com/", "title": "osrc" },
+          {
+            "url": "https://console.cloud.tencent.com/cos/bucket",
+            "title": "存储桶列表 - 对象存储 - 控制台"
+          },
+          {
+            "url": "https://search.bilibili.com/video?vt=81557565&keyword=vue3%E5%B0%8F%E5%85%94%E9%B2%9C",
+            "title": "vue3小兔鲜_搜索_哔哩哔哩-bilibili"
+          },
+          { "url": "https://planetscale.com/pricing", "title": "行星规模定价" },
+          { "url": "https://www.21cloudbox.com/", "title": "21box" }
+        ]
+      },
+      {
+        "name": "Code",
+        "children": [],
+        "web": [
+          {
+            "url": "https://2x.antdv.com/docs/vue/introduce-cn",
+            "title": "Ant Design Vue"
+          },
+          {
+            "url": "https://echarts.apache.org/handbook/zh/get-started/",
+            "title": "ECharts"
+          },
+          {
+            "url": "https://www.jb51.net/shouce/jquery1.82/",
+            "title": "Jquery 文档"
+          },
+          {
+            "url": "https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart",
+            "title": "快速上手 - Vant 4"
+          },
+          {
+            "url": "https://www.bilibili.com/video/BV1aU4y1U7Gv/?spm_id_from=autoNext&vd_source=4866b7cfde4a08de2ba06a6ef4c96869",
+            "title": "【已完结】Vite + Vue3 + Pinia + 实战项目 + TypeScript_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "http://cdn.bytedance.com/",
+            "title": "字节跳动静态资源公共库"
+          },
+          {
+            "url": "https://boxicons.com/",
+            "title": "Boxicons : Premium web friendly icons for free"
+          },
+          {
+            "url": "https://cn.vitejs.dev/",
+            "title": "Vite | 下一代的前端工具链"
+          },
+          {
+            "url": "https://cn.vuejs.org/guide/introduction.html",
+            "title": "Vue.js"
+          },
+          { "url": "https://cn.vuejs.org/api/", "title": "API 参考 | Vue.js" },
+          {
+            "url": "https://www.tailwindcss.cn/docs/installation",
+            "title": "安装 - Tailwind CSS 中文文档"
+          },
+          { "url": "https://www.npmjs.com/", "title": "npm" },
+          { "url": "http://1.12.44.117:18080/", "title": "海浪网盘 | 首页" },
+          { "url": "https://chat.openai.com/chat", "title": "ChatGPT" },
+          {
+            "url": "https://mongoosejs.com/docs/index.html",
+            "title": "猫鼬 v6.8.1： 入门"
+          },
+          {
+            "url": "http://road.ftqq.com/17-%E9%9B%86%E6%88%90%E7%94%B5%E8%B7%AF%E4%B8%8E%E6%91%A9%E5%B0%94%E5%AE%9A%E5%BE%8B.html",
+            "title": "集成电路与摩尔定律 - 方糖全栈路线图"
+          },
+          {
+            "url": "https://www.libhunt.com/",
+            "title": "LibHunt - Trending open-source projects and their alternatives"
+          },
+          {
+            "url": "https://www.tailwindcss.cn/",
+            "title": "Tailwind CSS 中文文档 - 无需离开您的HTML，即可快速建立现代网站。"
+          },
+          {
+            "url": "https://www.hello-algo.com/chapter_introduction/algorithms_are_everywhere/",
+            "title": "算法无处不在 - Hello 算法"
+          },
+          {
+            "url": "https://www.npmjs.com/package/js-cookie",
+            "title": "js-cookie - npm"
+          }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "⚾ Python",
+    "children": [
+      {
+        "name": "Python",
+        "children": [],
+        "web": [
+          {
+            "url": "https://mp.weixin.qq.com/s/x8nMYM_rN-UNl8zt6brmWQ",
+            "title": "用 Python 实现对微信进行推送消息的工具 -- pushplus"
+          }
+        ]
+      },
+      {
+        "name": "python文档",
+        "children": [],
+        "web": [
+          {
+            "url": "https://docs.python.org/zh-cn/3/tutorial/index.html",
+            "title": "Python中文文档"
+          },
+          {
+            "url": "http://www.byhy.net/tut/py/basic/01/",
+            "title": "安装与运行 | 白月黑羽"
+          },
+          {
+            "url": "https://learnku.com/docs/byte-of-python/2018",
+            "title": "《Python 简明教程》 | Python 技术论坛"
+          },
+          {
+            "url": "https://docs.python.org/zh-cn/3/glossary.html#glossary",
+            "title": "术语对照表 — Python 3.10.5 文档"
+          }
+        ]
+      },
+      {
+        "name": "python教程",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.bilibili.com/video/BV1R7411F7JV",
+            "title": "千锋教育Python教程_700集零基础Python入门到精通教程（爬虫+办公自动化+数据分析）_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "https://cuiqingcai.com/1319.html",
+            "title": "Python 爬虫利器二之 Beautiful Soup 的用法 | 静觅"
+          },
+          {
+            "url": "https://www.jb51.net/article/202679.htm",
+            "title": "Python lxml库的简单介绍及基本使用讲解_python_脚本之家"
+          },
+          {
+            "url": "https://www.bilibili.com/video/BV1LS4y1L7gP?p=6",
+            "title": "Python爬虫Scrapy框架【Python实战】_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "https://blog.csdn.net/zhplive/article/details/121650406",
+            "title": "浏览器自动化测试工具 Playwright 简介，再见 Selenium，虽然我依然爱你_其实是假面骑士的博客-CSDN博客_playwright自动化测试"
+          },
+          {
+            "url": "https://blog.csdn.net/karl41/article/details/119334408",
+            "title": "Playwright入门_凌空摘星的博客-CSDN博客_playwright录制命令"
+          }
+        ]
+      },
+      {
+        "name": "python库",
+        "children": [],
+        "web": [
+          {
+            "url": "https://docs.python-requests.org/zh_CN/latest/",
+            "title": "Requests: 让 HTTP 服务人类 — Requests 2.18.1 文档"
+          },
+          {
+            "url": "https://github.com/ityard/python-fxxk-spider",
+            "title": "ityard/python-fxxk-spider: 收集各种免费的 Python 爬虫项目"
+          },
+          {
+            "url": "https://www.osgeo.cn/scrapy/",
+            "title": "Scrapy 2.5 documentation — Scrapy 2.5.0 文档"
+          },
+          { "url": "http://feapder.com/#/", "title": "feapder-document" },
+          {
+            "url": "https://faker.readthedocs.io/en/master/providers.html",
+            "title": "Standard Providers — Faker 13.15.0 documentation"
+          }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "🐧 文档",
+    "children": [
+      {
+        "name": "🌞前端",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.lanmper.cn/js",
+            "title": "JavaScript 中文手册"
+          },
+          {
+            "url": "https://www.webpackjs.com/",
+            "title": "webpack 中文文档 | webpack 中文网"
+          }
+        ]
+      },
+      {
+        "name": "C语言",
+        "children": [],
+        "web": [
+          {
+            "url": "https://wangdoc.com/clang/syntax.html",
+            "title": "C 语言教程 "
+          },
+          {
+            "url": "https://guyutongxue.gitee.io/mycpptutorial/#/",
+            "title": "谷雨同学的 C++ 教程"
+          },
+          {
+            "url": "https://cpp-tutorial.vercel.app/",
+            "title": "首页 | 谷雨同学的 C++ 教程"
+          }
+        ]
+      },
+      {
+        "name": "Python",
+        "children": [],
+        "web": [
+          {
+            "url": "https://doc.zdzn.net/cheatsheet/python.html",
+            "title": "Python编程 "
+          }
+        ]
+      },
+      {
+        "name": "stm32",
+        "children": [],
+        "web": [
+          {
+            "url": "https://doc.embedfire.com/mcu/stm32/f103mini/std/zh/latest/book/GPIO_output.html",
+            "title": "野火STM32库"
+          },
+          {
+            "url": "https://xuanxuanblingbling.github.io/assets/attachment/stm32/STM32F1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-%E5%BA%93%E5%87%BD%E6%95%B0%E7%89%88%E6%9C%AC_V3.1.pdf",
+            "title": "STM32F1开发指南"
+          },
+          {
+            "url": "https://blog.csdn.net/qq_38351824/article/details/82498067",
+            "title": "STM32复习笔记（一） GPIO的输入与输出_Sumjess的博客-CSDN博客_gpio_mode_out_pp"
+          }
+        ]
+      },
+      {
+        "name": "🌙 其他",
+        "children": [],
+        "web": [
+          {
+            "url": "https://doc.zdzn.net/cheatsheet/regular.html#%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F",
+            "title": "正则表达式语法"
+          },
+          {
+            "url": "https://docs.github.com/cn/get-started/getting-started-with-git/managing-remote-repositories",
+            "title": "Git Docs"
+          },
+          { "url": "https://wangdoc.com/", "title": "网道 - 互联网开发文档" },
+          {
+            "url": "https://wangchujiang.com/reference/index.html",
+            "title": "Quick Reference & Quick Reference"
+          },
+          { "url": "https://www.topgoer.cn/", "title": "地鼠文档" },
+          {
+            "url": "https://www.runoob.com/",
+            "title": "菜鸟教程 - 学的不仅是技术，更是梦想！"
+          },
+          { "url": "https://www.imooc.com/wiki/", "title": "慕课教程" }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "🔧 实用工具",
+    "children": [
+      {
+        "name": "图片处理",
+        "children": [],
+        "web": [
+          { "url": "https://www.gaoding.com/", "title": "稿定设计" },
+          { "url": "https://tinypng.com/", "title": "图片压缩" },
+          { "url": "https://www.uupoop.com/#/", "title": "在线PS" },
+          { "url": "https://www.remove.bg/", "title": "免费抠图" },
+          { "url": "https://web.baimiaoapp.com/", "title": "图片转文字" },
+          { "url": "https://photoeditor.polarr.com/", "title": "泼辣修图" }
+        ]
+      },
+      {
+        "name": "AI工具",
+        "children": [],
+        "web": [
+          { "url": "https://open-gpt.app/", "title": "openGPT" },
+          { "url": "https://chat.openai.com/", "title": "chatGPT" }
+        ]
+      },
+      {
+        "name": "在线文档",
+        "children": [],
+        "web": [
+          { "url": "https://docs.qq.com/", "title": "腾讯文档" },
+          { "url": "https://www.yuque.com/dashboard", "title": "语雀文档" },
+          {
+            "url": "https://www.processon.com/diagrams",
+            "title": "ProcessOn流程图"
+          },
+          { "url": "https://www.zhixi.com/space", "title": "知犀思维导图" },
+          {
+            "url": "https://www.xiaohuazhuo.com/workshop",
+            "title": "小画桌协同白板"
+          },
+          {
+            "url": "https://www.tubiaoxiu.com/src/index.html#/app/charting_resource",
+            "title": "图表秀"
+          },
+          { "url": "https://wj.qq.com/", "title": "腾讯问卷表单" }
+        ]
+      },
+      {
+        "name": "文件处理",
+        "children": [],
+        "web": [
+          {
+            "url": "https://convert.io/cn/archive-converter",
+            "title": "文档格式转换"
+          },
+          {
+            "url": "https://online-video-cutter.com/cn/video-editor",
+            "title": "音视频剪辑/处理"
+          },
+          { "url": "https://smallpdf.com/cn", "title": "PDF编辑处理" }
+        ]
+      },
+      {
+        "name": "文件存储/分享",
+        "children": [],
+        "web": [
+          {
+            "url": "https://pan.baidu.com/disk/main#/index",
+            "title": "百度网盘"
+          },
+          { "url": "https://www.aliyundrive.com/", "title": "阿里云盘" },
+          { "url": "https://cowtransfer.com/", "title": "奶牛快传" },
+          { "url": "https://musetransfer.com/", "title": "Muse快传" }
+        ]
+      },
+      {
+        "name": "壁纸",
+        "children": [],
+        "web": [
+          { "url": "https://bz.zzzmh.cn/index", "title": "极简壁纸" },
+          { "url": "https://www.cgwallpapers.com/", "title": "CG壁纸" },
+          {
+            "url": "https://www.dpm.org.cn/lights/royal.html",
+            "title": "故宫壁纸"
+          },
+          {
+            "url": "https://www.todaybing.com/rank/download.html",
+            "title": "必应壁纸"
+          }
+        ]
+      },
+      {
+        "name": "小工具",
+        "children": [],
+        "web": [{ "url": "https://cli.im/", "title": "草料二维码生成" }]
+      },
+      {
+        "name": "未分类",
+        "children": [],
+        "web": [
+          { "url": "https://cubox.pro/", "title": "Cubox" },
+          { "url": "https://wakatime.com/dashboard", "title": "WakaTime" },
+          {
+            "url": "https://www.ilovepdf.com/zh-cn",
+            "title": "iLovePDF | 为PDF爱好者提供的PDF文件在线处理工具"
+          },
+          {
+            "url": "https://bot.sannysoft.com/",
+            "title": "Antibot-浏览器检测"
+          },
+          {
+            "url": "https://shrill-pond-3e81.hunsh.workers.dev/",
+            "title": "GitHub 文件加速"
+          },
+          {
+            "url": "https://www.polebrief.com/index",
+            "title": "极简简历_PoleBrief简历_极简PoleBrief_简历模板_个人简历模板_在线简历引领者，带给你不一样的体验"
+          },
+          {
+            "url": "https://app.raindrop.io/my/23314007",
+            "title": "收藏夹栏 ― Raindrop.io"
+          },
+          {
+            "url": "https://whoer.net/zh",
+            "title": "检查您自己的IP地址和DNS地址"
+          },
+          {
+            "url": "https://www.ip138.com/zhengze/",
+            "title": "在线正则测试 正则表达式测试工具"
+          },
+          {
+            "url": "https://c.runoob.com/front-end/854/",
+            "title": "正则表达式在线测试 | 菜鸟工具"
+          },
+          { "url": "https://www.sqlfather.com/", "title": "代码生成 - SQL之父" }
+        ]
+      },
+      {
+        "name": "markdown",
+        "children": [],
+        "web": [
+          { "url": "https://editor.mdnice.com/", "title": "MDnice" },
+          {
+            "url": "https://prod.zkqiang.cn/wxeditor/index.html",
+            "title": "微信公众号 Markdown 编辑器"
+          }
+        ]
+      },
+      {
+        "name": "图片相关",
+        "children": [],
+        "web": [
+          {
+            "url": "https://picx.xpoet.cn/?#/upload",
+            "title": "图片上传 | PicX 图床神器"
+          },
+          {
+            "url": "https://tinypng.com/",
+            "title": "TinyPNG – Compress WebP, PNG and JPEG images intelligently"
+          },
+          {
+            "url": "https://pika.style/",
+            "title": "Pika – Create screenshots and browser mockups quickly"
+          },
+          {
+            "url": "https://www.degraeve.com/img2txt.php",
+            "title": "图片转字符画"
+          },
+          {
+            "url": "https://www.websiteplanet.com/zh-hans/webtools/favicon-generator/",
+            "title": "免费Favicon生成器 - 选择一个图标或使用您自己的图像"
+          },
+          {
+            "url": "https://www.zhixi.com/space?page=owner",
+            "title": "知犀-思维导图"
+          },
+          {
+            "url": "https://zhcn.109876543210.com/",
+            "title": "诚华OCR - 图片转文字 - 免费在线OCR"
+          }
+        ]
+      },
+      {
+        "name": "转换工具",
+        "children": [],
+        "web": [
+          { "url": "https://www.sassmeister.com/", "title": "Sass转CSS" },
+          {
+            "url": "https://carbon.now.sh/?bg=rgba%28171%2C+184%2C+195%2C+1%29&t=seti&wt=none&l=auto&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523include%2520%253Cstdio.h%253E%250Aint%2520main%28%29%250A%257B%250A%2520%2520%2520%2520int%2520i%2520%253D%25201%253B%250A%2520%2520%2520%2520while%28i--%29%253B%250A%2520%2520%2520%2520printf%28%2522y%2520%253D%2520%2525d%2522%252C%2520i%29%253B%250A%257D",
+            "title": "Carbon | 代码分享"
+          }
+        ]
+      },
+      {
+        "name": "查找相关",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.crxsoso.com/",
+            "title": "Crx搜搜 - Chrome，Edge，Firefox，Opera浏览器扩展商店"
+          },
+          {
+            "url": "https://www.upyunso.com/",
+            "title": "UP云搜 - 最全云盘资源搜索神器"
+          },
+          {
+            "url": "https://whois.cloud.tencent.com/",
+            "title": "域名信息查询 - 腾讯云"
+          },
+          {
+            "url": "https://zhaoziyuan.la/",
+            "title": "找资源 - 阿里云盘资源搜索引擎"
+          },
+          { "url": "https://yiso.fun/", "title": "易搜-网盘搜索" },
+          {
+            "url": "https://beta.ssdown.org/search/vue",
+            "title": "超星书籍检索工具"
+          },
+          {
+            "url": "https://u.gitcafe.net/",
+            "title": "小纸条-开放纯粹的资源网站"
+          },
+          {
+            "url": "https://pansearch.long2ice.io/",
+            "title": "https://pansearch.long2ice.io"
+          },
+          {
+            "url": "https://tool.liumingye.cn/music/#/explore/artist",
+            "title": "MyFreeMP3"
+          },
+          { "url": "https://zlib.knat.network/", "title": "Book Searcher" }
+        ]
+      },
+      {
+        "name": "代码相关",
+        "children": [],
+        "web": [
+          { "url": "https://www.bt.cn/tools/json.html", "title": "JSON格式化" },
+          {
+            "url": "http://tools.jb51.net/code/jb51_c_format",
+            "title": "在线C语言代码格式化美化工具(脚本之家版) - 代码工具 - 脚本之家在线工具"
+          },
+          { "url": "https://jsonhero.io/", "title": "JSON Viewer - JSON Hero" },
+          {
+            "url": "https://pythontutor.com/visualize.html#mode=edit",
+            "title": "代码运行可视化"
+          },
+          {
+            "url": "https://snippet-generator.app/",
+            "title": "snippet generator"
+          },
+          { "url": "https://replit.com/~", "title": "Home - Replit" },
+          {
+            "url": "https://renzhezhilu.gitee.io/kakacss/",
+            "title": "KakaCss - 快速生成Css样式"
+          },
+          {
+            "url": "https://squircley.app/",
+            "title": "Squircley | SVG Squircle Maker"
+          }
+        ]
+      },
+      {
+        "name": "梯子",
+        "children": [],
+        "web": [
+          { "url": "http://souyun.club/user/shop", "title": "套餐商店 — 速云" },
+          {
+            "url": "https://dash.dualnet.io/?_gl=1*14njyyt*_gcl_aw*R0NMLjE2NTQ3NjU0MTYuRUFJYUlRb2JDaE1JeE9LU3dZR2ctQUlWakVKZ0NoMGJsQUk5RUFFWUFTQUFFZ0s3TGZEX0J3RQ..#/register",
+            "title": "Dual Net"
+          },
+          { "url": "https://marslinkpro.com/#/dashboard", "title": "MarsLink" },
+          { "url": "https://ssru6.pw/user", "title": "paopaocloud" },
+          { "url": "https://calltoidea.com/nav/", "title": "Nav - Calltoidea" },
+          { "url": "https://freevpn.cyou/auth/login", "title": "free" },
+          {
+            "url": "https://www.paofu.cloud/auth/register",
+            "title": "泡芙云19每月"
+          },
+          {
+            "url": "https://www.naiun.cc/#/plan",
+            "title": "奈云|68-128G|28一月"
+          },
+          { "url": "https://jccp.fanqiangdang.com/", "title": "机场评测、" },
+          { "url": "https://mofast.cloud/#/login", "title": "MoFast.Cloud" },
+          { "url": "https://sdyun.cc/#/login", "title": "闪电⚡" },
+          { "url": "https://v8hx.xyz/#/login", "title": "红杏" },
+          {
+            "url": "https://im.duomi.host/#/login",
+            "title": "DMhost&熊猫云村"
+          },
+          { "url": "https://v2box.top/#/", "title": "V2BOX" },
+          { "url": "https://www.gogocloud.top/#/login", "title": "GOGO-Cloud" },
+          { "url": "https://dddd.cool/#/dashboard", "title": "懂的都懂-Cloud" },
+          { "url": "https://henet.uk/", "title": "Helium-Network" },
+          { "url": "https://tmyun.cyou/#/login", "title": "TM云" },
+          { "url": "https://no626.com/#/dashboard", "title": "NO.626" },
+          { "url": "https://dhh.lol/#/login", "title": "大航海" },
+          { "url": "http://xn--4gq62f52gdss.com/", "title": "一元机场" },
+          { "url": "https://feiniaoyun.xyz/#/login", "title": "飞鸟" }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "☕ 设计 | 素材",
+    "children": [
+      {
+        "name": "在线设计工具",
+        "children": [],
+        "web": [
+          { "url": "https://www.gaoding.com/", "title": "稿定设计" },
+          { "url": "https://www.chuangkit.com/", "title": "创可贴" },
+          { "url": "https://www.canva.cn/", "title": "可画" },
+          { "url": "https://www.fotor.com.cn/", "title": "懒设计" },
+          { "url": "https://818ps.com/", "title": "图怪兽" },
+          { "url": "https://www.figma.com/", "title": " Figma" },
+          { "url": "https://js.design/workspace", "title": "即时设计" },
+          { "url": "https://ps.gaoding.com/#/", "title": "在线PS" },
+          { "url": "https://designer.microsoft.com/", "title": "微软设计师" }
+        ]
+      },
+      {
+        "name": "设计交流平台",
+        "children": [],
+        "web": [
+          { "url": "https://www.zcool.com.cn/", "title": "站酷" },
+          { "url": "https://dribbble.com/", "title": "Dribbble" },
+          { "url": "https://www.behance.net/", "title": "Behance" },
+          { "url": "https://huaban.com/", "title": "花瓣" },
+          { "url": "https://www.pinterest.com/", "title": "Pinterest" },
+          { "url": "https://ycg.qq.com/", "title": "原创馆" },
+          { "url": "https://www.ui.cn/", "title": "UI中国" }
+        ]
+      },
+      {
+        "name": "PC/APP/LOGO参考",
+        "children": [],
+        "web": [
+          { "url": "http://uunn.com/works.html", "title": "UUNN+" },
+          { "url": "https://webdesignclip.com/", "title": "国外PC页截图A" },
+          { "url": "https://onepagelove.com/", "title": "国外PC页截图B" },
+          { "url": "https://minimal.gallery/", "title": "时尚PC页" },
+          { "url": "http://4db.cc/", "title": "日本PC页" },
+          {
+            "url": "https://interfaceingame.com/screenshots/",
+            "title": "PC游戏截图"
+          },
+          {
+            "url": "https://www.shuzixs.com/#/home",
+            "title": "可视化数据设计"
+          },
+          { "url": "https://screenlane.com/", "title": "国外APP截图网" },
+          { "url": "https://app.xueui.cn/", "title": "国内APP截图网" },
+          { "url": "https://www.logonews.cn/", "title": "LOGO情报局" },
+          { "url": "https://worldvectorlogo.com/", "title": "外国知名LOGO" },
+          { "url": "https://logopond.com/", "title": "外国小众LOGO" }
+        ]
+      },
+      {
+        "name": "图片图库",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.everypixel.com/free",
+            "title": "免费图片聚合搜索"
+          },
+          { "url": "https://unsplash.com/", "title": "Unsplash" },
+          { "url": "https://burst.shopify.com/", "title": "Burst" },
+          { "url": "https://pixabay.com/", "title": "Pixabay" },
+          { "url": "https://12png.com/", "title": "12免抠图" },
+          { "url": "https://www.pexels.com/", "title": "Pexels" },
+          { "url": "https://www.splitshire.com/", "title": "Splitshire" },
+          { "url": "https://www.lifeofpix.com/", "title": "Lifeofpix" },
+          { "url": "https://stocksnap.io/", "title": "Stocksnap" },
+          { "url": "https://www.foodiesfeed.com/", "title": "Foodiesfeed" },
+          { "url": "https://visualhunt.com/", "title": "Visualhunt" },
+          {
+            "url": "https://undraw.co/illustrations",
+            "title": "undraw矢量插画"
+          },
+          {
+            "url": "https://www.gaoding.com/sucai/sidebar",
+            "title": "稿定素材"
+          }
+        ]
+      },
+      {
+        "name": "图标/矢量图/纹理/词云",
+        "children": [],
+        "web": [
+          { "url": "https://www.iconfont.cn/", "title": "IconFont" },
+          {
+            "url": "https://undraw.co/illustrations",
+            "title": "undraw矢量插图"
+          },
+          {
+            "url": "https://www.manypixels.co/gallery",
+            "title": "manypixels矢量插图"
+          },
+          {
+            "url": "https://delesign.com/free-designs/graphics/",
+            "title": "矢量插图"
+          },
+          {
+            "url": "https://www.toptal.com/designers/subtlepatterns/",
+            "title": "toptal纹理站"
+          },
+          { "url": "https://www.hituyu.com/", "title": "图鱼纹理" },
+          {
+            "url": "https://kt.fkw.com/ciyun.html?isEditor=true#/",
+            "title": "凡科词云"
+          },
+          { "url": "https://www.weiciyun.com/", "title": "微词云" }
+        ]
+      },
+      {
+        "name": "字体资源",
+        "children": [],
+        "web": [
+          { "url": "https://www.fonts.net.cn/", "title": "字体天下" },
+          { "url": "https://www.fontspace.com/", "title": "FontSpace" },
+          { "url": "https://www.qiuziti.com/", "title": "求字体" },
+          { "url": "https://www.hellofont.cn/", "title": "字由" }
+        ]
+      },
+      {
+        "name": "样机资源",
+        "children": [],
+        "web": [
+          {
+            "url": "https://mockups-design.com/",
+            "title": "免费|主打纸类展示"
+          },
+          { "url": "https://mockup.photos/", "title": "免费样机A" },
+          {
+            "url": "https://www.ls.graphics/free-mockups",
+            "title": "免费样式B"
+          },
+          { "url": "https://sketchsheets.com/", "title": "纯白样机" },
+          { "url": "https://mockups.pixeltrue.com/", "title": "在线样机" },
+          { "url": "https://dimmy.club/", "title": "3C样机" },
+          { "url": "https://deviceshots.com/", "title": "在线3C样机" }
+        ]
+      },
+      {
+        "name": "配色",
+        "children": [],
+        "web": [
+          { "url": "http://zhongguose.com/", "title": "中国色" },
+          { "url": "https://nipponcolors.com/", "title": "日本色" },
+          {
+            "url": "https://coolors.co/palettes/trending",
+            "title": "色彩搭配卡"
+          },
+          { "url": "https://webgradients.com/", "title": "好看渐变色" }
+        ]
+      },
+      {
+        "name": "小工具",
+        "children": [],
+        "web": [
+          { "url": "https://tinypng.com/", "title": "tinypng图片压缩" },
+          {
+            "url": "https://wangyasai.github.io/Speed-Line/",
+            "title": "创建漫画线"
+          },
+          { "url": "https://theinpaint.com/", "title": "去水印" },
+          { "url": "https://uutool.cn/img-watermark/", "title": "加文字水印" }
+        ]
+      },
+      {
+        "name": "酷站",
+        "children": [],
+        "web": [
+          { "url": "https://cours.vercel.app/", "title": "Cours" },
+          {
+            "url": "https://oskarstalberg.com/Townscaper/",
+            "title": "Townscaper"
+          },
+          { "url": "https://0x3.com/", "title": "0x3" },
+          {
+            "url": "https://regexlearn.com/cheatsheet",
+            "title": "Regex Learn - Regex Cheatsheet"
+          },
+          { "url": "https://octodex.github.com/", "title": "GitHub Octodex" },
+          { "url": "https://cowsay-svelte.vercel.app/", "title": "Cowsay" },
+          {
+            "url": "https://dig.codes/",
+            "title": "Dig.Codes - Code Search Engine - find code to solve dev problems"
+          },
+          { "url": "https://vscodethemes.com/", "title": "VS Code Themes" },
+          {
+            "url": "https://www.opensourceagenda.com/",
+            "title": "最佳 685K+ 开源软件项目 - 开源议程"
+          },
+          { "url": "https://www.neonwork.click/", "title": "霓虹工作钟" }
+        ]
+      },
+      {
+        "name": "图标",
+        "children": [],
+        "web": [
+          {
+            "url": "https://iconpark.oceanengine.com/home",
+            "title": "ByteDance IconPark"
+          },
+          {
+            "url": "https://www.iconfont.cn/",
+            "title": "iconfont-阿里巴巴矢量图标库"
+          },
+          {
+            "url": "https://www.flaticon.com/packs/file-types-25",
+            "title": "File Types Icon Pack | Outline Color | 150 .SVG Icons"
+          },
+          {
+            "url": "https://www.logo.wine/",
+            "title": "Brand Logos Free Download in SVG Vector & PNG File Format - Logo.wine"
+          },
+          {
+            "url": "https://ionic.io/ionicons",
+            "title": "Ionicons: The premium icon pack for Ionic Framework"
+          },
+          {
+            "url": "https://logos-download.com/",
+            "title": "Logos Download – Get high quality logotypes for free"
+          },
+          {
+            "url": "https://vectorwiki.com/",
+            "title": "Download 1000's of free SVG brand logos | VectorWiki"
+          },
+          {
+            "url": "https://worldvectorlogo.com/zh",
+            "title": "Worldvectorlogo: Brand logos free to download"
+          },
+          {
+            "url": "https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=21124",
+            "title": "iconfont-阿里巴巴矢量图标库"
+          },
+          {
+            "url": "https://www.iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=23978",
+            "title": "iconfont-阿里巴巴矢量图标库"
+          },
+          {
+            "url": "https://igoutu.cn/",
+            "title": "免费的图标、剪贴画插图、照片和音乐"
+          },
+          { "url": "https://www.flaticon.com/", "title": "flaticon" }
+        ]
+      },
+      {
+        "name": "图片",
+        "children": [],
+        "web": [
+          { "url": "https://www.behance.net/", "title": "Behance" },
+          { "url": "https://dribbble.com/", "title": "Dribbble" },
+          {
+            "url": "https://unsplash.com/",
+            "title": "Beautiful Free Images & Pictures | Unsplash"
+          },
+          {
+            "url": "https://www.pexels.com/zh-cn/",
+            "title": "免费素材图片 · Pexels"
+          },
+          {
+            "url": "https://pixabay.com/",
+            "title": "2.6 million+ Stunning Free Images to Use Anywhere"
+          },
+          {
+            "url": "https://www.foodiesfeed.com/",
+            "title": "Food Pictures • Foodiesfeed • Free Food Photos"
+          },
+          {
+            "url": "https://www.piqsels.com/zh",
+            "title": "Piqsels - 精美的免版税图库"
+          },
+          {
+            "url": "https://www.photock.jp/",
+            "title": "フリー写真素材フォトック【無料・商用利用可・クレジット表記不要】"
+          },
+          {
+            "url": "https://stocksnap.io/",
+            "title": "Free Stock Photos and Images - StockSnap.io"
+          },
+          {
+            "url": "https://www.91sotu.com/colors/background?p=2",
+            "title": "搜图配色-精选优质流体背景图片"
+          }
+        ]
+      },
+      {
+        "name": "配色",
+        "children": [],
+        "web": [
+          {
+            "url": "https://uigradients.com/#VelvetSun",
+            "title": "uiGradients - Beautiful colored gradients"
+          },
+          { "url": "http://www.colorlisa.com/", "title": "Color Lisa" },
+          {
+            "url": "https://peiseka.com/",
+            "title": "配色卡_色彩搭配_配色工具_色彩组合"
+          },
+          {
+            "url": "https://coolors.co/palettes/trending",
+            "title": "Trending Color Palettes - Coolors"
+          },
+          {
+            "url": "https://colorhunt.co/palettes/popular",
+            "title": "The Most Popular Color Palettes of 2022 - Color Hunt"
+          },
+          {
+            "url": "https://mycolor.space/?hex=%23845EC2&sub=1",
+            "title": "ColorSpace - Color Palettes Generator and Color Gradient Tool"
+          },
+          {
+            "url": "https://contrast-ratio.com/#%23000-on-%23fff",
+            "title": "Contrast Ratio: Easily calculate color contrast ratios. Passing WCAG was never this easy!"
+          },
+          {
+            "url": "https://www.happyhues.co/palettes/14",
+            "title": "快乐色调 - 上下文中的精选颜色。"
+          }
+        ]
+      },
+      {
+        "name": "PPT模板",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.officeplus.cn/",
+            "title": "Officeplus_微软官方office模板服务平台_ ppt模板_会员免费_工作总结_求职简历"
+          },
+          {
+            "url": "http://www.pptbz.com/",
+            "title": "PPT模板下载_免费PPT模板下载_PPT宝藏"
+          },
+          {
+            "url": "https://www.100font.com/",
+            "title": "100font.com - 免费字体下载 - 免费商用字体下载网站"
+          },
+          {
+            "url": "https://www.ypppt.com/",
+            "title": "PPT模板免费下载_精美免费PPT模板下载 -【优品PPT】"
+          },
+          {
+            "url": "https://slidebean.com/templates/history-powerpoint-template",
+            "title": "历史PPT模板| 免费PDF和PPT下载"
+          }
+        ]
+      },
+      {
+        "name": "平台",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.zcool.com.cn/discover?cate=17",
+            "title": "发现 - 精选 - 作品、文章 - 站酷（ZCOOL）"
+          },
+          { "url": "https://www.designernews.co/", "title": "Designer News" },
+          {
+            "url": "https://www.thosefree.com/",
+            "title": "那些免费的砖 - 发现设计/前端那些免费可商用的资源"
+          },
+          {
+            "url": "https://uiiiuiii.com/inspiration",
+            "title": "优优灵感-设计师灵感展现与启发-优优教程网-UiiiUiii"
+          },
+          {
+            "url": "https://www.maliquankai.com/",
+            "title": "码力全开 - 独立开发者的聚集地"
+          }
+        ]
+      },
+      {
+        "name": "素材",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.aigei.com/",
+            "title": "爱给网_音效配乐_3D模型_视频素材_游戏素材_免费下载"
+          }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "😃 学习计划",
+    "children": [
+      {
+        "name": "学习计划",
+        "children": [],
+        "web": [
+          {
+            "url": "https://leetcode.cn/leetbook/read/illustration-of-algorithm/55187i/",
+            "title": "图解算法数据结构"
+          },
+          {
+            "url": "https://www.bilibili.com/video/BV1o841187t2/?vd_source=4866b7cfde4a08de2ba06a6ef4c96869",
+            "title": "【已完结】2022最新vue2/3前端面试题_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "https://www.bilibili.com/video/av460538345/?vd_source=4866b7cfde4a08de2ba06a6ef4c96869",
+            "title": "coderwhy的Vue3+TypeScript知识分享_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "https://vue3js.cn/interview/",
+            "title": "web前端面试 - 面试官系列"
+          },
+          {
+            "url": "https://blog.csdn.net/syh221837/article/details/109451598",
+            "title": "mongodb 结合 nodejs使用方法_新果科技的博客-CSDN博客_mongodb nodejs"
+          },
+          {
+            "url": "https://juejin.cn/post/6895606791892598797",
+            "title": "Vue3之路由篇 🖖（Vue-Router） - 掘金"
+          },
+          {
+            "url": "https://microsoftedgewelcome.microsoft.com/zh-cn/update/108?form=MT00D0&channel=stable&version=108.0.1462.42",
+            "title": "Microsoft Edge"
+          }
+        ]
+      },
+      {
+        "name": "未开始",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.bilibili.com/video/BV1CN4y1M7ZK?p=2&vd_source=4866b7cfde4a08de2ba06a6ef4c96869",
+            "title": "数理逻辑：基本概念 02_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "https://www.bilibili.com/video/BV1L3411c7cY?p=2&vd_source=4866b7cfde4a08de2ba06a6ef4c96869",
+            "title": "感知与记忆 01_哔哩哔哩_bilibili"
+          }
+        ]
+      },
+      {
+        "name": "计算机",
+        "children": [],
+        "web": [
+          { "url": "https://the-algorithms.com/", "title": "The Algorithms" },
+          {
+            "url": "https://www.yuque.com/0xffff.one/cs-learning/klp8n1",
+            "title": "英语学习 · 语雀"
+          },
+          {
+            "url": "https://www.luogu.com.cn/",
+            "title": "首页 - 洛谷 | 计算机科学教育新生态"
+          },
+          {
+            "url": "https://hansimov.gitbook.io/csapp/ch01-a-tour-of-computer-systems",
+            "title": "深入理解计算机系统"
+          },
+          {
+            "url": "https://www.bilibili.com/video/BV1cD4y1D7uR",
+            "title": "【CSAPP-深入理解计算机系统】1-1.计算机系统漫游_哔哩哔哩_bilibili"
+          },
+          {
+            "url": "https://github.com/tuteng/Best-websites-a-programmer-should-visit-zh#when-you-get-stuck",
+            "title": "GitHub - tuteng/Best-websites-a-programmer-should-visit-zh: 程序员应该访问的最佳网站中文版"
+          },
+          {
+            "url": "https://www.nowcoder.com/exam/oj?page=1&tab=Python%E7%AF%87&topicId=314",
+            "title": "牛客网 - 找工作神器|笔试题库|面试经验|实习招聘内推，求职就业一站解决_牛客网"
+          },
+          { "url": "https://cs61a.org/", "title": "CS 61A 夏季 2022" },
+          { "url": "https://csdiy.wiki/", "title": "CS自学指南" },
+          {
+            "url": "https://zh.b-ok.cc/",
+            "title": "数字图书馆。搜索书籍。免费下载书籍"
+          },
+          {
+            "url": "http://www.gpnuacm.com/#/home/exercises",
+            "title": "爱编程网"
+          },
+          {
+            "url": "https://xiaolincoding.com/network/#%E9%80%82%E5%90%88%E4%BB%80%E4%B9%88%E7%BE%A4%E4%BD%93",
+            "title": "图解网络介绍 | 小林coding"
+          },
+          {
+            "url": "https://studyhard.cf/",
+            "title": "📚各大高校课程资源汇总，在Github上大学    💡加入组织 | university"
+          },
+          {
+            "url": "https://www.yuque.com/0xffff.one/cs-learning/how-to-learn",
+            "title": "如何学会学习"
+          }
+        ]
+      },
+      {
+        "name": "IoT",
+        "children": [],
+        "web": [
+          {
+            "url": "http://www.taichi-maker.com/",
+            "title": "太极创客 – Arduino, ESP8266物联网的应用、开发和学习资料"
+          },
+          {
+            "url": "https://www.xmf393.com/2020/01/01/20190612/",
+            "title": "小蜜蜂"
+          }
+        ]
+      },
+      {
+        "name": "Vue",
+        "children": [],
+        "web": [
+          {
+            "url": "https://www.cnblogs.com/wudaojiuxiao/p/16491403.html",
+            "title": "vue2学习笔记"
+          },
+          {
+            "url": "https://juejin.cn/post/7158127733313110047",
+            "title": "vue2笔记"
+          }
+        ]
+      }
+    ],
+    "web": []
+  },
+  {
+    "name": "⭐ 技术栈",
+    "children": [
+      {
+        "name": "🌞 默认群组A",
+        "children": [],
+        "web": [
+          { "url": "https://www.baidu.com/", "title": "百度" },
+          { "url": "https://www.baidu.com/", "title": "百度" }
+        ]
+      },
+      {
+        "name": "🌙 默认群组B",
+        "children": [],
+        "web": [
+          { "url": "https://www.baidu.com/", "title": "百度" },
+          { "url": "https://www.baidu.com/", "title": "百度" }
+        ]
+      }
+    ],
+    "web": []
+  }
+]
