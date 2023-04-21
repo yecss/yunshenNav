@@ -2,9 +2,10 @@
   <div class="wrapper">
     <h1>浏览器书签展示</h1>
     <div class="box">
+      <!-- {{initLink2}} -->
       <div
         class="second-wrapper"
-        v-for="(item, index) in initLink.children"
+        v-for="(item, index) in initLink2.children"
         :key="index"
       >
         <h2 class="second-title">{{ item.name }}</h2>
@@ -26,11 +27,21 @@
 <script>
 export default {
   name: 'MainLink',
-  data() {
-    return {}
-  },
   props: ['initLink'],
+  data() {
+    return {
+      initLink2:''
+    }
+  },
+  watch:{
+    initLink(newVal){
+      this.initLink2 = newVal
+      /* 使用eval将字符串数组转换为真正的数组 */
+      this.initLink2.children = eval(this.initLink2.children)
+    }
+  }
 }
+  
 </script>
 
 <style lang="scss" scoped>

@@ -41,13 +41,14 @@ export default {
     }
   },
   mounted() {
-    axios.get('../db/data.json').then((res) => {
+    // axios.get('../db/data.json').then((res) => {
+    axios.get('http://localhost:3000/api/getdata').then((res) => {
       let data = res.data
       this.sourceData = data
       data.forEach((element) => {
         this.urlList.firstCategroy.push(element.name)
       })
-      this.urlList.secondLink = data[0]
+      this.urlList.secondLink = eval(this.sourceData[0])
     })
   },
 }
