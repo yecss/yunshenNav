@@ -2,14 +2,17 @@
   <div id="app">
     <div id="container">
       <LeftMenu @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy"></LeftMenu>
-      <MainLink :initLink="urlList.secondLink"></MainLink>
+      <MainLink ref="mychild" :initLink="urlList.secondLink"></MainLink>
+      <el-button class="addBtn" @click="addLinks">添加链接</el-button>
     </div>
+    
   </div>
 </template>
 <script>
 import axios from 'axios'
 import LeftMenu from '@/views/LeftMenu.vue'
 import MainLink from '@/views/MainLink.vue'
+
 export default {
   name: 'App',
   data() {
@@ -31,6 +34,9 @@ export default {
     handleChange(index){
       // console.log('APP',index)
       this.dataIndex = index
+    },
+    addLinks(){
+      this.$refs.mychild.drawer = true
     }
   },
   watch:{
@@ -63,6 +69,7 @@ export default {
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -79,5 +86,11 @@ body {
   display: flex;
   flex-direction: row;
   height: 100%;
+  position: relative;
+}
+.addBtn{
+  position: absolute;
+  top: 80px;
+  right: -120px;
 }
 </style>
