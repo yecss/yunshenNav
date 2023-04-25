@@ -1,12 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import "tailwindcss/tailwind.css"
 
-Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+/* ElementUI按需引入 */
+import { Button, Select,Input,Drawer,Option,Popover,Dialog,Message } from 'element-ui';
+Vue.use(Button)
+Vue.use(Select)
+Vue.use(Input)
+Vue.use(Drawer)
+Vue.use(Option)
+Vue.use(Popover)
+Vue.use(Dialog)
+Vue.prototype.$message = Message
 new Vue({
   router,
   render: h => h(App)

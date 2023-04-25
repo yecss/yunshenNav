@@ -11,6 +11,7 @@
         <h2 class="second-title">{{ item.name }}</h2>
         <div class="second-box">
           <a
+            class=""
             v-for="(item, index2) in initLink.children[index].web"
             :key="index2"
             :href="item.url"
@@ -199,7 +200,7 @@ export default {
     },
     updateLink() {
       axios({
-        url: 'http://localhost:3000/api/updateLink',
+        url: 'https://api.yecss.com/api/updateLink',
         method: 'post',
         data: {
           id: this.initLink2._id,
