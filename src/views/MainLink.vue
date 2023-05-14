@@ -1,6 +1,25 @@
 <template>
   <div class="wrapper">
-    <h1 class="text-gray-500 text-2xl font-bold">云深书签</h1>
+    <!-- 移动端顶部导航栏 -->
+    <div class="top-nav">
+      <button @click="showPopIf=!showPopIf" class="btn btn-ghost btn-circle" id="top-nav-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+      </button>
+      <ul v-if="showPopIf" id="pop-menu" class="mt-3 p-2 shadow rounded-md bg-gray-200 w-36">
+        <li v-for="(i, index) in firstCategroy" :key="index" @click="changeDataIndex(index)" class="hover:bg-gray-400 text-base mt-3 bg-gray-100 cursor-pointer rounded-md" :class="{'bg-gray-400':dataIndex===index}"><a>{{i}}</a></li>
+        
+      </ul>
+      <span class="text-gray-500 text-2xl font-bold">
+        云深书签
+      </span>
+      
+      <button class="btn btn-ghost btn-circle" id="top-nav-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+      </button>
+    </div>
+    <!-- <h1 class="text-gray-500 text-2xl font-bold">云深书签</h1> -->
+    
+  
     <div class="box">
       <!-- {{initLink2}} -->
       <div
@@ -51,7 +70,7 @@
             </div>
             <div style="margin-top: 15px">
               <el-input placeholder="请输入链接的地址" v-model="newLink.url">
-                <el-button slot="append" @click="uploadLink">提交</el-button>
+                <el-button slot="append" @click="addLink">提交</el-button>
               </el-input>
             </div>
           </div>
@@ -102,9 +121,10 @@ import axios from 'axios'
 
 export default {
   name: 'MainLink',
-  props: ['initLink','isAuth'],
+  props: ['initLink','isAuth','firstCategroy','dataIndex'],
   data() {
     return {
+      showPopIf:false,//移动端菜单弹窗状态
       initLink2: this.initLink,
       newLink: {
         title: '',
@@ -131,6 +151,12 @@ export default {
     }
   },
   methods: {
+    /* 修改数据索引 */
+    changeDataIndex(index){
+      // 快速修改
+      this.$emit('update:dataIndex', index);
+      this.showPopIf = false
+    },
     dialogDelete() {
 
       this.visible = false
@@ -208,26 +234,32 @@ export default {
         },
       }).then(
         (response) => {
-          console.log(response.data)
+          console.log('status:',response.status)
         },
         (error) => {
           console.log(error)
         }
       )
     },
-    uploadLink() {
-      //  console.log(this.initLink2.children[4].web)
+    addLink() {
+      /* JavaScript验证字符串是否是以http://或者https://，如果不是就在开头加上http:// */
+      function addHTTPIfNeeded(url) {
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          url = 'http://' + url;
+        }
+        return url;
+      }
+      this.newLink.url = addHTTPIfNeeded(this.newLink.url)
+
       if (this.newLink.title == '') {
         alert('请输入标题')
         return
       }
-      /* 当前page的ID */
-      // console.log(this.initLink2._id)
-      /* 当前page的第几项 */
-      // console.log(this.initLink2.children[this.selectIndex])
+      
       this.initLink2.children[this.selectIndex].web.push(
         JSON.parse(JSON.stringify(this.newLink))
       )
+      
       /* 更新所有数据 */
       this.updateLink()
        this.$message({
@@ -286,7 +318,7 @@ export default {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(243, 244, 246, 0.3);
+  background-color: rgba(122, 122, 123, 0.3);
 }
 
 .wrapper {
@@ -320,12 +352,9 @@ export default {
   width: 80%;
   height: 22px;
 }
-// .edit button {
-//   padding: 2px 8px;
-// }
 .second-title {
   text-align: left;
-  border-bottom: 2px rgb(231, 237, 232) solid;
+  border-bottom: 1px rgb(231 234 237) solid;
 }
 .second-wrapper {
   margin-top: 30px;
@@ -338,21 +367,27 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: baseline;
+  margin-top: 14px;
+  
 }
 .second-box a {
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
   color: black;
   margin-right: 20px;
-  padding: 15px;
+  padding: 8px;
   max-width: 160px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  background-color: #f3f4f6;
+  transition: background-color .2s, color .2s;
+  border-radius: 2px;
+  margin-top: 16px;
 }
 .second-box a:hover {
-  color: rgb(73, 11, 106);
-  text-decoration: underline;
+  color: #fff;
+  background-color: #515151;
 }
 .link-change {
   width: 100%;
@@ -360,5 +395,26 @@ export default {
 .link-change .el-input {
   width: 80%;
 }
+.top-nav{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+#top-nav-btn{
+  display: none;
+}
+#pop-menu{
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+/* 在宽度大于等于600px并且小于1400px时应用的样式 */
+@media (min-width: 600px) and (max-width: 1399px) {
+  /* 隐藏默认滚动条 */
+  ::-webkit-scrollbar {
+    width: 0px;
+    
+  }
+}
 </style>
->

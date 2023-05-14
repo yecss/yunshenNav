@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div id="container">
-      <TheAside @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy" :isAuth.sync="isAuth"></TheAside>
+      <TheAside id="the-aside" :firstCategroy="urlList.firstCategroy" :isAuth.sync="isAuth" :dataIndex.sync="dataIndex"></TheAside>
       <!-- <LeftMenu @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy"></LeftMenu> -->
-      <MainLink ref="mychild" :initLink="urlList.secondLink" :isAuth="isAuth" ></MainLink>
+      <MainLink ref="mychild" :firstCategroy="urlList.firstCategroy" :initLink="urlList.secondLink" :isAuth="isAuth" :dataIndex.sync="dataIndex"></MainLink>
       <el-button class="addBtn" @click="addLinks">添加链接</el-button>
     </div>
     
@@ -35,10 +35,7 @@ export default {
     TheAside
   },
   methods:{
-    handleChange(index){
-      // console.log('APP',index)
-      this.dataIndex = index
-    },
+    
     addLinks(){
       this.$refs.mychild.drawer = true
     },
@@ -111,5 +108,45 @@ body {
   position: absolute;
   top: 80px;
   right: -120px;
+}
+
+/* 在宽度小于600px时应用的样式 */
+@media (max-width: 599px) {
+  #the-aside{
+    display: none;
+  }
+  #app{
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+  #top-nav-btn{
+    display: block !important;
+  }
+  .top-nav{
+  justify-content: space-between !important;
+  }
+}
+
+/* 在宽度大于等于600px并且小于1400px时应用的样式 */
+@media (min-width: 600px) and (max-width: 1399px) {
+  #app{
+    width: 80%;
+  }
+  .addBtn{
+    top: 47px;
+    right: 20px;
+  }
+  .second-box a{
+    font-size: 14px;
+    padding: 6px;
+  }
+
+}
+
+/* 在宽度大于等于1400px时应用的样式 */
+@media (min-width: 1400px) {
+
 }
 </style>

@@ -7,7 +7,7 @@
     <div class="flex flex-col justify-between flex-1 mt-6">
         <nav class="-mx-3 space-y-6 ">
             <div class="space-y-3 ">
-                <label class="px-3 text-base text-gray-500 uppercase dark:text-gray-400">常用</label>
+                <label class="px-3 text-sm text-gray-500 uppercase dark:text-gray-400">分类</label>
                 <a v-for="(i, index) in firstCategroy"
                     :key="index"
                     @click="changeDataIndex(index)"
@@ -69,8 +69,9 @@ export default {
   },
   methods: {
     changeDataIndex(index) {
-      this.activeIndex = index
-      this.$emit('changeIndex', index);
+        this.activeIndex = index
+        // 快速修改
+        this.$emit('update:dataIndex', index);
     },
     authAlert() {
         if(!this.isAuth){
@@ -123,6 +124,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+/* 隐藏默认滚动条 */
+::-webkit-scrollbar {
+  width: 3px;
+  background-color: #f5f5f5;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background-color: #dadada;
+  border-radius: 4px;
+}
+
+/* 鼠标悬停时滚动条滑块 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
 
 </style>
