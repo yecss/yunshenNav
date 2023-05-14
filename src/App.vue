@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="container">
-      <LeftMenu @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy"></LeftMenu>
-      <MainLink ref="mychild" :initLink="urlList.secondLink"></MainLink>
+      <TheAside @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy" :isAuth.sync="isAuth"></TheAside>
+      <!-- <LeftMenu @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy"></LeftMenu> -->
+      <MainLink ref="mychild" :initLink="urlList.secondLink" :isAuth="isAuth" ></MainLink>
       <el-button class="addBtn" @click="addLinks">添加链接</el-button>
     </div>
     
@@ -12,6 +13,7 @@
 import axios from 'axios'
 import LeftMenu from '@/views/LeftMenu.vue'
 import MainLink from '@/views/MainLink.vue'
+import TheAside from "@/views/TheAside.vue"
 
 export default {
   name: 'App',
@@ -23,12 +25,14 @@ export default {
         secondLink:[]
       },
       dataIndex:0,
-      sourceData:[]
+      sourceData:[],
+      isAuth:false,//秘钥验证是否成功
     }
   },
   components: {
     LeftMenu,
     MainLink,
+    TheAside
   },
   methods:{
     handleChange(index){
@@ -37,6 +41,9 @@ export default {
     },
     addLinks(){
       this.$refs.mychild.drawer = true
+    },
+    handlerchangeAuth(value){
+      console.log(value)
     }
   },
   watch:{
@@ -57,6 +64,12 @@ export default {
       })
       this.urlList.secondLink = eval(this.sourceData[0])
     })
+
+    /* 读取key */
+    let theKey = localStorage.getItem('bookmarks-key')
+    if(theKey==='yssq'){
+        this.isAuth = true
+    }
   },
 }
 </script>
@@ -71,6 +84,7 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  background-color: #f3f4f6;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -78,16 +92,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  // background-color: aquamarine;
-  width: 1200px;
+  width: 1320px;
   height: 100%;
   margin: 0 auto;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 #container {
   display: flex;
   flex-direction: row;
   height: 100%;
   position: relative;
+  background-color: #fff;
+  padding-left: 10px;
+  border-radius: 6px;
 }
 .addBtn{
   position: absolute;

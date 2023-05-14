@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>浏览器书签转网页</h1>
+    <h1 class="text-gray-500 text-2xl font-bold">云深书签</h1>
     <div class="box">
       <!-- {{initLink2}} -->
       <div
@@ -8,7 +8,7 @@
         v-for="(item, index) in initLink2.children"
         :key="index"
       >
-        <h2 class="second-title">{{ item.name }}</h2>
+        <h2 class="second-title text-blue-700 text-base">{{ item.name }}</h2>
         <div class="second-box">
           <a
             class=""
@@ -19,7 +19,7 @@
             @contextmenu.prevent.stop="handlerRight(index, index2)"
           >
             {{ item.title }}
-          </a>
+          </a>  
         </div>
       </div>
     </div>
@@ -28,32 +28,6 @@
         <div class="pop-box">
           <h2>添加链接</h2>
           <div class="edit">
-            <!-- <p>
-              数据项:
-              <select name="" id="" v-model="selectIndex">
-                <option
-                  v-for="(item, index) in initLink2.children"
-                  :key="index"
-                  :value="index"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
-            </p>
-            <p>
-              名称:
-              <input v-model="newLink.title" type="text" />
-            </p>
-            <p>
-              链接:
-              <input v-model="newLink.url" type="text" />
-            </p>
-
-            <p>
-              操作:
-              <el-button @click="uploadLink">提交</el-button>
-            </p> -->
-            
             <div style="margin-top: 15px">
               <el-input
                 placeholder="请输入链接的标题"
@@ -128,7 +102,7 @@ import axios from 'axios'
 
 export default {
   name: 'MainLink',
-  props: ['initLink'],
+  props: ['initLink','isAuth'],
   data() {
     return {
       initLink2: this.initLink,
@@ -158,9 +132,12 @@ export default {
   },
   methods: {
     dialogDelete() {
+
       this.visible = false
       this.dialogVisible = false
-      /* 删除选择的这条数据 */
+      /* auth */
+      if(this.isAuth){
+        /* 删除选择的这条数据 */
       this.initLink2.children[this.dialogSelectIndex.first].web.splice(
         this.dialogSelectIndex.second,
         1
@@ -172,19 +149,42 @@ export default {
         type: 'success',
         message: '删除成功!',
       })
+      }
+      else{
+         /* 增加提示弹窗 */
+      this.$message({
+        type: 'error',
+        message: '秘钥验证未成功!',
+      })
+      }
+     
+      
     },
     dialogUpdate() {
+      /* 隐藏弹窗 */
       this.dialogVisible = false
-      this.initLink2.children[this.dialogSelectIndex.first].web[
+      /* auth */
+      if(this.isAuth){
+        this.initLink2.children[this.dialogSelectIndex.first].web[
         this.dialogSelectIndex.second
       ] = this.dialogNewLink
-      /* 更新所有数据 */
-      this.updateLink()
-      /* 增加提示弹窗 */
-      this.$message({
-        type: 'success',
-        message: '更新成功!',
-      })
+        /* 更新所有数据 */
+        this.updateLink()
+        /* 增加提示弹窗 */
+        this.$message({
+          type: 'success',
+          message: '更新成功!',
+        })
+      }
+      else{
+        /* 增加提示弹窗 */
+        this.$message({
+          type: 'error',
+          message: '秘钥验证未成功!',
+        })
+      }
+      
+      
     },
     handlerRight(index, index2) {
       /* 第一级数组索引 */
@@ -275,7 +275,7 @@ export default {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(144, 147, 153, 0.5);
+  background-color: rgba(175, 177, 182, 0.9);
   background-clip: padding-box;
   min-height: 28px;
   -webkit-border-radius: 2em;
@@ -286,11 +286,11 @@ export default {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(144, 147, 153, 0.3);
+  background-color: rgba(243, 244, 246, 0.3);
 }
 
 .wrapper {
-  width: 960px;
+  width: 1000px;
   padding: 30px;
   overflow-x: hidden;
   overflow-y: auto;
