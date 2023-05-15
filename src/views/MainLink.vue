@@ -5,8 +5,8 @@
       <button @click="showPopIf=!showPopIf" class="btn btn-ghost btn-circle" id="top-nav-btn">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
       </button>
-      <ul v-if="showPopIf" id="pop-menu" class="mt-3 p-2 shadow rounded-md bg-gray-200 w-36">
-        <li v-for="(i, index) in firstCategroy" :key="index" @click="changeDataIndex(index)" class="hover:bg-gray-400 text-base mt-3 bg-gray-100 cursor-pointer rounded-md" :class="{'bg-gray-400':dataIndex===index}"><a>{{i}}</a></li>
+      <ul v-if="showPopIf" id="pop-menu" class="mt-3 px-4 py-2 shadow rounded-md bg-gray-200 w-56">
+        <li v-for="(i, index) in firstCategroy" :key="index" @click="changeDataIndex(index)" class="text-sm mt-3 bg-gray-100 cursor-pointer rounded-md h-8 text-white leading-8" :class="{'bg-gray-400':dataIndex===index,'text-blue-600':dataIndex!==index}"><a>{{i}}</a></li>
         
       </ul>
       <span class="text-gray-500 text-2xl font-bold">
@@ -407,7 +407,7 @@ export default {
 #pop-menu{
   position: absolute;
   left: 0;
-  top: 10px;
+  top: 20px;
 }
 /* 在宽度大于等于600px并且小于1400px时应用的样式 */
 @media (min-width: 600px) and (max-width: 1399px) {
