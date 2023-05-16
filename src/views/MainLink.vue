@@ -44,7 +44,7 @@
     </div>
     <el-drawer title="功能区" :visible.sync="drawer" :with-header="true">
       <div class="drawer-wrapper">
-        <div class="pop-box">
+        <div style="background-color:#b1b1af26" class="pop-box">
           <h2>添加链接</h2>
           <div class="edit">
             <div style="margin-top: 15px">
@@ -52,18 +52,21 @@
                 placeholder="请输入链接的标题"
                 v-model="newLink.title"
                 class="input-with-select"
+                
               >
                 <el-select
                   v-model="selectIndex"
                   slot="prepend"
                   placeholder="请选择"
                   class="add-link-input"
+                  style="width:110px"
                 >
                   <el-option
                     v-for="(item, index) in initLink2.children"
                     :key="index"
                     :value="index"
                     :label="item.name"
+                    
                   ></el-option>
                 </el-select>
               </el-input>
@@ -71,6 +74,52 @@
             <div style="margin-top: 15px">
               <el-input placeholder="请输入链接的地址" v-model="newLink.url">
                 <el-button slot="append" @click="addLink">提交</el-button>
+              </el-input>
+            </div>
+          </div>
+        </div>
+        <!-- 一级分类 -->
+        <div class="pop-box mt-10 bg-red-100">
+          <h2>添加一级分类</h2>
+          <div class="edit">
+            <div style="margin-top: 15px">
+              <el-input placeholder="请输入要添加的一级分类名称" v-model="newfirstCategroy">
+                <el-button slot="append" @click="addLink">添加</el-button>
+              </el-input>
+            </div>
+          </div>
+        </div>
+        <!-- 二级分类 -->
+        <div class="pop-box mt-10 bg-blue-100">
+          <h2>添加二级分类</h2>
+          <div class="edit">
+            <div style="margin-top: 15px">
+              <!-- 选择框 -->
+              <!-- <el-select
+                  v-model="selectIndex"
+                  slot="prepend"
+                  placeholder="请选择"
+                  class="add-link-input"
+                  size="medium"
+                  style="width:100%"
+                >
+                  <el-option
+                    v-for="(item, index) in initLink2.children"
+                    :key="index"
+                    :value="index"
+                    :label="item.name"
+                  ></el-option>
+              </el-select> -->
+              <el-input
+                style="width:100%"
+                placeholder="请输入内容"
+                :value="initLink2.name"
+                :disabled="true">
+              </el-input>
+            </div>
+            <div style="margin-top: 15px">
+              <el-input placeholder="请输入要添加的二级分类名称" v-model="newsecondCategroy.name">
+                <el-button slot="append" @click="addSecondCategroy">提交</el-button>
               </el-input>
             </div>
           </div>
@@ -130,6 +179,12 @@ export default {
         title: '',
         url: 'http://',
       },
+      newfirstCategroy:'',//新的一级分类
+      newsecondCategroy:{
+        children:[],
+        name:'',
+        web:[]
+      },//新的二级分类
       dialogNewLink: {
         title: '',
         url: 'http://',
@@ -137,7 +192,7 @@ export default {
       newArr: [{ name: '技术栈', children: [], web: [] }],
       selectIndex: 0,
       /* 右侧抽屉状态 */
-      drawer: false,
+      drawer: true,
       /* 鼠标右键状态 */
       dialogVisible: false,
       /* dialog数据索引 */
@@ -267,13 +322,24 @@ export default {
         message: '添加成功!',
       })
     },
+    addSecondCategroy(){
+      console.log(111)
+      this.initLink2.children.push(JSON.parse(JSON.stringify(this.newsecondCategroy)))
+      this.newsecondCategroy.name = ''
+      /* 更新所有数据 */
+      this.updateLink()
+      this.$message({
+        type: 'success',
+        message: '添加成功!',
+      })
+    }
   },
-  components: {},
   watch: {
     initLink(newVal) {
       this.initLink2 = newVal
       /* 使用eval将字符串数组转换为真正的数组 */
       this.initLink2.children = eval(this.initLink2.children)
+      console.log(this.initLink2)
     },
   },
 }
@@ -338,7 +404,7 @@ export default {
 .pop-box {
   width: 88%;
   padding: 20px;
-  background-color: #b1b1af26;
+  // background-color: #b1b1af26;
   border-radius: 6px;
 }
 .pop-box p {
