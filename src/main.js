@@ -7,7 +7,7 @@ Vue.config.productionTip = false
 
 
 /* ElementUI按需引入 */
-import { Button, Select,Input,Drawer,Option,Popover,Dialog,Message,MessageBox } from 'element-ui';
+import { Button, Select,Input,Drawer,Option,Popover,Dialog,Message,MessageBox,Row,Col } from 'element-ui';
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Input)
@@ -15,6 +15,8 @@ Vue.use(Drawer)
 Vue.use(Option)
 Vue.use(Popover)
 Vue.use(Dialog)
+Vue.use(Row)
+Vue.use(Col)
 Vue.prototype.$message = Message
 Vue.prototype.$prompt = MessageBox.prompt
 new Vue({

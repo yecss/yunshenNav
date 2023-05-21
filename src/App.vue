@@ -1,59 +1,112 @@
 <template>
   <div id="app">
     <div id="container">
-      <TheAside id="the-aside" :firstCategroy="urlList.firstCategroy" :isAuth.sync="isAuth" :dataIndex.sync="dataIndex"></TheAside>
+      <TheAside
+        id="the-aside"
+        :firstCategroy="urlList.firstCategroy"
+        :isAuth.sync="isAuth"
+        :dataIndex.sync="dataIndex"
+      ></TheAside>
       <!-- <LeftMenu @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy"></LeftMenu> -->
-      <MainLink ref="mychild" :firstCategroy="urlList.firstCategroy" :initLink="urlList.secondLink" :isAuth="isAuth" :dataIndex.sync="dataIndex"></MainLink>
+      <MainLink
+        ref="mychild"
+        :sourceData="sourceData"
+        :firstCategroy="urlList.firstCategroy"
+        :initLink="urlList.secondLink"
+        :isAuth="isAuth"
+        :dataIndex.sync="dataIndex"
+        @changeFirstTitle="handleDB"
+      ></MainLink>
       <el-button class="addBtn" @click="addLinks">添加链接</el-button>
     </div>
-    
   </div>
 </template>
 <script>
 import axios from 'axios'
 import LeftMenu from '@/views/LeftMenu.vue'
 import MainLink from '@/views/MainLink.vue'
-import TheAside from "@/views/TheAside.vue"
+import TheAside from '@/views/TheAside.vue'
 
 export default {
   name: 'App',
   data() {
     return {
       /* 初始数据 */
-      urlList:{
-        firstCategroy:[],
-        secondLink:[]
+      urlList: {
+        firstCategroy: [],
+        secondLink: [],
       },
-      dataIndex:0,
-      sourceData:[],
-      isAuth:false,//秘钥验证是否成功
+      dataIndex: 0,
+      sourceData: [],
+      isAuth: false, //秘钥验证是否成功
     }
   },
   components: {
     LeftMenu,
     MainLink,
-    TheAside
+    TheAside,
   },
-  methods:{
-    
-    addLinks(){
+  methods: {
+    handleDB(obj) {
+      let { del, update, selectIndex, newValue } = obj
+      let id = this.sourceData[selectIndex]._id
+
+      if (del) {
+        axios({
+          url: 'https://api.yecss.com/api/deleteCategroy',
+          method: 'post',
+          data: {
+            id: id,
+          },
+        })
+          .then((res) => {
+            console.log(res)
+            this.$message({
+              type: 'success',
+              message: '删除成功',
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+      if (update) {
+        axios({
+          url: 'https://api.yecss.com/api/updateCategroy',
+          method: 'post',
+          data: {
+            id: id,
+            name: newValue,
+          },
+        })
+          .then((res) => {
+            console.log(res)
+            this.$message({
+              type: 'success',
+              message: '更新成功',
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    },
+    addLinks() {
       this.$refs.mychild.drawer = true
     },
-    handlerchangeAuth(value){
+    handlerchangeAuth(value) {
       console.log(value)
-    }
+    },
   },
-  watch:{
-    dataIndex(newvalue,oldValue){
+  watch: {
+    dataIndex(newvalue, oldValue) {
       // console.log('index发生了变化')
       // console.log(newvalue,oldValue)
       this.urlList.secondLink = this.sourceData[newvalue]
-    }
+    },
   },
-  mounted() {
-    // axios.get('../db/data.json').then((res) => {  
-    // axios.get('http://localhost:3000/api/getdata').then((res) => { 
-    axios.get('https://api.yecss.com/api/getdata').then((res) => { 
+  created() {
+    axios.get('https://api.yecss.com/api/getdata').then((res) => {
       let data = res.data
       this.sourceData = data
       data.forEach((element) => {
@@ -61,11 +114,15 @@ export default {
       })
       this.urlList.secondLink = eval(this.sourceData[0])
     })
+  },
+  mounted() {
+    // axios.get('../db/data.json').then((res) => {
+    // axios.get('http://localhost:3000/api/getdata').then((res) => {
 
     /* 读取key */
     let theKey = localStorage.getItem('bookmarks-key')
-    if(theKey==='yssq'){
-        this.isAuth = true
+    if (theKey === 'yssq') {
+      this.isAuth = true
     }
   },
 }
@@ -104,7 +161,7 @@ body {
   padding-left: 10px;
   border-radius: 6px;
 }
-.addBtn{
+.addBtn {
   position: absolute;
   top: 80px;
   right: -120px;
@@ -112,41 +169,39 @@ body {
 
 /* 在宽度小于600px时应用的样式 */
 @media (max-width: 599px) {
-  #the-aside{
+  #the-aside {
     display: none;
   }
-  #app{
+  #app {
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
   }
-  
-  #top-nav-btn{
+
+  #top-nav-btn {
     display: block !important;
   }
-  .top-nav{
-  justify-content: space-between !important;
+  .top-nav {
+    justify-content: space-between !important;
   }
 }
 
 /* 在宽度大于等于600px并且小于1400px时应用的样式 */
 @media (min-width: 600px) and (max-width: 1399px) {
-  #app{
+  #app {
     width: 80%;
   }
-  .addBtn{
+  .addBtn {
     top: 47px;
     right: 20px;
   }
-  .second-box a{
+  .second-box a {
     font-size: 14px;
     padding: 6px;
   }
-
 }
 
 /* 在宽度大于等于1400px时应用的样式 */
 @media (min-width: 1400px) {
-
 }
 </style>
