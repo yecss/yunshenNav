@@ -1,132 +1,16 @@
 <template>
   <div id="app">
-    <div id="container">
-      <TheAside
-        id="the-aside"
-        :firstCategroy="urlList.firstCategroy"
-        :isAuth.sync="isAuth"
-        :dataIndex.sync="dataIndex"
-      ></TheAside>
-      <!-- <LeftMenu @changeIndex="handleChange" :firstCategroy="urlList.firstCategroy"></LeftMenu> -->
-      <MainLink
-        ref="mychild"
-        :sourceData="sourceData"
-        :firstCategroy="urlList.firstCategroy"
-        :initLink="urlList.secondLink"
-        :isAuth="isAuth"
-        :dataIndex.sync="dataIndex"
-        @changeFirstTitle="handleDB"
-      ></MainLink>
-      <el-button class="addBtn" @click="addLinks">添加链接</el-button>
-    </div>
+    <router-view></router-view>
+    
   </div>
 </template>
 <script>
-import axios from 'axios'
-import LeftMenu from '@/views/LeftMenu.vue'
-import MainLink from '@/views/MainLink.vue'
-import TheAside from '@/views/TheAside.vue'
-
 export default {
-  name: 'App',
-  data() {
-    return {
-      /* 初始数据 */
-      urlList: {
-        firstCategroy: [],
-        secondLink: [],
-      },
-      dataIndex: 0,
-      sourceData: [],
-      isAuth: false, //秘钥验证是否成功
-    }
-  },
-  components: {
-    LeftMenu,
-    MainLink,
-    TheAside,
-  },
-  methods: {
-    handleDB(obj) {
-      let { del, update, selectIndex, newValue } = obj
-      let id = this.sourceData[selectIndex]._id
-
-      if (del) {
-        axios({
-          url: 'https://api.yecss.com/api/deleteCategroy',
-          method: 'post',
-          data: {
-            id: id,
-          },
-        })
-          .then((res) => {
-            console.log(res)
-            this.$message({
-              type: 'success',
-              message: '删除成功',
-            })
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
-      if (update) {
-        axios({
-          url: 'https://api.yecss.com/api/updateCategroy',
-          method: 'post',
-          data: {
-            id: id,
-            name: newValue,
-          },
-        })
-          .then((res) => {
-            console.log(res)
-            this.$message({
-              type: 'success',
-              message: '更新成功',
-            })
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
-    },
-    addLinks() {
-      this.$refs.mychild.drawer = true
-    },
-    handlerchangeAuth(value) {
-      console.log(value)
-    },
-  },
-  watch: {
-    dataIndex(newvalue, oldValue) {
-      // console.log('index发生了变化')
-      // console.log(newvalue,oldValue)
-      this.urlList.secondLink = this.sourceData[newvalue]
-    },
-  },
-  created() {
-    axios.get('https://api.yecss.com/api/getdata').then((res) => {
-      let data = res.data
-      this.sourceData = data
-      data.forEach((element) => {
-        this.urlList.firstCategroy.push(element.name)
-      })
-      this.urlList.secondLink = eval(this.sourceData[0])
-    })
-  },
-  mounted() {
-    // axios.get('../db/data.json').then((res) => {
-    // axios.get('http://localhost:3000/api/getdata').then((res) => {
-
-    /* 读取key */
-    let theKey = localStorage.getItem('bookmarks-key')
-    if (theKey === 'yssq') {
-      this.isAuth = true
-    }
-  },
+  name:'App',
 }
+
 </script>
+
 
 <style lang="scss">
 * {
@@ -138,37 +22,44 @@ html,
 body {
   height: 100%;
   overflow: hidden;
-  background-color: #f3f4f6;
+  
 }
+body{
+    background-image: url(./assets/bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+  }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 1320px;
+  width: 1280px;
   height: 100%;
   margin: 0 auto;
   padding-top: 60px;
   padding-bottom: 60px;
+  
 }
 #container {
   display: flex;
   flex-direction: row;
   height: 100%;
   position: relative;
-  background-color: #fff;
-  padding-left: 10px;
   border-radius: 6px;
 }
-.addBtn {
-  position: absolute;
-  top: 80px;
-  right: -120px;
-}
+
 
 /* 在宽度小于600px时应用的样式 */
 @media (max-width: 599px) {
+  body{
+    background-color: #f3f4f6;
+  }
+  .wrapper{
+    width: 100% !important;
+  }
   #the-aside {
     display: none;
   }
@@ -184,24 +75,44 @@ body {
   .top-nav {
     justify-content: space-between !important;
   }
+  .search-box{
+    display: none;
+  }
 }
 
 /* 在宽度大于等于600px并且小于1400px时应用的样式 */
 @media (min-width: 600px) and (max-width: 1399px) {
-  #app {
-    width: 80%;
+  body{
+    background: #f3f4f6;
+    padding: 30px 90px;
   }
-  .addBtn {
-    top: 47px;
-    right: 20px;
+  #app {
+    width: 100%;
+    padding: 0;
   }
   .second-box a {
     font-size: 14px;
     padding: 6px;
   }
+  .second-wrapper {
+    margin-top: 20px !important;
+  }
+  /* 隐藏默认滚动条 */
+  ::-webkit-scrollbar {
+    width: 0px !important;
+  }
+  .top-title{
+    display:none;
+  }
 }
 
 /* 在宽度大于等于1400px时应用的样式 */
 @media (min-width: 1400px) {
+  .second-box{
+    margin-top: 14px;
+  }
+  .top-title{
+    display:none;
+  }
 }
 </style>

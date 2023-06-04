@@ -40,8 +40,8 @@
           <a>{{ i }}</a>
         </li>
       </ul>
-      <span class="text-gray-500 text-2xl font-bold">云深书签</span>
-
+      <Search ref="searchInp"></Search>
+      <h1 class="text-gray-500 text-2xl font-bold top-title">云深书签</h1>
       <button class="btn btn-ghost btn-circle" id="top-nav-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -85,46 +85,41 @@
     </div>
     <el-drawer title="功能区" :visible.sync="drawer" :with-header="true">
       <div class="drawer-wrapper">
-        <!-- 添加一级分类 -->
-        <div style="background-color: #b1b1af26" class="pop-box">
-          <h2>一级分类管理</h2>
+        <!-- 添加链接 -->
+        <div class="pop-box bg-red-100 shadow-md">
+          <h2>添加链接</h2>
           <div class="edit">
-            <div style="margin-top: 15px; text-align: left">
-              <!-- 选择框 -->
-              <el-select
-                v-model="firstTitleSelectIndex"
-                placeholder="请选择"
-                size="medium"
-              >
-                <el-option
-                  v-for="(item, index) in firstCategroy"
-                  :key="index"
-                  :value="index"
-                  :label="item"
-                ></el-option>
-              </el-select>
-              <el-button
-                size="medium"
-                class="ml-1"
-                icon="el-icon-edit"
-                @click="handleEditCategroy((isFrist = true))"
-              ></el-button>
-            </div>
-
             <div style="margin-top: 15px">
               <el-input
-                placeholder="请输入要添加的一级分类名称"
-                v-model="newfirstCategroy"
+                placeholder="请输入链接的标题"
+                v-model="newLink.title"
+                class="input-with-select"
               >
-                <el-button slot="append" @click="addFirstCategroy">
-                  添加
-                </el-button>
+                <el-select
+                  v-model="selectIndex"
+                  slot="prepend"
+                  placeholder="请选择"
+                  style="width: 110px"
+                >
+                  <el-option
+                    v-for="(item, index) in initLink2.children"
+                    :key="index"
+                    :value="index"
+                    :label="item.name"
+                  ></el-option>
+                </el-select>
+              </el-input>
+            </div>
+            <div style="margin-top: 15px">
+              <el-input placeholder="请输入链接的地址" v-model="newLink.url">
+                <el-button slot="append" @click="addLink">提交</el-button>
               </el-input>
             </div>
           </div>
         </div>
+
         <!-- 添加二级分类 -->
-        <div class="pop-box mt-10 bg-blue-100">
+        <div class="pop-box mt-10 bg-blue-100 shadow-md">
           <h2>二级分类管理</h2>
           <div class="edit">
             <div style="margin-top: 15px">
@@ -170,38 +165,48 @@
             </div>
           </div>
         </div>
-        <!-- 添加链接 -->
-        <div class="mt-10 pop-box bg-red-100">
-          <h2>添加链接</h2>
+
+        <!-- 添加一级分类 -->
+        <div class="mt-10 pop-box bg-green-100 shadow-md">
+          <h2>一级分类管理</h2>
           <div class="edit">
+            <div style="margin-top: 15px; text-align: left">
+              <!-- 选择框 -->
+              <el-select
+                v-model="firstTitleSelectIndex"
+                placeholder="请选择"
+                size="medium"
+              >
+                <el-option
+                  v-for="(item, index) in firstCategroy"
+                  :key="index"
+                  :value="index"
+                  :label="item"
+                ></el-option>
+              </el-select>
+              <el-button
+                size="medium"
+                class="ml-1"
+                icon="el-icon-edit"
+                @click="handleEditCategroy((isFrist = true))"
+              ></el-button>
+            </div>
+
             <div style="margin-top: 15px">
               <el-input
-                placeholder="请输入链接的标题"
-                v-model="newLink.title"
-                class="input-with-select"
+                placeholder="请输入要添加的一级分类名称"
+                v-model="newfirstCategroy"
               >
-                <el-select
-                  v-model="selectIndex"
-                  slot="prepend"
-                  placeholder="请选择"
-                  style="width: 110px"
-                >
-                  <el-option
-                    v-for="(item, index) in initLink2.children"
-                    :key="index"
-                    :value="index"
-                    :label="item.name"
-                  ></el-option>
-                </el-select>
-              </el-input>
-            </div>
-            <div style="margin-top: 15px">
-              <el-input placeholder="请输入链接的地址" v-model="newLink.url">
-                <el-button slot="append" @click="addLink">提交</el-button>
+                <el-button slot="append" @click="addFirstCategroy">
+                  添加
+                </el-button>
               </el-input>
             </div>
           </div>
         </div>
+        
+        
+
       </div>
     </el-drawer>
 
@@ -305,11 +310,12 @@
 <script>
 import axios from 'axios'
 import CommonDialog from '@/components/CommonDialog.vue'
+import Search from "@/views/Search.vue"
 export default {
   name: 'MainLink',
   props: ['initLink', 'isAuth', 'firstCategroy', 'dataIndex', 'sourceData'],
   components: {
-    CommonDialog,
+    CommonDialog,Search,
   },
   data() {
     return {
@@ -356,6 +362,15 @@ export default {
   methods: {
     /* 新增一级分类 */
     addFirstCategroy() {
+      // 拦截操作
+      if(!this.isAuth){
+        this.$message({
+          type: 'error',
+          message: '秘钥验证未成功!',
+        })
+        return
+      }
+
       axios({
         url: 'https://api.yecss.com/api/addCategroy',
         method: 'post',
@@ -557,6 +572,15 @@ export default {
     },
     /* 新增链接 */
     addLink() {
+      // 拦截操作
+      if(!this.isAuth){
+        this.$message({
+          type: 'error',
+          message: '秘钥验证未成功!',
+        })
+        return
+      }
+
       /* JavaScript验证字符串是否是以http://或者https://，如果不是就在开头加上http:// */
       function addHTTPIfNeeded(url) {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -575,6 +599,8 @@ export default {
         JSON.parse(JSON.stringify(this.newLink))
       )
 
+      this.newLink.url = ''
+      this.newLink.title = ''
       /* 更新所有数据 */
       this.updateLink()
       this.$message({
@@ -584,7 +610,15 @@ export default {
     },
     /* 新增二级分类 */
     addSecondCategroy() {
-      console.log(111)
+      // 拦截操作
+      if(!this.isAuth){
+        this.$message({
+          type: 'error',
+          message: '秘钥验证未成功!',
+        })
+        return
+      }
+
       this.initLink2.children.push(
         JSON.parse(JSON.stringify(this.newsecondCategroy))
       )
@@ -604,6 +638,10 @@ export default {
       this.cpt = this.initLink2.children[this.secondTitleSelectIndex].name
     },
   },
+  mounted(){
+    // 打开网站自动聚焦到搜索框
+    this.$refs.searchInp.autoFocus();
+  }
 }
 </script>
 
@@ -648,10 +686,14 @@ export default {
 }
 
 .wrapper {
-  width: 1000px;
+  // width: 1000px;
+  width: calc(100% - 224px);;
   padding: 30px;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: #fff;
+  border-radius: 0 6px 6px 0;
+  // background-color: rgba(255,255,255,.84);
 }
 .drawer-wrapper {
   // position: relative;
@@ -693,7 +735,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: baseline;
-  margin-top: 14px;
+  
 }
 .second-box a {
   font-size: 16px;
@@ -733,12 +775,5 @@ export default {
   position: absolute;
   left: 0;
   top: 20px;
-}
-/* 在宽度大于等于600px并且小于1400px时应用的样式 */
-@media (min-width: 600px) and (max-width: 1399px) {
-  /* 隐藏默认滚动条 */
-  ::-webkit-scrollbar {
-    width: 0px;
-  }
 }
 </style>

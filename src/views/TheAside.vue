@@ -1,20 +1,23 @@
 <template>
   <aside
-    class="flex flex-col w-56 h-auto px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700"
+    class="flex flex-col w-56 h-auto px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 aside"
   >
-    <a href="#">
-      <img
-        class="w-auto h-7"
-        src="https://merakiui.com/images/logo.svg"
-        alt=""
-      />
-    </a>
+    <div class="flex justify-around">
+      <a href="#">
+        <img
+          class="w-auto h-7"
+          src="https://merakiui.com/images/logo.svg"
+          alt=""
+        />
+      </a>
+      <span class="text-gray-500 text-2xl font-bold">云深书签</span>
+    </div>
 
-    <div class="flex flex-col justify-between flex-1 mt-6">
+    <div class="flex flex-col justify-between flex-1 mt-6 md:mt-0">
       <nav class="-mx-3 space-y-6">
         <div class="space-y-3">
           <label
-            class="px-3 text-sm text-gray-500 uppercase dark:text-gray-400"
+            class="px-3 text-sm text-gray-500 uppercase"
           >
             分类
           </label>
@@ -23,53 +26,63 @@
             :key="index"
             @click="changeDataIndex(index)"
             :class="{ 'bg-gray-100': activeIndex == index }"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
           >
             <Icon
-              :icon="'heroicons:' + iconlist[index]"
+              :icon="'heroicons:' + normalIcon[index]"
               style="font-size: 22px"
             />
-            <span class="mx-2 text-base font-medium">{{ i }}</span>
+            <span class="mx-2 text-base md:text-sm font-medium">{{ i }}</span>
           </a>
         </div>
 
         <div class="space-y-3">
           <label
-            class="px-3 text-sm text-gray-500 uppercase dark:text-gray-400"
+            class="px-3 text-sm text-gray-500 uppercase"
           >
-            配置
+            其他
           </label>
 
           <a
             @click="authAlert"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
           >
             <Icon
               v-if="!isAuth"
-              :icon="'heroicons:' + iconlist[iconlist.length - 3]"
+              :icon="'heroicons:' + configIcon[0]"
               style="color: #dd6f6f; font-size: 22px"
             />
             <Icon
               v-else
-              :icon="'heroicons:' + iconlist[iconlist.length - 2]"
+              :icon="'heroicons:' + configIcon[1]"
               style="color: #009688; font-size: 22px"
             />
 
-            <span class="mx-2 text-base font-medium">Auth</span>
+            <span class="mx-2 text-base font-medium md:text-sm">Auth</span>
           </a>
 
           <a
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+            @click="handleManage"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700"
             href="#"
           >
             <Icon
-              :icon="'heroicons:' + iconlist[iconlist.length - 1]"
+              :icon="'heroicons:' + configIcon[2]"
               style="font-size: 22px"
             />
 
-            <span class="mx-2 text-base font-medium">Setting</span>
+            <span  class="mx-2 text-base font-medium md:text-sm">数据管理</span>
+          </a>
+        
+          <a
+            @click="handleToJson"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+          >
+            <Icon
+              :icon="'heroicons:' + configIcon[3]"
+              style="font-size: 22px"
+            />
+            <span  class="mx-2 text-base font-medium md:text-sm">书签转JSON</span>
           </a>
         </div>
       </nav>
@@ -87,20 +100,25 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      iconlist: [
+      normalIcon: [
         'home',
-        'presentation-chart-line',
+        'academic-cap',
         'users',
         'code-bracket-square',
         'beaker',
         'document-text',
         'wrench',
-        'pencil',
+        'sparkles-solid',
         'heart',
+        'rocket-launch',
+        'gift',
+      ],
+      configIcon:[
         'no-symbol',
         'check-circle',
-        'cog-8-tooth',
-      ],
+        'bookmark',
+        'paper-airplane',
+      ]
     }
   },
   methods: {
@@ -140,11 +158,17 @@ export default {
           })
       } else {
         this.$message({
-          type: 'info',
+          type: 'success',
           message: '秘钥已成功验证',
         })
       }
     },
+    handleManage(){
+      this.$emit('manageLinks')
+    },
+    handleToJson(){
+      this.$router.push('/tojson');
+    }
   },
   props: {
     firstCategroy: {
@@ -180,5 +204,9 @@ export default {
 /* 鼠标悬停时滚动条滑块 */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
+}
+.aside{
+  border-radius: 6px 0 0 6px;
+  // background-color: rgba(255,255,255,.9);
 }
 </style>
