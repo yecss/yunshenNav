@@ -208,19 +208,21 @@ form {
   border: 0;
   background-color: var(--light-color);
   border-radius: 0px 6px 6px 0px;
+  transition: background-color .1s;
 }
 .btn-search:hover {
-  background-color: rgb(59, 65, 75);
+  background-color:#000000;
   cursor: pointer;
 }
 .btn-search:hover .search-svg {
-  fill: var(--light-color);
+  fill: #fff;
 }
 .search-svg {
   vertical-align: middle;
   width: 60px;
   height: 18px;
   fill: #191616;
+  transition: background-color .1s;
 }
 .is-hidden{
   display: none;

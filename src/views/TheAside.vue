@@ -108,7 +108,7 @@ export default {
         'beaker',
         'document-text',
         'wrench',
-        'sparkles-solid',
+        'sparkles',
         'heart',
         'rocket-launch',
         'gift',
@@ -117,7 +117,7 @@ export default {
         'no-symbol',
         'check-circle',
         'bookmark',
-        'paper-airplane',
+        'bolt',
       ]
     }
   },

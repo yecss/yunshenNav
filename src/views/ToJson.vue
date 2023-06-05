@@ -3,15 +3,23 @@
     <div class="container">
       <div v-if="!isSubmited" class="app">
         <h1 class="text-2xl text-purple-500">浏览器书签转JSON</h1>
+        
         <input type="file" id="file" />
         <button class="btn" id="btn" @click="submit()">确定</button>
+        <p class="intro">自动将导出的浏览器书签文件转换成JSON格式的代码，支持Chrome或者Edge等主流浏览器。有了JSON代码就可以将我们自己的数据快速迁移到其他的平台，例如(云深书签，闪击工作台)</p>
       </div>
-
+      
       <div v-else class="code-wrapper">
         <pre v-highlight><code v-text="jsonString"></code></pre>
       </div>
 
-      <button v-if="isSubmited" class="bg-purple-300 w-20 h-10 mt-6 rounded-md" @click="isSubmited=false">返回</button>
+      <button
+        v-if="isSubmited"
+        class="bg-purple-300 w-20 h-10 mt-6 rounded-md"
+        @click="isSubmited = false"
+      >
+        返回
+      </button>
     </div>
   </div>
 </template>
@@ -28,7 +36,6 @@ export default {
   methods: {
     //点击确认按钮
     submit() {
-      this.isSubmited = true
       // 获取文件对象
       var file = document.getElementById('file').files[0]
 
@@ -62,6 +69,8 @@ export default {
           }
         }
       })
+
+      this.isSubmited = true
     },
     //错误信息弹窗
     alertErr() {
@@ -160,7 +169,9 @@ export default {
 .app {
   height: 400px;
   width: 600px;
-  background-color: rgb(232 232 232 / 58%);
+  background-color: rgb(255 255 255 / 50%);
+  backdrop-filter: blur(4px);
+  border-radius: 2px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -183,5 +194,8 @@ input {
   border: 1px #cccfff solid;
   border-radius: 6px;
   font-size: 29px;
+}
+.intro{
+  color: #2f2c2c;
 }
 </style>

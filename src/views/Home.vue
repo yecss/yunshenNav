@@ -1,12 +1,12 @@
 <template>
   <div id="container">
     <TheAside
-        id="the-aside"
-        :firstCategroy="urlList.firstCategroy"
-        :isAuth.sync="isAuth"
-        :dataIndex.sync="dataIndex"
-        @manageLinks="manageLinks"
-      ></TheAside>
+      id="the-aside"
+      :firstCategroy="urlList.firstCategroy"
+      :isAuth.sync="isAuth"
+      :dataIndex.sync="dataIndex"
+      @manageLinks="manageLinks"
+    ></TheAside>
     <MainLink
       ref="mychild"
       :sourceData="sourceData"
@@ -114,8 +114,6 @@ export default {
       })
       this.urlList.secondLink = eval(this.sourceData[0])
     })
-
-
   },
 
   mounted() {
@@ -128,6 +126,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
