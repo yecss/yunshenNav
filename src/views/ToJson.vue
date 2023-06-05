@@ -5,6 +5,8 @@
         <h1 class="text-2xl text-purple-500">浏览器书签转JSON</h1>
         
         <input type="file" id="file" />
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" @click="goBack" style="align-self: flex-start;">返回</button>
+
         <button class="btn" id="btn" @click="submit()">确定</button>
         <p class="intro">自动将导出的浏览器书签文件转换成JSON格式的代码，支持Chrome或者Edge等主流浏览器。有了JSON代码就可以将我们自己的数据快速迁移到其他的平台，例如(云深书签，闪击工作台)</p>
       </div>
@@ -34,6 +36,9 @@ export default {
     }
   },
   methods: {
+    goBack(){
+      this.$router.back()
+    },
     //点击确认按钮
     submit() {
       // 获取文件对象
@@ -167,7 +172,7 @@ export default {
   align-items: center;
 }
 .app {
-  height: 400px;
+  height: 464px;
   width: 600px;
   background-color: rgb(255 255 255 / 50%);
   backdrop-filter: blur(4px);
