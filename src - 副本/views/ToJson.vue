@@ -3,17 +3,31 @@
     <div class="container">
       <div v-if="!isSubmited" class="app">
         <h1 class="text-2xl text-purple-500">浏览器书签转JSON</h1>
-        
+
         <input type="file" id="file" />
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" @click="goBack" style="align-self: flex-start;">返回</button>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          @click="goBack"
+          style="align-self: flex-start"
+        >
+          返回
+        </button>
 
         <button class="btn" id="btn" @click="submit()">确定</button>
-        <p class="intro">自动将导出的浏览器书签文件转换成JSON格式的代码，支持Chrome或者Edge等主流浏览器。有了JSON代码就可以将我们自己的数据快速迁移到其他的平台，例如(云深书签，闪击工作台)</p>
+        <p class="intro">
+          自动将导出的浏览器书签文件转换成JSON格式的代码，支持Chrome或者Edge等主流浏览器。有了JSON代码就可以将我们自己的数据快速迁移到其他的平台，例如(云深书签，闪击工作台)
+        </p>
+      </div>
+
+      <div v-else class="code-wrapper">
+        <JsonViewer
+          :value="jsonString"
+          :expand-depth="2"
+          theme="my-awesome-json-theme"
+          copyable
+        />
       </div>
       
-      <div v-else class="code-wrapper">
-        <pre v-highlight><code v-text="jsonString"></code></pre>
-      </div>
 
       <button
         v-if="isSubmited"
@@ -22,21 +36,28 @@
       >
         返回
       </button>
+      
     </div>
   </div>
 </template>
 
 <script>
+import JsonViewer from 'vue-json-viewer'
+
 export default {
   name: 'ToJson',
+  components: {
+    JsonViewer,
+  },
   data() {
     return {
       jsonString: '',
       isSubmited: false,
+    
     }
   },
   methods: {
-    goBack(){
+    goBack() {
       this.$router.back()
     },
     //点击确认按钮
@@ -148,10 +169,11 @@ export default {
       return div.childNodes
     },
   },
+  
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .code-wrapper {
   max-height: 800px;
   width: 100%;
@@ -164,12 +186,13 @@ export default {
   box-sizing: border-box;
 }
 .container {
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
+  margin: 0 auto;
 }
 .app {
   height: 464px;
@@ -200,7 +223,82 @@ input {
   border-radius: 6px;
   font-size: 29px;
 }
-.intro{
+.intro {
   color: #2f2c2c;
+}
+.my-awesome-json-theme {
+  overflow-x: hidden;
+  background: #282b2e;
+  white-space: nowrap;
+  color: #01fef4;
+  font-size: 14px;
+  font-family: Consolas, Menlo, Courier, monospace;
+
+  .jv-ellipsis {
+    color: rgb(237, 13, 13);
+    background-color: rgb(241, 11, 11);
+    display: inline-block;
+    line-height: 0.9;
+    font-size: 0.9em;
+    padding: 0px 4px 2px 4px;
+    border-radius: 3px;
+    vertical-align: 2px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .jv-button {
+    color: #49b3ff;
+  }
+  ::v-deep .jv-key {
+    color: #01fef4 !important;
+  }
+  ::v-deep .jv-push {
+    color: #fff;
+  }
+  .jv-item {
+    &.jv-array {
+      color: #111111;
+    }
+    &.jv-boolean {
+      color: #fc1e70;
+    }
+    &.jv-function {
+      color: #067bca;
+    }
+    &.jv-number {
+      color: #fc1e70;
+    }
+    &.jv-number-float {
+      color: #fc1e70;
+    }
+    &.jv-number-integer {
+      color: #fc1e70;
+    }
+    &.jv-object {
+      color: #111111;
+    }
+    &.jv-undefined {
+      color: #e08331;
+    }
+    &.jv-string {
+      color: #42b983;
+      word-break: break-word;
+      white-space: normal;
+    }
+  }
+  .jv-code {
+    ::v-deep .jv-toggle {
+      color: #067bca !important;
+      &:before {
+        padding: 0px 2px;
+        border-radius: 2px;
+      }
+      &:hover {
+        &:before {
+          background: rgb(242, 5, 5);
+        }
+      }
+    }
+  }
 }
 </style>

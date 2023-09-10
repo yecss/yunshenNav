@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import MainLink from '@/views/MainLink.vue'
 import TheAside from '@/views/TheAside.vue'
 

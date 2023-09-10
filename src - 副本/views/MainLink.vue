@@ -305,6 +305,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import CommonDialog from '@/components/CommonDialog.vue'
 import Search from '@/views/Search.vue'
 export default {
@@ -736,8 +737,8 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  background-color: #f3f3f3;
-  // background-color: #ededed;
+  // background-color: #f3f4f6;
+  background-color: #ededed;
   transition: background-color 0.2s, color 0.2s;
   border-radius: 2px;
   margin-top: 16px;
