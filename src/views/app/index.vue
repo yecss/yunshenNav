@@ -47,27 +47,9 @@ export default {
       let id = this.sourceData[selectIndex].id
       if (del) {
         deleteCategroy({ id: id })
-          .then(() => {
-            this.$message({
-              type: 'success',
-              message: '删除成功',
-            })
-          })
-          .catch((err) => {
-            console.log(err)
-          })
       }
       if (update) {
         updateCategroy({ id: id, name: newValue })
-          .then(() => {
-            this.$message({
-              type: 'success',
-              message: '更新成功',
-            })
-          })
-          .catch((err) => {
-            console.log(err)
-          })
       }
     },
     addFisrtTitle(name){
