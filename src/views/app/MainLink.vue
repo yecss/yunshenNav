@@ -267,7 +267,7 @@
     <!-- 第一层级 -->
     <CommonDialog
       v-model:dialogVisible="dialogFirstTitle"
-      @confirm="dialogVisTitle = false"
+      @confirm="dialogFirstTitle = false"
     >
       <el-row>
         <el-col>
