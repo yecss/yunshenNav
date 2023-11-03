@@ -2,11 +2,11 @@
   <aside
     class="flex flex-col w-56 h-auto px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 aside"
   >
-    <div class="flex justify-around">
+    <div class="flex center">
       <a href="#">
         <img
-          class="w-auto h-7"
-          src="https://merakiui.com/images/logo.svg"
+          class="w-auto h-8"
+          src="../../assets/ttlogo.png"
           alt=""
         />
       </a>
@@ -44,27 +44,9 @@
           </label>
 
           <a
-            @click="authAlert"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-          >
-            <Icon
-              v-if="!isAuth"
-              :icon="'heroicons:' + configIcon[0]"
-              style="color: #dd6f6f; font-size: 22px"
-            />
-            <Icon
-              v-else
-              :icon="'heroicons:' + configIcon[1]"
-              style="color: #009688; font-size: 22px"
-            />
-
-            <span class="mx-2 text-base font-medium md:text-sm">Auth</span>
-          </a>
-
-          <a
             @click="handleManage"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700"
-            href="#"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            
           >
             <Icon
               :icon="'heroicons:' + configIcon[2]"
@@ -72,6 +54,30 @@
             />
 
             <span  class="mx-2 text-base font-medium md:text-sm">数据管理</span>
+          </a>
+          <a
+            @click="handleLogout"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            
+          >
+            <Icon
+              :icon="'heroicons:' + configIcon[3]"
+              style="font-size: 22px"
+            />
+
+            <span  class="mx-2 text-base font-medium md:text-sm">退出登录</span>
+          </a>
+          <a
+            @click="openInfo"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            
+          >
+            <Icon
+              :icon="'heroicons:' + configIcon[4]"
+              style="font-size: 22px"
+            />
+
+            <span  class="mx-2 text-base font-medium md:text-sm">项目介绍</span>
           </a>
         
           
@@ -82,11 +88,15 @@
 </template>
 
 <script>
-import { Icon } from '@iconify/vue2'
+import { ElMessage } from 'element-plus'
+import { Icon } from '@iconify/vue';
+import DialogHandle from "@/components/dialog.js";
+import router from "@/router/index"
+import store from "@/store/index";
 export default {
   name: 'TheAside',
   components: {
-    Icon,
+    Icon,DialogHandle
   },
   data() {
     return {
@@ -108,50 +118,48 @@ export default {
         'no-symbol',
         'check-circle',
         'bookmark',
+        'arrow-left-on-rectangle',
+        'information-circle'
       ]
     }
   },
+  
   methods: {
+    handleLogout(){
+      const dialog = DialogHandle({
+        title: "操作确认",
+        content: "<div>是否确定退出登录？</div>",
+        onConfirm: () => {
+            return new Promise(async (resolve) => {
+                
+                router.push('/login')
+                // 这块写 / 是因为在模块里面设置了命名空间
+                store.commit('user/clearToken')
+                ElMessage({
+                  message: "退出成功",
+                  type: 'success',
+                  showClose: false,
+                })
+                resolve();
+                /* dialog.showLoading();
+                setTimeout(() => {
+                    dialog.hideLoading();
+                    resolve();
+                }, 1500); */
+            });
+        },
+    });
+    },
+    openInfo() {
+        this.$alert('Github地址：https://github.com/yecss/bookmarks', '关于', {
+          confirmButtonText: '确定',lockScroll:false //防止抖动
+        });
+      },
     changeDataIndex(index) {
       this.activeIndex = index
       // 快速修改
-      this.$emit('update:dataIndex', index)
-    },
-    authAlert() {
-      if (!this.isAuth) {
-        this.$prompt('请输入秘钥(秘钥将存储在本地)', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputType: 'password',
-        })
-          .then(({ value }) => {
-            if (value === 'yssq') {
-              this.$message({
-                type: 'success',
-                message: '秘钥正确',
-              })
-
-              this.$emit('update:isAuth', true)
-              localStorage.setItem('bookmarks-key', value)
-            } else {
-              this.$message({
-                type: 'error',
-                message: '秘钥错误',
-              })
-            }
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '取消输入',
-            })
-          })
-      } else {
-        this.$message({
-          type: 'success',
-          message: '秘钥已成功验证',
-        })
-      }
+      
+      this.$emit('update:dataIndex', index);
     },
     handleManage(){
       this.$emit('manageLinks')
@@ -165,10 +173,10 @@ export default {
       type: Array,
       default: '---',
     },
-    isAuth: {
-      type: Boolean,
-      default: false,
-    },
+    dataIndex: {
+      type: Number,
+      required: true
+    }
   },
 }
 </script>
@@ -195,8 +203,8 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-.aside{
-  border-radius: 6px 0 0 6px;
-  // background-color: rgba(255,255,255,.9);
-}
+/* .aside{
+   border-radius: 6px 0 0 6px;
+   background-color: rgba(255,255,255,.9);
+} */
 </style>

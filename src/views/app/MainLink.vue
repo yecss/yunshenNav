@@ -39,6 +39,7 @@
         >
           <a>{{ i }}</a>
         </li>
+        <li @click="logout" class="text-sm mt-3 bg-gray-500 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
       </ul>
       <Search ref="searchInp"></Search>
       <h1 class="text-gray-500 text-2xl font-bold top-title">云深书签</h1>
@@ -83,7 +84,12 @@
         </div>
       </div>
     </div>
-    <el-drawer title="功能区" :visible.sync="drawer" :with-header="true">
+    <el-drawer
+      title="功能区"
+      :lockScroll="false"
+      v-model="drawer"
+      :with-header="true"
+    >
       <div class="drawer-wrapper">
         <!-- 添加链接 -->
         <div class="pop-box bg-red-100 shadow-md">
@@ -95,11 +101,12 @@
                 v-model="newLink.title"
                 class="input-with-select"
               >
+              <template #prepend>
                 <el-select
                   v-model="selectIndex"
-                  slot="prepend"
                   placeholder="请选择"
                   style="width: 110px"
+                  size="default"
                 >
                   <el-option
                     v-for="(item, index) in initLink2.children"
@@ -108,11 +115,16 @@
                     :label="item.name"
                   ></el-option>
                 </el-select>
+              </template>
+                
               </el-input>
             </div>
             <div style="margin-top: 15px">
               <el-input placeholder="请输入链接的地址" v-model="newLink.url">
-                <el-button slot="append" @click="addLink">提交</el-button>
+                <template #append>
+                  <el-button @click="addLink">提交</el-button>
+                </template>
+                
               </el-input>
             </div>
           </div>
@@ -122,13 +134,8 @@
         <div class="pop-box mt-10 bg-blue-100 shadow-md">
           <h2>二级分类管理</h2>
           <div class="edit">
-            <div style="margin-top: 15px">
-              <el-input
-                style="width: 100%"
-                placeholder="请输入内容"
-                :value="'当前位于一级分类: ' + initLink2.name"
-                :disabled="true"
-              ></el-input>
+            <div style="margin-top: 15px;">
+              <el-input v-model="FirstTitle" disabled placeholder="Please input" />
             </div>
 
             <div style="margin-top: 15px; text-align: left">
@@ -136,7 +143,7 @@
               <el-select
                 v-model="secondTitleSelectIndex"
                 placeholder="请选择"
-                size="medium"
+                size="default"
               >
                 <el-option
                   v-for="(item, index) in initLink2.children"
@@ -145,10 +152,11 @@
                   :label="item.name"
                 ></el-option>
               </el-select>
+            
               <el-button
-                size="medium"
+                size="default"
                 class="ml-1"
-                icon="el-icon-edit"
+                icon="Edit"
                 @click="handleEditCategroy((isFrist = false))"
               ></el-button>
             </div>
@@ -158,9 +166,12 @@
                 placeholder="请输入要添加的二级分类名称"
                 v-model="newsecondCategroy.name"
               >
-                <el-button slot="append" @click="addSecondCategroy">
+              <template #append>
+                <el-button @click="addSecondCategroy">
                   提交
                 </el-button>
+              </template>
+                
               </el-input>
             </div>
           </div>
@@ -175,7 +186,7 @@
               <el-select
                 v-model="firstTitleSelectIndex"
                 placeholder="请选择"
-                size="medium"
+                size="default"
               >
                 <el-option
                   v-for="(item, index) in firstCategroy"
@@ -185,9 +196,9 @@
                 ></el-option>
               </el-select>
               <el-button
-                size="medium"
+                size="default"
                 class="ml-1"
-                icon="el-icon-edit"
+                icon="Edit"
                 @click="handleEditCategroy((isFrist = true))"
               ></el-button>
             </div>
@@ -197,9 +208,12 @@
                 placeholder="请输入要添加的一级分类名称"
                 v-model="newfirstCategroy"
               >
-                <el-button slot="append" @click="addFirstCategroy">
-                  添加
+              <template #append>
+                <el-button @click="addFirstCategroy">
+                  提交
                 </el-button>
+              </template>
+                
               </el-input>
             </div>
           </div>
@@ -207,7 +221,12 @@
       </div>
     </el-drawer>
 
-    <el-dialog title="链接修改" :visible.sync="dialogVisible" width="30%">
+    <el-dialog
+      title="链接修改"
+      :lockScroll="false"
+      v-model="dialogVisible"
+      width="30%"
+    >
       <div class="pop-box link-change">
         <p>
           名称:
@@ -218,34 +237,36 @@
           <el-input size="mini" type="text" v-model="dialogNewLink.url" />
         </p>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <!-- <el-button >删 除</el-button> -->
-        <el-popover placement="top" width="160" v-model="visible">
-          <p>
-            本次操作将永远删除这个链接
-            <br />
-            <br />
-          </p>
-          <div style="text-align: right; margin: 0">
-            <el-button size="mini" type="text" @click="visible = false">
-              取消
-            </el-button>
-            <el-button type="primary" size="mini" @click="dialogDelete">
-              确定
-            </el-button>
-          </div>
-          <el-button style="margin-right: 10px" type="danger" slot="reference">
-            删 除
-          </el-button>
-        </el-popover>
+      <template #footer>
+        <span class="dialog-footer">
 
-        <el-button type="primary" @click="dialogUpdate">更 新</el-button>
-      </span>
+          <el-popover :visible="visible" placement="top" :width="160">
+              <p>本次操作将永远删除这个链接
+            <br />
+            <br /></p>
+              <div style="display: flex; justify-content: space-evenly;">
+                <el-button size="small" @click="visible = false">
+                  取消
+                </el-button>
+                <el-button size="small" type="primary" @click="dialogDelete">
+                  确定
+                </el-button>
+              </div>
+              <template #reference>
+                <el-button type="danger" @click="visible = true">删 除</el-button>
+              </template>
+            </el-popover>
+
+          <el-button type="primary" @click="dialogUpdate">更 新</el-button>
+        </span>
+      </template>
+      
+      
     </el-dialog>
 
     <!-- 第一层级 -->
     <CommonDialog
-      :dialogVisible.sync="dialogFirstTitle"
+      v-model:dialogVisible="dialogFirstTitle"
       @confirm="dialogVisTitle = false"
     >
       <el-row>
@@ -256,14 +277,14 @@
       <el-row class="mt-4">
         <el-col class="text-left">
           <el-button
-            icon="el-icon-delete"
+            icon="Delete"
             type="danger"
             @click="deleteCategroy((isFrist = true))"
           >
             删除
           </el-button>
           <el-button
-            icon="el-icon-check"
+            icon="Check"
             type="primary"
             @click="updateCategroy((isFrist = true))"
           >
@@ -274,7 +295,7 @@
     </CommonDialog>
 
     <CommonDialog
-      :dialogVisible.sync="dialogVisTitle"
+      v-model:dialogVisible="dialogVisTitle"
       @confirm="dialogVisTitle = false"
     >
       <el-row>
@@ -285,14 +306,14 @@
       <el-row class="mt-4">
         <el-col class="text-left">
           <el-button
-            icon="el-icon-delete"
+            icon="Delete"
             type="danger"
             @click="deleteCategroy((isFrist = false))"
           >
             删除
           </el-button>
           <el-button
-            icon="el-icon-check"
+            icon="Check"
             type="primary"
             @click="updateCategroy((isFrist = false))"
           >
@@ -305,15 +326,19 @@
 </template>
 
 <script>
-import CommonDialog from '@/components/CommonDialog.vue'
-import Search from '@/views/Search.vue'
+import {updateLinkData} from "@/api/data/index"
+import CommonDialog from '@/layout/components/CommonDialog.vue'
+import Search from './Search.vue'
+import router from "@/router/index"
+import store from "@/store/index";
 export default {
   name: 'MainLink',
-  props: ['initLink', 'isAuth', 'firstCategroy', 'dataIndex', 'sourceData'],
+  props: ['initLink', 'firstCategroy', 'dataIndex', 'sourceData'],
   components: {
     CommonDialog,
     Search,
   },
+  
   data() {
     return {
       showPopIf: false, //移动端菜单弹窗状态
@@ -357,131 +382,89 @@ export default {
     }
   },
   methods: {
+    // 移动端退出登录
+    logout(){
+      router.push('/login')
+      // 这块写 / 是因为在模块里面设置了命名空间
+      store.commit('user/clearToken')
+    },
     /* 新增一级分类 */
     addFirstCategroy() {
-      // 1、验证当前用户是否有修改数据的权限
-      // 如果没有权限则退出函数
-      if (!this.isAuth) {
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
-        return
-      }
-
-      // 声明 class
-      const Todo = this.AV.Object.extend('links')
-      // 构建对象
-      const todo = new Todo()
-      // 为属性赋值
-      todo.set('name', this.newfirstCategroy)
-      todo.set('web', [])
-      todo.set('children', [
-        {
-          name: '默认二级分类',
-          children: [],
-          web: [{ url: 'https://www.baidu.com', title: '默认标题1' }],
-        },
-      ])
-      // 将对象保存到云端
-      todo.save().then(
-        (todo) => {
-          this.firstCategroy.push(this.newfirstCategroy)
-          todo._serverData._id = todo.id
-          this.sourceData.push(todo._serverData)
-          this.newfirstCategroy = ''
-        },
-        (error) => {
-          // 异常处理
-        }
-      )
+      this.$emit('addFisrtTitle',this.newfirstCategroy)
+      this.firstCategroy.push(this.newfirstCategroy)
+      this.newfirstCategroy = ''
     },
     /* 删除一二级分类 */
     deleteCategroy(isFrist) {
-      if (this.isAuth) {
-        if (isFrist) {
-          if (confirm('是否确定删除')) {
-            this.$emit('changeFirstTitle', {
-              selectIndex: this.firstTitleSelectIndex,
-              del: true,
-              update: false,
-            })
-            this.firstCategroy.splice(this.firstTitleSelectIndex, 1)
-            this.dialogFirstTitle = false
-            /* 防止从后面删除，索引会超过数组中的最后一个元素 */
-            if (this.firstTitleSelectIndex > this.firstCategroy.length - 1) {
-              this.firstTitleSelectIndex = this.firstTitleSelectIndex - 1
-            }
-          }
-        } else {
-          if (confirm('是否确定删除')) {
-            this.initLink2.children.splice(this.secondTitleSelectIndex, 1)
-            this.dialogVisTitle = false
-            this.$message({
-              type: 'success',
-              message: '删除成功',
-            })
-            /* 防止从后面删除，索引会超过数组中的最后一个元素 */
-            if (
-              this.secondTitleSelectIndex >
-              this.initLink2.children.length - 1
-            ) {
-              this.secondTitleSelectIndex = this.secondTitleSelectIndex - 1
-            }
-            /* 上传数据 */
-            this.updateLink()
+      if (isFrist) {
+        if (confirm('是否确定删除')) {
+          this.$emit('changeFirstTitle', {
+            selectIndex: this.firstTitleSelectIndex,
+            del: true,
+            update: false,
+          })
+          this.firstCategroy.splice(this.firstTitleSelectIndex, 1)
+          this.dialogFirstTitle = false
+          /* 防止从后面删除，索引会超过数组中的最后一个元素 */
+          if (this.firstTitleSelectIndex > this.firstCategroy.length - 1) {
+            this.firstTitleSelectIndex = this.firstTitleSelectIndex - 1
           }
         }
       } else {
-        /* 增加提示弹窗 */
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
+        if (confirm('是否确定删除')) {
+          this.initLink2.children.splice(this.secondTitleSelectIndex, 1)
+          this.dialogVisTitle = false
+          /* 防止从后面删除，索引会超过数组中的最后一个元素 */
+          if (
+            this.secondTitleSelectIndex >
+            this.initLink2.children.length - 1
+          ) {
+            this.secondTitleSelectIndex = this.secondTitleSelectIndex - 1
+          }
+          /* 上传数据 */
+          this.updateLink()
+        }
       }
     },
     /* 更新一二级分类 */
     updateCategroy(isFrist) {
-      if (this.isAuth) {
-        if (isFrist) {
-          /* 先判断是否发生了变化 */
-          let newName = this.cpt_first
-          let oldName = this.firstCategroy[this.firstTitleSelectIndex]
-          if (oldName != newName) {
-            // this.firstCategroy[this.firstTitleSelectIndex] = newName //此处不能直接修改否则会丢失响应式，需要使用splice
-            this.firstCategroy.splice(this.firstTitleSelectIndex, 1, newName)
-            this.$emit('changeFirstTitle', {
-              selectIndex: this.firstTitleSelectIndex,
-              del: false,
-              update: true,
-              newValue: newName,
-            })
-          }
-          // 隐藏弹窗
-          this.dialogFirstTitle = false
-        } else {
-          /* 先判断是否发生了变化 */
-          let newName = this.cpt
-          let oldName =
-            this.initLink2.children[this.secondTitleSelectIndex].name
-          if (oldName != newName) {
-            this.initLink2.children[this.secondTitleSelectIndex].name = newName
-          }
-          // 隐藏弹窗
-          this.dialogVisTitle = false
+      if (isFrist) {
+        /* 先判断是否发生了变化 */
+        let newName = this.cpt_first
+        let oldName = this.firstCategroy[this.firstTitleSelectIndex]
+        if (oldName != newName) {
+          // this.firstCategroy[this.firstTitleSelectIndex] = newName //此处不能直接修改否则会丢失响应式，需要使用splice
+          this.firstCategroy.splice(this.firstTitleSelectIndex, 1, newName)
+          this.$emit('changeFirstTitle', {
+            selectIndex: this.firstTitleSelectIndex,
+            del: false,
+            update: true,
+            newValue: newName,
+          })
         }
+        // 隐藏弹窗
+        this.dialogFirstTitle = false
+        /* 上传数据 */
+        this.updateLink()
       } else {
-        /* 增加提示弹窗 */
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
+        /* 先判断是否发生了变化 */
+        let newName = this.cpt
+        let oldName = this.initLink2.children[this.secondTitleSelectIndex].name
+        if (oldName != newName) {
+          this.initLink2.children[this.secondTitleSelectIndex].name = newName
+        }
+        // 隐藏弹窗
+        this.dialogVisTitle = false
+        /* 上传数据 */
+        this.updateLink()
       }
     },
     // 显示修改层级标题的弹出
     handleEditCategroy(isFrist) {
+      
       if (isFrist) {
         this.dialogFirstTitle = true
+        
         this.cpt_first = this.firstCategroy[this.firstTitleSelectIndex]
       } else {
         this.dialogVisTitle = true
@@ -497,50 +480,22 @@ export default {
     dialogDelete() {
       this.visible = false
       this.dialogVisible = false
-      /* auth */
-      if (this.isAuth) {
-        /* 删除选择的这条数据 */
-        this.initLink2.children[this.dialogSelectIndex.first].web.splice(
-          this.dialogSelectIndex.second,
-          1
-        )
-        /* 更新所有数据 */
-        this.updateLink()
-        /* 增加提示弹窗 */
-        this.$message({
-          type: 'success',
-          message: '删除成功!',
-        })
-      } else {
-        /* 增加提示弹窗 */
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
-      }
+      /* 删除选择的这条数据 */
+      this.initLink2.children[this.dialogSelectIndex.first].web.splice(
+        this.dialogSelectIndex.second,
+        1
+      )
+      /* 更新所有数据 */
+      this.updateLink()
     },
     dialogUpdate() {
-      /* 隐藏弹窗 */
+      
+      this.initLink2.children[this.dialogSelectIndex.first].web[
+        this.dialogSelectIndex.second
+      ] = this.dialogNewLink
+      /* 更新所有数据 */
+      this.updateLink()
       this.dialogVisible = false
-      /* auth */
-      if (this.isAuth) {
-        this.initLink2.children[this.dialogSelectIndex.first].web[
-          this.dialogSelectIndex.second
-        ] = this.dialogNewLink
-        /* 更新所有数据 */
-        this.updateLink()
-        /* 增加提示弹窗 */
-        this.$message({
-          type: 'success',
-          message: '更新成功!',
-        })
-      } else {
-        /* 增加提示弹窗 */
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
-      }
     },
     /* 右键链接处理 */
     handlerRight(index, index2) {
@@ -557,21 +512,16 @@ export default {
     },
     /* 上传数据到数据库 */
     updateLink() {
-      const todo = this.AV.Object.createWithoutData('links', this.initLink2._id)
-      todo.set('children', this.initLink2.children)
-      todo.save()
+      updateLinkData({
+        data:this.initLink2.children,
+        id:this.initLink2.id
+      }).catch((err)=>{
+        console.log(err);
+      })
+      
     },
     /* 新增链接 */
     addLink() {
-      // 拦截操作
-      if (!this.isAuth) {
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
-        return
-      }
-
       /* JavaScript验证字符串是否是以http://或者https://，如果不是就在开头加上http:// */
       function addHTTPIfNeeded(url) {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -594,32 +544,15 @@ export default {
       this.newLink.title = ''
       /* 更新所有数据 */
       this.updateLink()
-      this.$message({
-        type: 'success',
-        message: '添加成功!',
-      })
     },
     /* 新增二级分类 */
     addSecondCategroy() {
-      // 拦截操作
-      if (!this.isAuth) {
-        this.$message({
-          type: 'error',
-          message: '秘钥验证未成功!',
-        })
-        return
-      }
-
       this.initLink2.children.push(
         JSON.parse(JSON.stringify(this.newsecondCategroy))
       )
       this.newsecondCategroy.name = ''
       /* 更新所有数据 */
       this.updateLink()
-      this.$message({
-        type: 'success',
-        message: '添加成功!',
-      })
     },
   },
   watch: {
@@ -632,6 +565,11 @@ export default {
     // 打开网站自动聚焦到搜索框
     this.$refs.searchInp.autoFocus()
   },
+  computed: {
+    FirstTitle(){
+      return "当前所处的一级分类："+this.initLink2.name
+    }
+  }
 }
 </script>
 
@@ -679,10 +617,11 @@ export default {
   // width: 1000px;
   width: calc(100% - 224px);
   padding: 30px;
+  padding-bottom: 60px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #fff;
-  border-radius: 0 6px 6px 0;
+  // border-radius: 0 6px 6px 0;
   // background-color: rgba(255,255,255,.84);
 }
 .drawer-wrapper {

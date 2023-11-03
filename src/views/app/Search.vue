@@ -2,7 +2,7 @@
   <div class="search-box">
     <form @submit.prevent>
       <div class="current-search" @click.stop="showSearchSelect">
-        <img class="current-img" :src="require('../assets/search-icon/'+currentIocn[INDEX])" alt="" />
+        <img class="current-img" :src="require('../../assets/search-icon/'+currentIocn[INDEX])" alt="" />
         <svg
           t="1662299197361"
           class="arrow-svg"
@@ -50,24 +50,24 @@
       </button>
       <ul class="select-search" :class="{'is-hidden':hiddenBlock}">
         <li class="item-select" data-index="0" @click="getIndex($event)">
-          <img class="icon-select" src="../assets/search-icon/google.svg" />
+          <img class="icon-select" src="../../assets/search-icon/google.svg" />
           <span>谷歌</span>
           <p></p>
         </li>
         <li class="item-select" data-index="1" @click="getIndex($event)">
-          <img class="icon-select" src="../assets/search-icon/bing.svg" />
+          <img class="icon-select" src="../../assets/search-icon/bing.svg" />
           <span>必应</span>
         </li>
         <li class="item-select" data-index="2" @click="getIndex($event)">
-          <img class="icon-select" src="../assets/search-icon/baidu.svg" />
+          <img class="icon-select" src="../../assets/search-icon/baidu.svg" />
           <span>百度</span>
         </li>
         <li class="item-select" data-index="3" @click="getIndex($event)">
-          <img class="icon-select" src="../assets/search-icon/zhihu.svg" />
+          <img class="icon-select" src="../../assets/search-icon/zhihu.svg" />
           <span>知乎</span>
         </li>
         <li class="item-select" data-index="4" @click="getIndex($event)">
-          <img class="icon-select" src="../assets/search-icon/github.svg" />
+          <img class="icon-select" src="../../assets/search-icon/github.svg" />
           <span>Github</span>
         </li>
       </ul>

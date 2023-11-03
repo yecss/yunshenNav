@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :visible.sync="childDialogVisible">
+    <el-dialog v-model="childDialogVisible" :lockScroll="true">
       <slot></slot>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleConfirm(false)">取 消</el-button>

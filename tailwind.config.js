@@ -1,6 +1,6 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {},
     //自定义媒体查询
@@ -10,8 +10,6 @@ module.exports = {
       'lg': {'min': '1400px'},
     },
   },
-  variants: {
-    extend: {},
-  },
   plugins: [],
 }
+

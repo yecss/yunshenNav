@@ -1,19 +1,27 @@
 <template>
-  <div id="app">
-    <Home></Home>
-  </div>
+  <router-view></router-view>
 </template>
-<script>
-import Home from '@/views/Home.vue'
-export default {
-  name:'App',
-  components:{
-    Home
-  }
-}
+<script setup>
 </script>
-
 <style lang="scss">
+html,body{
+  height: 100%;
+}
+#app{
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 公共样式 */
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cursor{
+  cursor: pointer;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -26,7 +34,7 @@ body {
   
 }
 body{
-    background-image: url(./assets/bg1.jpg);
+    background-image: url(./assets/bg2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
@@ -56,7 +64,7 @@ body{
 /* 在宽度小于600px时应用的样式 */
 @media (max-width: 599px) {
   body{
-    background-color: #f3f4f6;
+    background: #3f66b4;
   }
   .wrapper{
     width: 100% !important;
@@ -79,12 +87,21 @@ body{
   .search-box{
     display: none;
   }
+  .page-container{
+    border-radius: 0!important;
+  }
+  .form{
+    max-width: 360px;
+    .title{
+      font-size: 12px!important;
+    }
+  }
 }
 
 /* 在宽度大于等于600px并且小于1400px时应用的样式 */
 @media (min-width: 600px) and (max-width: 1399px) {
   body{
-    background: #f3f4f6;
+    /* background: #f3f4f6; */
     padding: 30px 90px;
   }
   #app {
