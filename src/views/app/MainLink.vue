@@ -31,15 +31,15 @@
           v-for="(i, index) in firstCategroy"
           :key="index"
           @click="changeDataIndex(index)"
-          class="text-sm mt-3 bg-gray-100 cursor-pointer rounded-md h-8 text-white leading-8"
+          class="text-sm mt-3 bg-gray-400 cursor-pointer rounded-md h-8 text-white leading-8"
           :class="{
-            'bg-gray-400': dataIndex === index,
+            'bg-gray-600': dataIndex === index,
             'text-blue-600': dataIndex !== index,
           }"
         >
           <a>{{ i }}</a>
         </li>
-        <li @click="logout" class="text-sm mt-3 bg-gray-500 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
+        <li @click="logout" class="text-sm mt-3 bg-red-200 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
       </ul>
       <Search ref="searchInp"></Search>
       <h1 class="text-gray-500 text-2xl font-bold top-title">云深书签</h1>

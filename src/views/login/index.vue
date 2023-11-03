@@ -98,12 +98,11 @@ const baseRules = {
   ],
 }
 const validateForm = () => {
-  console.log(form.username);
   if (!form.username) {
     ElMessage.error('请输入用户名')
     return false
   }
-  if (!form.password||form.password.length<6) {
+  if (!form.password || form.password.length < 6) {
     ElMessage.error('请输入密码')
     return false
   }
@@ -124,15 +123,17 @@ const doLogin = () => {
 }
 
 const doRegister = () => {
-  registerLoading.value = true
-  register(form)
-    .then((res) => {
-      form.password = ''
-      form.username = ''
-    })
-    .finally(() => {
-      registerLoading.value = false
-    })
+  if (validateForm()) {
+    registerLoading.value = true
+    register(form)
+      .then((res) => {
+        form.password = ''
+        form.username = ''
+      })
+      .finally(() => {
+        registerLoading.value = false
+      })
+  }
 }
 
 const defaultLogin = () => {

@@ -50,7 +50,7 @@ export default function request(options) {
         ElMessage({
           message: res.message,
           type: 'success',
-          showClose: false,
+          showClose: true,
         });
         return res;
       } else if (res.status === 401) {
