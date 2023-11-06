@@ -55,18 +55,7 @@
 
             <span  class="mx-2 text-base font-medium md:text-sm">数据管理</span>
           </a>
-          <a
-            @click="handleLogout"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-            
-          >
-            <Icon
-              :icon="'heroicons:' + configIcon[3]"
-              style="font-size: 22px"
-            />
-
-            <span  class="mx-2 text-base font-medium md:text-sm">退出登录</span>
-          </a>
+          
           <a
             @click="openInfo"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
@@ -80,7 +69,18 @@
             <span  class="mx-2 text-base font-medium md:text-sm">项目介绍</span>
           </a>
         
-          
+          <a
+            @click="handleLogout"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            
+          >
+            <Icon
+              :icon="'heroicons:' + configIcon[3]"
+              style="font-size: 22px"
+            />
+
+            <span  class="mx-2 text-base font-medium md:text-sm">退出登录</span>
+          </a>
         </div>
       </nav>
     </div>
