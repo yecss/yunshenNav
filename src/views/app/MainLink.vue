@@ -331,6 +331,7 @@ import CommonDialog from '@/layout/components/CommonDialog.vue'
 import Search from './Search.vue'
 import router from "@/router/index"
 import store from "@/store/index";
+
 export default {
   name: 'MainLink',
   props: ['initLink', 'firstCategroy', 'dataIndex', 'sourceData'],

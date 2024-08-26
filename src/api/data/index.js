@@ -1,5 +1,12 @@
 import request from "@/request/index"
 
+export const getGuestData = ()=>{
+  return request({
+    url:'/data/getGuestData',
+    method:'get'
+  })
+}
+
 export const getData = ()=>{
   return request({
     url:'/data/getData',
