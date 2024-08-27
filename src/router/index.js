@@ -33,7 +33,7 @@ const router = createRouter({
 });
 
 // 全局前置路由守卫，控制登录
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   
   const token = store.getters['user/isLogin']
   if (!token && to.name !== 'Login') {
@@ -43,6 +43,6 @@ router.beforeEach((to, from, next) => {
   } else {
       next()
   }
-})
+}) */
 
 export default router;

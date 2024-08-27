@@ -444,8 +444,7 @@ export default {
         }
         // 隐藏弹窗
         this.dialogFirstTitle = false
-        /* 上传数据 */
-        this.updateLink()
+        
       } else {
         /* 先判断是否发生了变化 */
         let newName = this.cpt

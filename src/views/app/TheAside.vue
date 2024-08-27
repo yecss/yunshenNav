@@ -68,8 +68,22 @@
 
             <span  class="mx-2 text-base font-medium md:text-sm">项目介绍</span>
           </a>
-        
+          
           <a
+            @click="isLogin ? handleLogout() : handleLogin()"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+          >
+            <Icon
+              :icon="'heroicons:' + 'heart'"
+              style="font-size: 22px"
+            />
+
+            <span v-if="isLogin" class="mx-2 text-base font-medium md:text-sm">退出登录</span>
+            <span v-else class="mx-2 text-base font-medium md:text-sm">登录账号</span>
+          </a>
+          
+
+          <!-- <a
             @click="handleLogout"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
             
@@ -80,105 +94,114 @@
             />
 
             <span  class="mx-2 text-base font-medium md:text-sm">退出登录</span>
-          </a>
+          </a> -->
         </div>
       </nav>
     </div>
   </aside>
 </template>
 
-<script>
-import { ElMessage } from 'element-plus'
+<script setup>
+import { ref,computed } from 'vue';
+import { ElMessage, ElAlert } from 'element-plus';
 import { Icon } from '@iconify/vue';
 import DialogHandle from "@/components/dialog.js";
-import router from "@/router/index"
-import store from "@/store/index";
-export default {
-  name: 'TheAside',
-  components: {
-    Icon,DialogHandle
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
+const router = useRouter();
+const store = useStore();
+
+const activeIndex = ref(0);
+const isLogin = computed(()=>store.getters['user/isLogin'])
+
+const normalIcon = [
+  'home',
+  'academic-cap',
+  'users',
+  'code-bracket-square',
+  'beaker',
+  'document-text',
+  'wrench',
+  'sparkles',
+  'heart',
+  'rocket-launch',
+  'gift',
+];
+
+const configIcon = [
+  'no-symbol',
+  'check-circle',
+  'bookmark',
+  'arrow-left-on-rectangle',
+  'information-circle'
+];
+
+// Props
+const props = defineProps({
+  firstCategroy: {
+    type: Array,
+    default: '---',
   },
-  data() {
-    return {
-      activeIndex: 0,
-      normalIcon: [
-        'home',
-        'academic-cap',
-        'users',
-        'code-bracket-square',
-        'beaker',
-        'document-text',
-        'wrench',
-        'sparkles',
-        'heart',
-        'rocket-launch',
-        'gift',
-      ],
-      configIcon:[
-        'no-symbol',
-        'check-circle',
-        'bookmark',
-        'arrow-left-on-rectangle',
-        'information-circle'
-      ]
-    }
+  dataIndex: {
+    type: Number,
+    required: true,
   },
-  
-  methods: {
-    handleLogout(){
-      const dialog = DialogHandle({
-        title: "操作确认",
-        content: "<div>是否确定退出登录？</div>",
-        onConfirm: () => {
-            return new Promise(async (resolve) => {
-                
-                router.push('/login')
-                // 这块写 / 是因为在模块里面设置了命名空间
-                store.commit('user/clearToken')
-                ElMessage({
-                  message: "退出成功",
-                  type: 'success',
-                  showClose: false,
-                })
-                resolve();
-                /* dialog.showLoading();
-                setTimeout(() => {
-                    dialog.hideLoading();
-                    resolve();
-                }, 1500); */
-            });
-        },
-    });
+});
+
+// Emits
+const emit = defineEmits(['update:dataIndex', 'manageLinks']);
+const handleLogin = () => {
+   DialogHandle({
+    title: "操作确认",
+    content: "<div>是否去登录？</div>",
+    onConfirm: () => {
+      return new Promise(async (resolve) => {
+        router.push('/login');
+        store.commit('user/clearToken');
+        resolve();
+      });
     },
-    openInfo() {
-        this.$alert('Github地址：https://github.com/yecss/bookmarks', '关于', {
-          confirmButtonText: '确定',lockScroll:false //防止抖动
+  });
+};
+const handleLogout = () => {
+  const dialog = DialogHandle({
+    title: "操作确认",
+    content: "<div>是否确定退出登录？</div>",
+    onConfirm: () => {
+      return new Promise(async (resolve) => {
+        router.push('/login');
+        store.commit('user/clearToken');
+        ElMessage({
+          message: "退出成功",
+          type: 'success',
+          showClose: false,
         });
-      },
-    changeDataIndex(index) {
-      this.activeIndex = index
-      // 快速修改
-      
-      this.$emit('update:dataIndex', index);
+        resolve();
+      });
     },
-    handleManage(){
-      this.$emit('manageLinks')
-    },
-    handleToJson(){
-      this.$router.push('/tojson');
-    }
-  },
-  props: {
-    firstCategroy: {
-      type: Array,
-      default: '---',
-    },
-    dataIndex: {
-      type: Number,
-      required: true
-    }
-  },
-}
+  });
+};
+
+const openInfo = () => {
+  ElAlert('Github地址：https://github.com/yecss/yunshenNav', '关于', {
+    confirmButtonText: '确定',
+    lockScroll: false, // 防止抖动
+  });
+};
+
+const changeDataIndex = (index) => {
+  activeIndex.value = index;
+  emit('update:dataIndex', index);
+};
+
+const handleManage = () => {
+  emit('manageLinks');
+};
+
+const handleToJson = () => {
+  router.push('/tojson');
+};
 </script>
 
 <style lang="scss" scoped>

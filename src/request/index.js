@@ -11,8 +11,10 @@ instance.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = token;
   } else {
-    router.push('/login');
-    //return Promise.reject(new Error('未授权的访问'));
+    // 跳转到登录界面
+    // 取消访问必须登录 - 2024年8月7日22:23:00
+    // router.push('/login');
+    // return Promise.reject(new Error('未授权的访问'));
   }
 
   return config;

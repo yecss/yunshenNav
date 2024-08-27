@@ -31,7 +31,6 @@ html,
 body {
   height: 100%;
   overflow: hidden;
-  
 }
 body{
     background-image: url(./assets/bg2.jpg);
