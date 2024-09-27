@@ -2,7 +2,7 @@
   <aside
     class="flex flex-col w-56 h-auto px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 aside"
   >
-    <div class="flex center">
+    <div class="flex center" style="margin-left: 10px;">
       <a href="#">
         <img
           class="w-auto h-8"
@@ -29,7 +29,7 @@
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
           >
             <Icon
-              :icon="'heroicons:' + normalIcon[index]"
+              :icon="iconList[index]"
               style="font-size: 22px"
             />
             <span class="mx-2 text-base md:text-sm font-medium">{{ i }}</span>
@@ -66,7 +66,7 @@
               style="font-size: 22px"
             />
 
-            <span  class="mx-2 text-base font-medium md:text-sm">项目介绍</span>
+            <span  class="mx-2 text-base font-medium md:text-sm">网站介绍</span>
           </a>
           
           <a
@@ -74,27 +74,13 @@
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
           >
             <Icon
-              :icon="'heroicons:' + 'heart'"
+              :icon="'heroicons:'+'user'"
               style="font-size: 22px"
             />
 
             <span v-if="isLogin" class="mx-2 text-base font-medium md:text-sm">退出登录</span>
             <span v-else class="mx-2 text-base font-medium md:text-sm">登录账号</span>
           </a>
-          
-
-          <!-- <a
-            @click="handleLogout"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-            
-          >
-            <Icon
-              :icon="'heroicons:' + configIcon[3]"
-              style="font-size: 22px"
-            />
-
-            <span  class="mx-2 text-base font-medium md:text-sm">退出登录</span>
-          </a> -->
         </div>
       </nav>
     </div>
@@ -102,8 +88,8 @@
 </template>
 
 <script setup>
-import { ref,computed } from 'vue';
-import { ElMessage, ElAlert } from 'element-plus';
+import { ref,computed, onMounted } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Icon } from '@iconify/vue';
 import DialogHandle from "@/components/dialog.js";
 import { useRouter } from 'vue-router';
@@ -114,20 +100,6 @@ const store = useStore();
 
 const activeIndex = ref(0);
 const isLogin = computed(()=>store.getters['user/isLogin'])
-
-const normalIcon = [
-  'home',
-  'academic-cap',
-  'users',
-  'code-bracket-square',
-  'beaker',
-  'document-text',
-  'wrench',
-  'sparkles',
-  'heart',
-  'rocket-launch',
-  'gift',
-];
 
 const configIcon = [
   'no-symbol',
@@ -147,8 +119,18 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  // 图标从数据库中读取 - 2024年9月27日22:48:39
+  iconList:{
+    type: Array,
+    default: '[]',
+  }
 });
-
+onMounted(()=>{
+  console.log("onMounted");
+  console.log(props.iconList);
+  
+  
+})
 // Emits
 const emit = defineEmits(['update:dataIndex', 'manageLinks']);
 const handleLogin = () => {
@@ -184,10 +166,10 @@ const handleLogout = () => {
 };
 
 const openInfo = () => {
-  ElAlert('Github地址：https://github.com/yecss/yunshenNav', '关于', {
+  ElMessageBox.alert('Github地址：https://github.com/yecss/yunshenNav ||||||||||||||||||||||||||||||||||||||||||||| 2024年9月27日23:09:17==>更新：1.全量数据展示、2.侧边栏排序、3.自定义侧边栏图标的功能', '关于', {
     confirmButtonText: '确定',
     lockScroll: false, // 防止抖动
-  });
+  })
 };
 
 const changeDataIndex = (index) => {

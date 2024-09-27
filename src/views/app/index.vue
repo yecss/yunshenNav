@@ -2,6 +2,7 @@
   <div id="container">
     <TheAside
       id="the-aside"
+      :iconList="urlList.iconList"
       :firstCategroy="urlList.firstCategroy"
       v-model:dataIndex="dataIndex"
       @manageLinks="manageLinks"
@@ -29,6 +30,7 @@ import TheAside from './TheAside.vue'
 const urlList = reactive({
   firstCategroy: [],
   secondLink: [],
+  iconList:[]
 })
 
 const isLogin = computed(()=>store.getters['user/isLogin'])
@@ -76,20 +78,20 @@ onMounted(() => {
   if (isLogin.value) {
     getData()
       .then((res) => {
-        // 解析数据
         let data = res.data
+        // 对数据按照order字段进行升序排序
+        sourceData.value = data.sort((a, b) => a.order - b.order);
         
-        sourceData.value = data
+        
         sourceData.value.forEach((element) => {
           // 侧边栏层级标题数据
           urlList.firstCategroy.push(element.name)
+          urlList.iconList.push(element.icon)
         })
         // 数据反序列化
         sourceData.value.forEach((val) => {
           val.children = JSON.parse(val.children)
         })
-        // 排序
-        // orderArr.sort((a,b)=>a.index_num-b.index_num)
 
         urlList.secondLink = eval(sourceData.value[0])
       })
@@ -97,18 +99,18 @@ onMounted(() => {
   else{
     getGuestData()
     .then((res) => {
-      const data = res.data
-      sourceData.value = data
+      let data = res.data
+      // 对数据按照order字段进行升序排序
+      sourceData.value = data.sort((a, b) => a.order - b.order);
       sourceData.value.forEach((element) => {
         // 侧边栏层级标题数据
         urlList.firstCategroy.push(element.name)
+        urlList.iconList.push(element.icon)
       })
       // 数据反序列化
       sourceData.value.forEach((val) => {
         val.children = JSON.parse(val.children)
       })
-      // 排序
-      // orderArr.sort((a,b)=>a.index_num-b.index_num)
 
       urlList.secondLink = eval(sourceData.value[0])
     })

@@ -96,7 +96,7 @@ export default {
         'zhihu.svg',
         'github.svg',
       ],
-      INDEX: 1,//默认搜索引擎
+      INDEX: 2,//默认搜索引擎
       hiddenBlock: true
     };
   },

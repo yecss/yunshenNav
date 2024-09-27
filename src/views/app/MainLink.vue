@@ -39,7 +39,7 @@
         >
           <a>{{ i }}</a>
         </li>
-        <li @click="logout" class="text-sm mt-3 bg-red-200 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
+        <li v-if="isLogin" @click="logout" class="text-sm mt-3 bg-red-200 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
       </ul>
       <Search ref="searchInp"></Search>
       <h1 class="text-gray-500 text-2xl font-bold top-title">云深书签</h1>
@@ -331,6 +331,8 @@ import CommonDialog from '@/layout/components/CommonDialog.vue'
 import Search from './Search.vue'
 import router from "@/router/index"
 import store from "@/store/index";
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
   name: 'MainLink',
   props: ['initLink', 'firstCategroy', 'dataIndex', 'sourceData'],
@@ -338,7 +340,15 @@ export default {
     CommonDialog,
     Search,
   },
-  
+  setup() {
+    const store = useStore();
+
+    const isLogin = computed(() => store.getters['user/isLogin']);
+
+    return {
+      isLogin,
+    };
+  },
   data() {
     return {
       showPopIf: false, //移动端菜单弹窗状态
