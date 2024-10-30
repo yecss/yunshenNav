@@ -236,6 +236,21 @@
           链接:
           <el-input size="mini" type="text" v-model="dialogNewLink.url" />
         </p>
+        <p>
+          序号:
+          <el-tag
+            effect="plain"
+          >
+            {{ dialogNewLink.order }}
+          </el-tag>
+        </p>
+        <p>
+          排序:
+          <el-button-group>
+            <el-button plain @click="decrease">前进</el-button>
+            <el-button plain @click="increase">后退</el-button>
+          </el-button-group>
+        </p>
       </div>
       <template #footer>
         <span class="dialog-footer">
@@ -333,6 +348,7 @@ import router from "@/router/index"
 import store from "@/store/index";
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+
 export default {
   name: 'MainLink',
   props: ['initLink', 'firstCategroy', 'dataIndex', 'sourceData'],
@@ -342,9 +358,7 @@ export default {
   },
   setup() {
     const store = useStore();
-
     const isLogin = computed(() => store.getters['user/isLogin']);
-
     return {
       isLogin,
     };
@@ -366,6 +380,7 @@ export default {
       dialogNewLink: {
         title: '',
         url: 'http://',
+        order:0
       },
       newArr: [{ name: '技术栈', children: [], web: [] }],
       selectIndex: 0,
@@ -498,7 +513,6 @@ export default {
       this.updateLink()
     },
     dialogUpdate() {
-      
       this.initLink2.children[this.dialogSelectIndex.first].web[
         this.dialogSelectIndex.second
       ] = this.dialogNewLink
@@ -562,7 +576,7 @@ export default {
       this.newsecondCategroy.name = ''
       /* 更新所有数据 */
       this.updateLink()
-    },
+    }
   },
   watch: {
     initLink(newVal) {
@@ -577,7 +591,11 @@ export default {
   computed: {
     FirstTitle(){
       return "当前所处的一级分类："+this.initLink2.name
-    }
+    },
+    //a标签排序list
+    // sortedLinks() {
+    //   return this.initLink.children[this.dialogSelectIndex.first].web.slice().sort((a, b) => a.order - b.order);
+    // }
   }
 }
 </script>

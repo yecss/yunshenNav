@@ -74,7 +74,7 @@ watch(dataIndex, (newvalue, oldValue) => {
 })
 
 // 在组件挂载时执行
-onMounted(() => {
+/* onMounted(() => {
   if (isLogin.value) {
     getData()
       .then((res) => {
@@ -116,5 +116,33 @@ onMounted(() => {
     })
   }
   
-})
+}) */
+onMounted(() => {
+  const loadData = async () => {
+    try {
+      const response = await fetch('https://nav.yecss.com/data.json');
+      const data = await response.json();
+      
+      // 对数据按照order字段进行升序排序
+      sourceData.value = data.data.sort((a, b) => a.order - b.order);
+
+      sourceData.value.forEach((element) => {
+        // 侧边栏层级标题数据
+        urlList.firstCategroy.push(element.name);
+        urlList.iconList.push(element.icon);
+      });
+
+      // 数据反序列化
+      sourceData.value.forEach((val) => {
+        val.children = JSON.parse(val.children);
+      });
+
+      urlList.secondLink = eval(sourceData.value[0]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  loadData();
+});
 </script>
