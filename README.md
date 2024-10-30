@@ -33,7 +33,9 @@ github：https://github.com/yecss/yunshenNav
 
 ## 4、如何使用
 
-首先访问：https://nav.yecss.com，然后在左侧选择“AI工具”这一一级分类。以“推荐LLM”二级分类为例，里面汇集了众多实用且免费的AI工具，点击即可快速访问。
+首先访问：https://nav.yecss.com
+
+然后在左侧选择“AI工具”这一一级分类。以“推荐LLM”二级分类为例，里面汇集了众多实用且免费的AI工具，点击即可快速访问。
 
 ![](https://cdn.jsdelivr.net/gh/yecss/imageStore//picgo/image.png)
 
