@@ -66,7 +66,7 @@ export default function request(options) {
         return Promise.reject(res);
       } else {
         ElMessage({
-          message: res.msg || '操作失败',
+          message: res.message || '操作失败',
           type: 'error',
           showClose: true,
         });

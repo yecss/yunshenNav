@@ -41,17 +41,26 @@
           注册
         </el-button>
       </el-col>
-      <el-col class="btn-wrapper" :span="8">
+      <el-col class="btn-wrapper" :span="12">
+        <el-button
+          @click="goHome"
+          type="success"
+          plain
+        >
+          返回主页
+        </el-button>
+      </el-col>
+      <el-col class="btn-wrapper" :span="12">
         <el-button
           @click="doLogin"
           type="primary"
           plain
           :loading="loginLoading"
         >
-          登录
+          管理员登录
         </el-button>
       </el-col>
-      <el-col class="btn-wrapper" :span="8">
+      <!-- <el-col class="btn-wrapper" :span="8">
         <el-button
           @click="defaultLogin"
           type="info"
@@ -60,7 +69,7 @@
         >
           游客
         </el-button>
-      </el-col>
+      </el-col> -->
     </el-row>
   </div>
 </template>
@@ -107,6 +116,9 @@ const validateForm = () => {
     return false
   }
   return true
+}
+const goHome = () => {
+  router.push('/')
 }
 const doLogin = () => {
   if (validateForm()) {

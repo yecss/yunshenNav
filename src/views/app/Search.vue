@@ -189,7 +189,7 @@ form {
   opacity: 1;
 }
 .input-search {
-  width: 342px;
+  width: 344px;
   line-height: 48px;
   font-size: 14px;
   text-indent: 4px;
@@ -207,6 +207,7 @@ form {
   width: 60px;
   border: 0;
   background-color: var(--light-color);
+  /* background-color:#ececec; */
   border-radius: 0px 6px 6px 0px;
   transition: background-color .1s;
 }

@@ -37,13 +37,13 @@
             'text-blue-600': dataIndex !== index,
           }"
         >
-          <a>{{ i }}</a>
+          <a>{{ i.name }}</a>
         </li>
         <li v-if="isLogin" @click="logout" class="text-sm mt-3 bg-red-200 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
       </ul>
       <Search ref="searchInp"></Search>
       <h1 class="text-gray-500 text-2xl font-bold top-title">云深书签</h1>
-      <button class="btn btn-ghost btn-circle" id="top-nav-btn">
+      <button class="btn btn-ghost btn-circle" id="top-nav-btn" @click="tempClick">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5"
@@ -62,24 +62,30 @@
     </div>
     <!-- <h1 class="text-gray-500 text-2xl font-bold">云深书签</h1> -->
 
+    <!-- 展示区 -->
     <div class="box">
       <!-- {{initLink2}} -->
       <div
         class="second-wrapper"
-        v-for="(item, index) in initLink2.children"
+        v-for="(categoryItem, index) in initLink2"
         :key="index"
       >
-        <h2 class="second-title text-blue-700 text-base">{{ item.name }}</h2>
+        <h2 class="second-title text-blue-700 text-base">{{ categoryItem.category.name }}</h2>
         <div class="second-box">
           <a
-            class=""
-            v-for="(item, index2) in initLink.children[index].web"
+            class="link-item"
+            :class="{'link-item-blocked': linkItem.is_blocked === 1,
+              'link-item-recommend': linkItem.is_recommend === 1
+            }"
+            
+            v-for="(linkItem, index2) in categoryItem.links"
             :key="index2"
-            :href="item.url"
+            :href="linkItem.url"
             target="_blank"
-            @contextmenu.prevent.stop="handlerRight(index, index2)"
+            @contextmenu.prevent.stop="handlerRight(linkItem.id)"
           >
-            {{ item.title }}
+          <!-- <el-badge is-dot class="badget-item"></el-badge> -->
+          {{ linkItem.name }}
           </a>
         </div>
       </div>
@@ -98,7 +104,7 @@
             <div style="margin-top: 15px">
               <el-input
                 placeholder="请输入链接的标题"
-                v-model="newLink.title"
+                v-model="newLink.name"
                 class="input-with-select"
               >
               <template #prepend>
@@ -109,10 +115,10 @@
                   size="default"
                 >
                   <el-option
-                    v-for="(item, index) in initLink2.children"
+                    v-for="(item, index) in initLink2"
                     :key="index"
                     :value="index"
-                    :label="item.name"
+                    :label="item.category.name"
                   ></el-option>
                 </el-select>
               </template>
@@ -135,21 +141,21 @@
           <h2>二级分类管理</h2>
           <div class="edit">
             <div style="margin-top: 15px;">
-              <el-input v-model="FirstTitle" disabled placeholder="Please input" />
+              <el-input v-model="this.firstCategroy[this.dataIndex].name" disabled placeholder="Please input" />
             </div>
 
             <div style="margin-top: 15px; text-align: left">
               <!-- 选择框 -->
               <el-select
-                v-model="secondTitleSelectIndex"
+                v-model="secondTitleSelectId"
                 placeholder="请选择"
                 size="default"
               >
                 <el-option
-                  v-for="(item, index) in initLink2.children"
-                  :key="index"
-                  :value="index"
-                  :label="item.name"
+                  v-for="item in this.initLink2"
+                  :key="item.category.id"
+                  :value="item.category.id"
+                  :label="item.category.name"
                 ></el-option>
               </el-select>
             
@@ -164,7 +170,7 @@
             <div style="margin-top: 15px">
               <el-input
                 placeholder="请输入要添加的二级分类名称"
-                v-model="newsecondCategroy.name"
+                v-model="newsecondCategroy.category.name"
               >
               <template #append>
                 <el-button @click="addSecondCategroy">
@@ -192,7 +198,7 @@
                   v-for="(item, index) in firstCategroy"
                   :key="index"
                   :value="index"
-                  :label="item"
+                  :label="item.name"
                 ></el-option>
               </el-select>
               <el-button
@@ -206,7 +212,7 @@
             <div style="margin-top: 15px">
               <el-input
                 placeholder="请输入要添加的一级分类名称"
-                v-model="newfirstCategroy"
+                v-model="newfirstCategroy.name"
               >
               <template #append>
                 <el-button @click="addFirstCategroy">
@@ -230,11 +236,11 @@
       <div class="pop-box link-change">
         <p>
           名称:
-          <el-input size="mini" type="text" v-model="dialogNewLink.title" />
+          <el-input size="small" type="text" v-model="dialogNewLink.title" />
         </p>
         <p>
           链接:
-          <el-input size="mini" type="text" v-model="dialogNewLink.url" />
+          <el-input size="small" type="text" v-model="dialogNewLink.url" />
         </p>
         <p>
           序号:
@@ -243,6 +249,29 @@
           >
             {{ dialogNewLink.order }}
           </el-tag>
+        </p>
+        <p>
+          是否被推荐：
+          <el-switch
+            v-model="dialogNewLink.isRecommend"
+            active-color="#13ce66"
+            inactive-color="#dddddd"
+            :active-value="1"
+            :inactive-value="0"
+            >
+          </el-switch>
+          
+        </p>
+        <p>
+          是否被屏蔽：
+          <el-switch
+            v-model="dialogNewLink.isBlocked"
+            active-color="#13ce66"
+            inactive-color="#dddddd"
+            :active-value="1"
+            :inactive-value="0"
+            >
+          </el-switch>
         </p>
         <p>
           排序:
@@ -286,7 +315,7 @@
     >
       <el-row>
         <el-col>
-          <el-input v-model="cpt_first" />
+          <el-input v-model="newFirstTitle" />
         </el-col>
       </el-row>
       <el-row class="mt-4">
@@ -309,13 +338,14 @@
       </el-row>
     </CommonDialog>
 
+    <!-- 二级标题 -->
     <CommonDialog
       v-model:dialogVisible="dialogVisTitle"
       @confirm="dialogVisTitle = false"
     >
       <el-row>
         <el-col>
-          <el-input v-model="cpt" />
+          <el-input v-model="this.newSecondTitle" />
         </el-col>
       </el-row>
       <el-row class="mt-4">
@@ -341,14 +371,14 @@
 </template>
 
 <script>
-import {updateLinkData} from "@/api/data/index"
+import {updateLink,addLink,updateCategroy,deleteCategroy,addCategory,deleteLink,updateLinkOrder} from "@/api/data/index"
 import CommonDialog from '@/layout/components/CommonDialog.vue'
 import Search from './Search.vue'
 import router from "@/router/index"
 import store from "@/store/index";
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-
+import { ElMessage } from 'element-plus';
 export default {
   name: 'MainLink',
   props: ['initLink', 'firstCategroy', 'dataIndex', 'sourceData'],
@@ -368,23 +398,45 @@ export default {
       showPopIf: false, //移动端菜单弹窗状态
       initLink2: this.initLink,
       newLink: {
-        title: '',
-        url: 'http://',
-      },
-      newfirstCategroy: '', //新的一级分类
-      newsecondCategroy: {
-        children: [],
         name: '',
-        web: [],
-      }, //新的二级分类
-      dialogNewLink: {
+        url: 'http://',
+        sort_order: 0,
+        id:0,
+      },
+      newFirstTitle:'', //新的一级标题名称
+      newfirstCategroy: { //新的一级分类
+        name: '',
+        level: 1,
+        icon:'heroicons:inbox',
+        sort_order:0,
+        id:0
+      },
+      newSecondTitle:'',//新的二级标题名称
+      newsecondCategroy: { //新增二级分类
+        category:{
+          parentId: 0,
+          name: '',
+          level: 2,
+          sort_order:0,
+          id:0
+        },
+        links: [],
+      }, 
+
+      dialogNewLink: {//右键弹窗中的链接数据
+        id: 0,
         title: '',
         url: 'http://',
-        order:0
+        order:0,
+        isBlocked: 0,
+        isRecommend: 0,
       },
       newArr: [{ name: '技术栈', children: [], web: [] }],
       selectIndex: 0,
-      secondTitleSelectIndex: 0, //二级标题选择索引
+
+      // 右侧管理区
+      secondTitleSelectId: null, //选中的二级分类的ID
+      firstCategroySelectId: null, //选中的一级分类的ID
       firstTitleSelectIndex: 0, //一级标题选择索引
       /* 右侧抽屉状态 */
       drawer: false,
@@ -395,18 +447,26 @@ export default {
       /* 第一层级标题修改弹窗状态 */
       dialogFirstTitle: false,
       /* dialog数据索引 */
-      dialogSelectIndex: {
-        first: 0,
-        second: 0,
-      },
+      dialogSelectLinkId:0,
       /* 删除弹出框的状态 */
       visible: false,
-      input1: '',
-      cpt: '',
-      cpt_first: '', //编辑框里面的第一级标题
+      input1: ''
     }
   },
   methods: {
+    //临时弹窗
+    tempClick() {
+      ElMessage({
+        message: '功能开发中',
+        type: 'warning',
+        // 可关闭
+        showClose: true,
+        // 小尺寸
+        size: 'mini',
+        // 持续时间
+        duration: 500,
+      })
+    },
     // 移动端退出登录
     logout(){
       router.push('/login')
@@ -415,11 +475,39 @@ export default {
     },
     /* 新增一级分类 */
     addFirstCategroy() {
+      // console.log(this.firstCategroy);
+      this.newfirstCategroy.sort_order = this.firstCategroy.length + 1
       this.$emit('addFisrtTitle',this.newfirstCategroy)
-      this.firstCategroy.push(this.newfirstCategroy)
-      this.newfirstCategroy = ''
+      // this.newfirstCategroy.name = '';
+      },
+    /* 新增二级分类 */
+    addSecondCategroy() {
+      //当前选中的一级分类ID
+      this.firstCategroySelectId = this.firstCategroy[this.dataIndex].id
+      this.newsecondCategroy.category.parentId = this.firstCategroySelectId
+      this.newsecondCategroy.category.sort_order = this.initLink2.length + 1
+      
+      addCategory({
+        categoryName:this.newsecondCategroy.category.name,
+        level: this.newsecondCategroy.category.level,
+        parentId: this.newsecondCategroy.category.parentId,
+        sort_order: this.newsecondCategroy.category.sort_order
+      }).then((res) => {
+        const data = res
+        // 设置新增的二级分类ID
+        this.newsecondCategroy.category.id = data.categoryId;
+
+        // 将新增的分类添加到 initLink2 中
+        // this.initLink2.push(this.newsecondCategroy);
+        this.initLink2.push(JSON.parse(JSON.stringify(this.newsecondCategroy)));
+
+        // 清空输入框中的内容
+        this.newsecondCategroy.category.name = '';
+      }).catch((err) => {
+        console.error('新增二级分类失败', err);
+      });
     },
-    /* 删除一二级分类 */
+    /* 删除一二级分类 ok */
     deleteCategroy(isFrist) {
       if (isFrist) {
         if (confirm('是否确定删除')) {
@@ -430,36 +518,56 @@ export default {
           })
           this.firstCategroy.splice(this.firstTitleSelectIndex, 1)
           this.dialogFirstTitle = false
-          /* 防止从后面删除，索引会超过数组中的最后一个元素 */
-          if (this.firstTitleSelectIndex > this.firstCategroy.length - 1) {
-            this.firstTitleSelectIndex = this.firstTitleSelectIndex - 1
+          // 防止索引超过数组的最后一个元素
+          if (this.firstTitleSelectIndex >= this.firstCategroy.length) {
+            this.firstTitleSelectIndex = this.firstCategroy.length - 1;
           }
+
+          // 同步 dataIndex，确保它不会超出范围
+          if (this.dataIndex >= this.firstCategroy.length) {
+            this.dataIndex = this.firstCategroy.length - 1;
+          }
+
         }
       } else {
-        if (confirm('是否确定删除')) {
-          this.initLink2.children.splice(this.secondTitleSelectIndex, 1)
-          this.dialogVisTitle = false
-          /* 防止从后面删除，索引会超过数组中的最后一个元素 */
-          if (
-            this.secondTitleSelectIndex >
-            this.initLink2.children.length - 1
-          ) {
-            this.secondTitleSelectIndex = this.secondTitleSelectIndex - 1
-          }
-          /* 上传数据 */
-          this.updateLink()
-        }
+  if (confirm('是否确定删除')) {
+    const index = this.initLink2.findIndex(item => item.category.id == this.secondTitleSelectId);
+
+    // 调用异步删除函数
+    deleteCategroy({
+      categoryId: this.secondTitleSelectId,
+      level: 2
+    }).then(() => {
+      // 在删除成功后处理删除逻辑
+      if (index !== -1) {
+        // 删除该二级分类
+        this.initLink2.splice(index, 1);
+
+        // 关闭对话框
+        this.dialogVisTitle = false;
+
+        // 清空选择框
+        this.secondTitleSelectId = null;
       }
+    }).catch(error => {
+      console.error('删除失败', error);
+      // 处理删除失败的逻辑
+      alert('删除失败，请稍后再试');
+    });
+  }
+}
+
     },
-    /* 更新一二级分类 */
+    /* 更新一二级分类 ok */
     updateCategroy(isFrist) {
       if (isFrist) {
         /* 先判断是否发生了变化 */
-        let newName = this.cpt_first
+        let newName = this.newFirstTitle
         let oldName = this.firstCategroy[this.firstTitleSelectIndex]
         if (oldName != newName) {
           // this.firstCategroy[this.firstTitleSelectIndex] = newName //此处不能直接修改否则会丢失响应式，需要使用splice
-          this.firstCategroy.splice(this.firstTitleSelectIndex, 1, newName)
+          // this.firstCategroy.splice(this.firstTitleSelectIndex, 1, newName)
+          this.firstCategroy[this.firstTitleSelectIndex].name = newName
           this.$emit('changeFirstTitle', {
             selectIndex: this.firstTitleSelectIndex,
             del: false,
@@ -470,17 +578,28 @@ export default {
         // 隐藏弹窗
         this.dialogFirstTitle = false
         
-      } else {
+      } 
+      else {
         /* 先判断是否发生了变化 */
-        let newName = this.cpt
-        let oldName = this.initLink2.children[this.secondTitleSelectIndex].name
+        let newName = this.newSecondTitle
+        const category = this.initLink2.find(item => item.category.id == this.secondTitleSelectId);
+        let oldName = category.name
         if (oldName != newName) {
-          this.initLink2.children[this.secondTitleSelectIndex].name = newName
+          // 确保更新后的数据反映在 initLink2 中
+          const index = this.initLink2.findIndex(item => item.category.id == this.secondTitleSelectId);
+          if (index !== -1) {
+            // 更新 initLink2 中的内容
+            this.initLink2[index].category.name = newName
+          }
         }
         // 隐藏弹窗
         this.dialogVisTitle = false
         /* 上传数据 */
-        this.updateLink()
+        updateCategroy({
+          categoryId: this.secondTitleSelectId,
+          newName: newName,
+          level: 2
+        })
       }
     },
     // 显示修改层级标题的弹出
@@ -488,11 +607,14 @@ export default {
       
       if (isFrist) {
         this.dialogFirstTitle = true
+
+        // console.log(this.firstCategroy[this.firstTitleSelectIndex].name);
+        this.newFirstTitle = this.firstCategroy[this.firstTitleSelectIndex].name
         
-        this.cpt_first = this.firstCategroy[this.firstTitleSelectIndex]
+        
       } else {
         this.dialogVisTitle = true
-        this.cpt = this.initLink2.children[this.secondTitleSelectIndex].name
+        // this.newSecondTitle = this.initLink2.children[this.secondTitleSelectId].name
       }
     },
     /* 修改数据索引 */
@@ -505,45 +627,81 @@ export default {
       this.visible = false
       this.dialogVisible = false
       /* 删除选择的这条数据 */
-      this.initLink2.children[this.dialogSelectIndex.first].web.splice(
-        this.dialogSelectIndex.second,
-        1
-      )
-      /* 更新所有数据 */
-      this.updateLink()
-    },
-    dialogUpdate() {
-      this.initLink2.children[this.dialogSelectIndex.first].web[
-        this.dialogSelectIndex.second
-      ] = this.dialogNewLink
-      /* 更新所有数据 */
-      this.updateLink()
-      this.dialogVisible = false
-    },
-    /* 右键链接处理 */
-    handlerRight(index, index2) {
-      /* 第一级数组索引 */
-      this.dialogSelectIndex.first = index
-      /* 第二级数组索引 */
-      this.dialogSelectIndex.second = index2
-      this.dialogVisible = true
-      // console.log(index,index2)
-      this.dialogNewLink = JSON.parse(
-        JSON.stringify(this.initLink2.children[index].web[index2])
-      )
-      // console.log(this.initLink2.children[index].web[index2])
-    },
-    /* 上传数据到数据库 */
-    updateLink() {
-      updateLinkData({
-        data:this.initLink2.children,
-        id:this.initLink2.id
-      }).catch((err)=>{
-        console.log(err);
-      })
+      // console.log(this.initLink2);
+      // console.log(this.dialogSelectLinkId);
+      
+      //找到对应的链接并删除
+      const selectedLinkIndex = this.initLink2
+        .map(item => item.links.findIndex(link => link.id === this.dialogSelectLinkId))
+        .findIndex(index => index !== -1);
+      if (selectedLinkIndex !== -1) {
+        // 找到对应的链接并删除
+        this.initLink2[selectedLinkIndex].links = this.initLink2[selectedLinkIndex].links.filter(
+          link => link.id !== this.dialogSelectLinkId
+        );
+        // console.log('链接已删除', this.dialogSelectLinkId);
+        // 调用后端接口进行删除
+        deleteLink({id:this.dialogSelectLinkId});
+      } else {
+        console.error('找不到匹配的链接进行删除');
+      }
       
     },
-    /* 新增链接 */
+    dialogUpdate() {
+      const selectedLinkIndex = this.initLink2
+        .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
+        .findIndex(index => index !== -1);
+
+    if (selectedLinkIndex !== -1) {
+      // 找到对应的链接并更新
+      const linkToUpdate = this.initLink2[selectedLinkIndex].links.find(
+        link => link.id === this.dialogNewLink.id
+      );
+      
+      if (linkToUpdate) {
+        linkToUpdate.name = this.dialogNewLink.title;
+        linkToUpdate.url = this.dialogNewLink.url;
+        linkToUpdate.sort_order = this.dialogNewLink.order;
+        linkToUpdate.is_blocked = this.dialogNewLink.isBlocked;
+        linkToUpdate.is_recommend = this.dialogNewLink.isRecommend;
+
+        // 关闭弹窗
+        this.dialogVisible = false;
+        // console.log("链接已更新:", this.dialogNewLink);
+        // 调用后端接口进行更新
+        updateLink(this.dialogNewLink);
+      }
+    } else {
+      console.error("找不到匹配的链接进行更新");
+    }
+    },
+    /* 右键链接处理 ok */
+    handlerRight(link_id) {
+      
+      /* 链接的ID */
+      this.dialogSelectLinkId = link_id
+      
+      this.dialogVisible = true
+      // console.log(this.initLink2);
+      /* 查找与 dialogSelectLinkId 匹配的链接 */
+      const selectedLink = this.initLink2.map(item => {
+      return item.links.find(link => link.id === link_id)
+    }).filter(link => link !== undefined)[0];
+      // console.log(selectedLink);
+      
+      if (selectedLink) {
+        // 将找到的链接数据赋值给 dialogNewLink
+        this.dialogNewLink = {
+          id: selectedLink.id,
+          title: selectedLink.name,
+          url: selectedLink.url,
+          order: selectedLink.sort_order,
+          isBlocked: selectedLink.is_blocked,
+          isRecommend: selectedLink.is_recommend,
+        };
+      }
+    },
+    /* 新增链接 ok */
     addLink() {
       /* JavaScript验证字符串是否是以http://或者https://，如果不是就在开头加上http:// */
       function addHTTPIfNeeded(url) {
@@ -554,49 +712,138 @@ export default {
       }
       this.newLink.url = addHTTPIfNeeded(this.newLink.url)
 
-      if (this.newLink.title == '') {
+      if (this.newLink.name == '') {
         alert('请输入标题')
         return
       }
+      //获取排序号码
+      this.newLink.sort_order = this.initLink2[this.selectIndex].links.length + 1
+      
+      // 定义数据
+      const newLinkData = {
+        name: this.newLink.name,
+        url: this.newLink.url,
+        is_blocked: this.newLink.is_blocked || false,
+        sort_order: this.newLink.sort_order,
+        icon: this.newLink.icon || '', // 如果有图标
+        category_level_2: this.initLink2[this.selectIndex].category.id, // 二级分类ID
+      };
+      
+      addLink(newLinkData).then(response => {
+      if (response.status == 200) {
+        // 后端成功响应，获取新链接的ID
+        this.newLink.id = response.linkId;
+        // 后端成功响应，更新本地数据
+        this.initLink2[this.selectIndex].links.push(
+          JSON.parse(JSON.stringify(this.newLink))
+        )
 
-      this.initLink2.children[this.selectIndex].web.push(
-        JSON.parse(JSON.stringify(this.newLink))
-      )
+        // 清空表单
+        this.newLink.url = ''
+        this.newLink.name = ''
+        this.newLink.sort_order = 0
 
-      this.newLink.url = ''
-      this.newLink.title = ''
-      /* 更新所有数据 */
-      this.updateLink()
+        // console.log('新增链接成功！', response.data);
+      }
+    })
+    .catch(error => {
+      console.error('添加链接失败', error);
+    });
     },
-    /* 新增二级分类 */
-    addSecondCategroy() {
-      this.initLink2.children.push(
-        JSON.parse(JSON.stringify(this.newsecondCategroy))
-      )
-      this.newsecondCategroy.name = ''
-      /* 更新所有数据 */
-      this.updateLink()
-    }
+    decrease() {
+      const selectedLinkIndex = this.initLink2
+        .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
+        .findIndex(index => index !== -1);
+
+      if (selectedLinkIndex !== -1) {
+        const linkToMove = this.initLink2[selectedLinkIndex].links.find(
+          link => link.id === this.dialogNewLink.id
+        );
+
+        if (linkToMove && linkToMove.sort_order > 1) {
+          const targetOrder = linkToMove.sort_order - 1;
+          const targetLink = this.initLink2[selectedLinkIndex].links.find(
+            link => link.sort_order === targetOrder
+          );
+
+          if (targetLink) {
+            targetLink.sort_order += 1;
+            linkToMove.sort_order -= 1;
+            this.dialogNewLink.order = linkToMove.sort_order;
+            this.initLink2[selectedLinkIndex].links.sort((a, b) => a.sort_order - b.sort_order);
+            updateLinkOrder({
+              linkId: targetLink.id,
+              newSortOrder: targetLink.sort_order
+            });
+            updateLinkOrder({
+              linkId: linkToMove.id,
+              newSortOrder: linkToMove.sort_order
+            });
+          }
+        }
+      }
+    },
+    increase() {
+      const selectedLinkIndex = this.initLink2
+        .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
+        .findIndex(index => index !== -1);
+
+      if (selectedLinkIndex !== -1) {
+        const linkToMove = this.initLink2[selectedLinkIndex].links.find(
+          link => link.id === this.dialogNewLink.id
+        );
+
+        if (linkToMove && linkToMove.sort_order < this.initLink2[selectedLinkIndex].links.length) {
+          const targetOrder = linkToMove.sort_order + 1;
+          const targetLink = this.initLink2[selectedLinkIndex].links.find(
+            link => link.sort_order === targetOrder
+          );
+
+          if (targetLink) {
+            targetLink.sort_order -= 1;
+            linkToMove.sort_order += 1;
+            this.dialogNewLink.order = linkToMove.sort_order;
+            this.initLink2[selectedLinkIndex].links.sort((a, b) => a.sort_order - b.sort_order);
+            console.log('targetLink',targetLink);
+            
+            updateLinkOrder({
+              linkId: targetLink.id,
+              newSortOrder: targetLink.sort_order
+            });
+            updateLinkOrder({
+              linkId: linkToMove.id,
+              newSortOrder: linkToMove.sort_order
+            });
+          }
+        }
+      }
+    },
   },
   watch: {
     initLink(newVal) {
       this.initLink2 = newVal
-      this.cpt = this.initLink2.children[this.secondTitleSelectIndex].name
+      if(newVal.length > 0){
+        //菜单二级分类ID
+        this.secondTitleSelectId = newVal[0].category.id;
+      }
+      
     },
+    // 监听 secondTitleSelectId 的变化
+    secondTitleSelectId(newId) {
+    // 根据 newId 查找对应的名称
+    const category = this.initLink2.find(item => item.category.id === newId);
+    
+    if (category) {
+      this.newSecondTitle = category.category.name;
+    } else {
+      this.newSecondTitle = ''; // 如果没找到，清空名称
+    }
+  },
   },
   mounted() {
     // 打开网站自动聚焦到搜索框
     this.$refs.searchInp.autoFocus()
   },
-  computed: {
-    FirstTitle(){
-      return "当前所处的一级分类："+this.initLink2.name
-    },
-    //a标签排序list
-    // sortedLinks() {
-    //   return this.initLink.children[this.dialogSelectIndex.first].web.slice().sort((a, b) => a.order - b.order);
-    // }
-  }
 }
 </script>
 
@@ -692,7 +939,9 @@ export default {
   flex-wrap: wrap;
   align-items: baseline;
 }
-.second-box a {
+.second-box .link-item {
+  position: relative;
+  z-index: 10;
   font-size: 16px;
   text-decoration: none;
   color: black;
@@ -708,7 +957,27 @@ export default {
   border-radius: 2px;
   margin-top: 16px;
 }
-.second-box a:hover {
+.second-box .link-item-blocked::after {
+  content: ''; /* 伪元素需要有内容，即使是空字符串 */
+  position: absolute; /* 绝对定位相对于 a 标签 */
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent; /* 透明边框 */
+  border-top: 9px solid #EF498B; /* 红色的底部边框，形成斜三角 */
+}
+.second-box .link-item-recommend::after {
+  content: ''; /* 伪元素需要有内容，即使是空字符串 */
+  position: absolute; /* 绝对定位相对于 a 标签 */
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent; /* 透明边框 */
+  border-top: 9px solid #087dc1; /* 红色的底部边框，形成斜三角 */
+}
+.second-box .link-item:hover {
   color: #fff;
   background-color: #515151;
 }
@@ -729,6 +998,7 @@ export default {
 }
 #pop-menu {
   position: absolute;
+  z-index: 20; //高于其他元素
   left: 0;
   top: 20px;
 }

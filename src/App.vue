@@ -1,7 +1,66 @@
 <template>
   <router-view></router-view>
+  <div v-if="showMessage" class="greeting fixed top-4 left-4 p-3 bg-green-600 text-white rounded-xl shadow-md z-50">
+    <p class="text-sm font-medium">{{ greetingMessage }}</p>
+  </div>
 </template>
 <script setup>
+import { ref, onMounted } from 'vue';
+
+const greetingMessage = ref('');
+const showMessage = ref(false);
+
+// 问候语函数
+// 使其每天某个时段打开网站只会首次进行提醒。例如，上午提醒了一次之后就不再提醒了，到中午才提醒。
+const getGreetingMessage = () => {
+  const currentHour = new Date().getHours();
+  const lastGreetedPeriod = localStorage.getItem('lastGreetedPeriod');
+  const todayDate = new Date().toLocaleDateString();
+
+  let currentPeriod;
+  if (currentHour >= 5 && currentHour < 11) {
+    currentPeriod = `${todayDate}-morning`;
+  } else if (currentHour >= 11 && currentHour < 13) {
+    currentPeriod = `${todayDate}-noon`;
+  } else if (currentHour >= 13 && currentHour < 18) {
+    currentPeriod = `${todayDate}-afternoon`;
+  } else if (currentHour >= 18 && currentHour < 22) {
+    currentPeriod = `${todayDate}-evening`;
+  } else {
+    currentPeriod = `${todayDate}-night`;
+  }
+
+  if (lastGreetedPeriod === currentPeriod) {
+    return '';
+  }
+
+  localStorage.setItem('lastGreetedPeriod', currentPeriod);
+
+  if (currentHour >= 5 && currentHour < 11) {
+    return "早上好！新的一天，满是希望！🌞";
+  } else if (currentHour >= 11 && currentHour < 13) {
+    return "中午好！小憩一下，继续前行！☕";
+  } else if (currentHour >= 13 && currentHour < 18) {
+    return "下午好，愿你一切顺利！🌿";
+  } else if (currentHour >= 18 && currentHour < 22) {
+    return "晚上好，放松心情，享受宁静时光！🌙";
+  } else {
+    return "深夜了，愿你安然入睡，梦中见到美好的明天！🌙💤";
+  }
+};
+
+onMounted(() => {
+  const message = getGreetingMessage();
+  if (message) {
+    greetingMessage.value = message;
+    showMessage.value = true;
+
+    // 自动隐藏提醒，3秒后消失
+    setTimeout(() => {
+      showMessage.value = false;
+    }, 3000); // 3秒后隐藏
+  }
+});
 </script>
 <style lang="scss">
 html,body{
@@ -18,6 +77,7 @@ html,body{
   align-items: center;
   justify-content: center;
 }
+
 .cursor{
   cursor: pointer;
 }
@@ -34,6 +94,8 @@ body {
 }
 body{
     background-image: url(./assets/bg2.jpg);
+    // background-size: auto;
+    // background-repeat: repeat;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
@@ -44,7 +106,8 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 1280px;
+  // width: 1280px; -- 让其更加协调，2025年1月16日20:36:16
+  width: 1120px;
   height: 100%;
   margin: 0 auto;
   padding-top: 60px;
@@ -59,7 +122,10 @@ body{
   border-radius: 6px;
 }
 
-
+.greeting{
+  display: none;
+  transition: opacity 0.5s ease;
+}
 /* 在宽度小于600px时应用的样式 */
 @media (max-width: 599px) {
   body{
@@ -78,7 +144,14 @@ body{
   }
 
   #top-nav-btn {
-    display: block !important;
+    // display: block !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ccc;
+    border-radius: 4px
   }
   .top-nav {
     justify-content: space-between !important;
@@ -97,6 +170,7 @@ body{
   }
 }
 
+
 /* 在宽度大于等于600px并且小于1400px时应用的样式 */
 @media (min-width: 600px) and (max-width: 1399px) {
   body{
@@ -107,7 +181,7 @@ body{
     width: 100%;
     padding: 0;
   }
-  .second-box a {
+  .second-box .link-item {
     font-size: 14px;
     padding: 6px;
   }
@@ -121,6 +195,9 @@ body{
   .top-title{
     display:none;
   }
+  .greeting{
+    display: block;
+  }
 }
 
 /* 在宽度大于等于1400px时应用的样式 */
@@ -130,6 +207,9 @@ body{
   }
   .top-title{
     display:none;
+  }
+  .greeting{
+    display: block;
   }
 }
 </style>

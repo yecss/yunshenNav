@@ -53,7 +53,13 @@ github：https://github.com/yecss/yunshenNav
 2. 无法异地访问浏览器书签的问题
 3. 不能快速对浏览器书签进行修改的问题
 
-## 7、更新日志
+
+## 7、联系开发者
+
+weixin：cy522115470
+email：yecssnetwork@gmail.com
+
+## 8、更新日志
 
 - 更新全新的V3版本 - 2023年11月3日15:49:16
 - 更新README.md - 2023年11月5日21:32:48

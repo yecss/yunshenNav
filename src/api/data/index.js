@@ -14,14 +14,28 @@ export const getData = ()=>{
   })
 }
 
-export const updateLinkData = (data)=>{
+export const updateLink = (data)=>{
   return request({
     url:'/data/updateLink',
     method:'post',
     data
   })
 }
+export const addLink = (data)=>{
+  return request({
+    url:'/data/addLink',
+    method:'post',
+    data
+  })
+}
 
+export const deleteLink = (data)=>{
+  return request({
+    url:'/data/deleteLink',
+    method:'post',
+    data
+  })
+}
 export const addCategory = (data)=>{
   return request({
     url:'/data/addCategory',
@@ -41,6 +55,14 @@ export const deleteCategroy = (data)=>{
 export const updateCategroy = (data)=>{
   return request({
     url:'/data/updateCategroy',
+    method:'post',
+    data
+  })
+}
+
+export const updateLinkOrder = (data)=>{
+  return request({
+    url:'/data/updateLinkOrder',
     method:'post',
     data
   })

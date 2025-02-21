@@ -32,7 +32,7 @@
               :icon="iconList[index]"
               style="font-size: 22px"
             />
-            <span class="mx-2 text-base md:text-sm font-medium">{{ i }}</span>
+            <span class="mx-2 text-base md:text-sm font-medium">{{ i.name }}</span>
           </a>
         </div>
 
@@ -42,7 +42,7 @@
           >
             其他
           </label>
-
+          
           <a
             @click="handleManage"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
@@ -68,7 +68,18 @@
 
             <span  class="mx-2 text-base font-medium md:text-sm">网站介绍</span>
           </a>
-          
+          <a
+            @click="feedback"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            
+          >
+            <Icon
+              :icon="'heroicons:chat-bubble-left-ellipsis'"
+              style="font-size: 22px"
+            />
+
+            <span  class="mx-2 text-base font-medium md:text-sm">产品建议</span>
+          </a>
           <a
             @click="isLogin ? handleLogout() : handleLogin()"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
@@ -113,7 +124,7 @@ const configIcon = [
 const props = defineProps({
   firstCategroy: {
     type: Array,
-    default: '---',
+    default: [],
   },
   dataIndex: {
     type: Number,
@@ -125,12 +136,6 @@ const props = defineProps({
     default: '[]',
   }
 });
-onMounted(()=>{
-  console.log("onMounted");
-  console.log(props.iconList);
-  
-  
-})
 // Emits
 const emit = defineEmits(['update:dataIndex', 'manageLinks']);
 const handleLogin = () => {
@@ -164,9 +169,22 @@ const handleLogout = () => {
     },
   });
 };
-
+// 使用反馈
+const feedback = () => {
+  /* DialogHandle({
+    title: "操作确认",
+    content: "<div>是否打开反馈页面？</div>",
+    onConfirm: () => {
+      return new Promise((resolve) => {
+        window.open('https://docs.qq.com/form/page/DTlpES3NlYUZMblNp', '_blank');
+        resolve();
+      });
+    },
+  }); */
+  window.open('https://docs.qq.com/form/page/DTlpES3NlYUZMblNp', '_blank');
+};
 const openInfo = () => {
-  ElMessageBox.alert('Github地址：https://github.com/yecss/yunshenNav ||||||||||||||||||||||||||||||||||||||||||||| 2024年9月27日23:09:17==>更新：1.全量数据展示、2.侧边栏排序、3.自定义侧边栏图标的功能', '关于', {
+  ElMessageBox.alert('Github地址：https://github.com/yecss/yunshenNav', '关于', {
     confirmButtonText: '确定',
     lockScroll: false, // 防止抖动
   })
