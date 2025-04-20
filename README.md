@@ -56,8 +56,7 @@ github：https://github.com/yecss/yunshenNav
 
 ## 7、联系开发者
 
-weixin：cy522115470
-email：yecssnetwork@gmail.com
+Email：yecssnetwork@gmail.com
 
 ## 8、更新日志
 

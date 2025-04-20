@@ -14,6 +14,11 @@ const routes = [
         component:()=> import("@/views/login/index.vue")
       },
       {
+        path:'messageboard',
+        name:'MessageBoard',
+        component:()=> import("@/views/MessageBoard/index.vue")
+      },
+      {
         path:'/app',
         name:"App",
         meta:{

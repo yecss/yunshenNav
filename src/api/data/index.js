@@ -67,3 +67,29 @@ export const updateLinkOrder = (data)=>{
     data
   })
 }
+
+// 获取留言
+export const fetchMessages = () => {
+  return request({
+    url: '/data/getMessages',
+    method: 'get',
+  });
+};
+
+// 添加留言
+export const addMessage = (data) => {
+  return request({
+    url: '/data/createMessage',
+    method: 'post',
+    data
+  });
+};
+
+// 删除留言
+export const deleteMessage = (data) => {
+  return request({
+    url: '/data/deleteMessage',
+    method: 'post',
+    data
+  });
+};

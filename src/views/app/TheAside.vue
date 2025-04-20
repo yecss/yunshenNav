@@ -2,20 +2,21 @@
   <aside
     class="flex flex-col w-56 h-auto px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 aside"
   >
-    <div class="flex center" style="margin-left: 10px;">
+    <div class="flex center">
       <a href="#">
         <img
-          class="w-auto h-8"
+          class="w-auto h-8 logo"
           src="../../assets/ttlogo.png"
           alt=""
         />
       </a>
-      <span class="text-gray-500 text-2xl font-bold">云深书签</span>
+      <span class="text-gray-500 text-2xl font-bold title">云深书签</span>
     </div>
 
     <div class="flex flex-col justify-between flex-1 mt-6 md:mt-0">
       <nav class="-mx-3 space-y-6">
-        <div class="space-y-3">
+        <div class="space-y-3 left-aside">
+          
           <label
             class="px-3 text-sm text-gray-500 uppercase"
           >
@@ -25,8 +26,8 @@
             v-for="(i, index) in firstCategroy"
             :key="index"
             @click="changeDataIndex(index)"
-            :class="{ 'bg-gray-100': activeIndex == index }"
-            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            :class="{ 'bg-gray-200': activeIndex == index }"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 hover:text-gray-700 cursor-pointer"
           >
             <Icon
               :icon="iconList[index]"
@@ -36,13 +37,23 @@
           </a>
         </div>
 
-        <div class="space-y-3">
+        <div class="space-y-3 left-aside">
           <label
             class="px-3 text-sm text-gray-500 uppercase"
           >
             其他
           </label>
-          
+          <a
+            @click="HandleMessageBoard"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+          >
+            <Icon
+              :icon="'heroicons:clipboard-document-list'"
+              style="font-size: 22px"
+            />
+
+            <span  class="mx-2 text-base font-medium md:text-sm">留言板</span>
+          </a>
           <a
             @click="handleManage"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
@@ -68,6 +79,7 @@
 
             <span  class="mx-2 text-base font-medium md:text-sm">网站介绍</span>
           </a>
+          
           <a
             @click="feedback"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
@@ -183,6 +195,10 @@ const feedback = () => {
   }); */
   window.open('https://docs.qq.com/form/page/DTlpES3NlYUZMblNp', '_blank');
 };
+// 留言板
+const HandleMessageBoard = () =>{
+  router.push('/messageboard')
+}
 const openInfo = () => {
   ElMessageBox.alert('Github地址：https://github.com/yecss/yunshenNav', '关于', {
     confirmButtonText: '确定',
@@ -205,6 +221,38 @@ const handleToJson = () => {
 </script>
 
 <style lang="scss" scoped>
+.logo{
+  width: 36px;
+  height: 36px;
+}
+.title {
+  /* 基础样式优化 */
+  color: #00b592;
+  font-family: serif; /* 更具体的中文衬线字体 */
+  font-size: clamp(1.1rem, 2.8vw, 1.7rem); 
+  font-weight: 700; /* 适当加粗 */
+  letter-spacing: -0.03em; /* 紧凑字符间距 */
+  line-height: 1.3; /* 优化行高 */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* 微阴影提升可读性 */
+  
+  
+  /* 无障碍优化 */
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    will-change: auto;
+  }
+}
+
+/* 悬停交互效果 */
+.title:hover {
+  // color: #018f76; /* 颜色加深 */
+  // transform: scale(1.01);
+  // cursor: pointer;
+}
+
+.left-aside a{
+  padding-left: 20px;
+}
 /* 隐藏默认滚动条 */
 ::-webkit-scrollbar {
   width: 3px;

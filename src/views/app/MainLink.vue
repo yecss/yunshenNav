@@ -716,9 +716,11 @@ export default {
         alert('请输入标题')
         return
       }
-      //获取排序号码
-      this.newLink.sort_order = this.initLink2[this.selectIndex].links.length + 1
-      
+      // 获取当前最大排序号码
+      const maxSortOrder = Math.max(...this.initLink2[this.selectIndex].links.map(link => link.sort_order), 0);
+
+      // 设置新的排序号码为最大值加1
+      this.newLink.sort_order = maxSortOrder + 1;
       // 定义数据
       const newLinkData = {
         name: this.newLink.name,
@@ -751,73 +753,92 @@ export default {
     });
     },
     decrease() {
-      const selectedLinkIndex = this.initLink2
-        .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
-        .findIndex(index => index !== -1);
+  const selectedLinkIndex = this.initLink2
+    .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
+    .findIndex(index => index !== -1);
 
-      if (selectedLinkIndex !== -1) {
-        const linkToMove = this.initLink2[selectedLinkIndex].links.find(
-          link => link.id === this.dialogNewLink.id
-        );
+  if (selectedLinkIndex !== -1) {
+    const linksArray = this.initLink2[selectedLinkIndex].links;
+    const linkToMove = linksArray.find(
+      link => link.id === this.dialogNewLink.id
+    );
 
-        if (linkToMove && linkToMove.sort_order > 1) {
-          const targetOrder = linkToMove.sort_order - 1;
-          const targetLink = this.initLink2[selectedLinkIndex].links.find(
-            link => link.sort_order === targetOrder
-          );
+    if (linkToMove) {
+      // 对数组进行排序确保顺序正确
+      linksArray.sort((a, b) => a.sort_order - b.sort_order);
+      const currentIndex = linksArray.findIndex(link => link.id === linkToMove.id);
 
-          if (targetLink) {
-            targetLink.sort_order += 1;
-            linkToMove.sort_order -= 1;
-            this.dialogNewLink.order = linkToMove.sort_order;
-            this.initLink2[selectedLinkIndex].links.sort((a, b) => a.sort_order - b.sort_order);
-            updateLinkOrder({
-              linkId: targetLink.id,
-              newSortOrder: targetLink.sort_order
-            });
-            updateLinkOrder({
-              linkId: linkToMove.id,
-              newSortOrder: linkToMove.sort_order
-            });
-          }
-        }
+      // 如果不是第一个元素，就可以上移
+      if (currentIndex > 0) {
+        const targetLink = linksArray[currentIndex - 1];
+        
+        // 交换两个链接的sort_order
+        const tempOrder = linkToMove.sort_order;
+        linkToMove.sort_order = targetLink.sort_order;
+        targetLink.sort_order = tempOrder;
+        
+        this.dialogNewLink.order = linkToMove.sort_order;
+        
+        // 更新排序
+        linksArray.sort((a, b) => a.sort_order - b.sort_order);
+        
+        // 更新链接顺序
+        updateLinkOrder({
+          linkId: targetLink.id,
+          newSortOrder: targetLink.sort_order
+        });
+        updateLinkOrder({
+          linkId: linkToMove.id,
+          newSortOrder: linkToMove.sort_order
+        });
       }
-    },
-    increase() {
-      const selectedLinkIndex = this.initLink2
-        .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
-        .findIndex(index => index !== -1);
+    }
+  }
+},
 
-      if (selectedLinkIndex !== -1) {
-        const linkToMove = this.initLink2[selectedLinkIndex].links.find(
-          link => link.id === this.dialogNewLink.id
-        );
+increase() {
+  const selectedLinkIndex = this.initLink2
+    .map(item => item.links.findIndex(link => link.id === this.dialogNewLink.id))
+    .findIndex(index => index !== -1);
 
-        if (linkToMove && linkToMove.sort_order < this.initLink2[selectedLinkIndex].links.length) {
-          const targetOrder = linkToMove.sort_order + 1;
-          const targetLink = this.initLink2[selectedLinkIndex].links.find(
-            link => link.sort_order === targetOrder
-          );
+  if (selectedLinkIndex !== -1) {
+    const linksArray = this.initLink2[selectedLinkIndex].links;
+    const linkToMove = linksArray.find(
+      link => link.id === this.dialogNewLink.id
+    );
 
-          if (targetLink) {
-            targetLink.sort_order -= 1;
-            linkToMove.sort_order += 1;
-            this.dialogNewLink.order = linkToMove.sort_order;
-            this.initLink2[selectedLinkIndex].links.sort((a, b) => a.sort_order - b.sort_order);
-            console.log('targetLink',targetLink);
-            
-            updateLinkOrder({
-              linkId: targetLink.id,
-              newSortOrder: targetLink.sort_order
-            });
-            updateLinkOrder({
-              linkId: linkToMove.id,
-              newSortOrder: linkToMove.sort_order
-            });
-          }
-        }
+    if (linkToMove) {
+      // 对数组进行排序确保顺序正确
+      linksArray.sort((a, b) => a.sort_order - b.sort_order);
+      const currentIndex = linksArray.findIndex(link => link.id === linkToMove.id);
+
+      // 如果不是最后一个元素，就可以下移
+      if (currentIndex < linksArray.length - 1) {
+        const targetLink = linksArray[currentIndex + 1];
+        
+        // 交换两个链接的sort_order
+        const tempOrder = linkToMove.sort_order;
+        linkToMove.sort_order = targetLink.sort_order;
+        targetLink.sort_order = tempOrder;
+        
+        this.dialogNewLink.order = linkToMove.sort_order;
+        
+        // 更新排序
+        linksArray.sort((a, b) => a.sort_order - b.sort_order);
+        
+        // 更新链接顺序
+        updateLinkOrder({
+          linkId: targetLink.id,
+          newSortOrder: targetLink.sort_order
+        });
+        updateLinkOrder({
+          linkId: linkToMove.id,
+          newSortOrder: linkToMove.sort_order
+        });
       }
-    },
+    }
+  }
+},
   },
   watch: {
     initLink(newVal) {
@@ -958,15 +979,14 @@ export default {
   margin-top: 16px;
 }
 .second-box .link-item-blocked::after {
-  content: ''; /* 伪元素需要有内容，即使是空字符串 */
-  position: absolute; /* 绝对定位相对于 a 标签 */
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-left: 9px solid transparent; /* 透明边框 */
-  border-top: 9px solid #EF498B; /* 红色的底部边框，形成斜三角 */
+  // content: '🚫'; /* 使用 Unicode 符号 */
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  // transform: translateY(-50%);
+  // font-size: 10px;
 }
+
 .second-box .link-item-recommend::after {
   content: ''; /* 伪元素需要有内容，即使是空字符串 */
   position: absolute; /* 绝对定位相对于 a 标签 */
@@ -974,8 +994,8 @@ export default {
   right: 0;
   width: 0;
   height: 0;
-  border-left: 9px solid transparent; /* 透明边框 */
-  border-top: 9px solid #087dc1; /* 红色的底部边框，形成斜三角 */
+  border-left: 10px solid transparent; 
+  border-top: 10px solid #0684e5;
 }
 .second-box .link-item:hover {
   color: #fff;

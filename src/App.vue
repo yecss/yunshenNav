@@ -55,10 +55,10 @@ onMounted(() => {
     greetingMessage.value = message;
     showMessage.value = true;
 
-    // 自动隐藏提醒，3秒后消失
+    // 自动隐藏提醒，5s后消失
     setTimeout(() => {
       showMessage.value = false;
-    }, 3000); // 3秒后隐藏
+    }, 5000); // 5s后隐藏
   }
 });
 </script>
@@ -93,13 +93,35 @@ body {
   overflow: hidden;
 }
 body{
-    background-image: url(./assets/bg2.jpg);
-    // background-size: auto;
-    // background-repeat: repeat;
+    background-image: url(./assets/bg1.jpg);
+    background-size: auto;
+    background-repeat: repeat;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center top;
-  }
+}
+body::before {
+    content: "";
+    position: fixed; /* 或 absolute，如果你只想让遮罩覆盖 body 而不是整个视口 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 10%); /* 这里是灰白色半透明遮罩 */
+    pointer-events: none; /* 确保遮罩不影响鼠标事件 */
+    z-index: 0; /* 确保遮罩在内容下方，如果你页面里没有定位元素的话也可以设成 -1 */
+}
+/* .bg-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: block;
+  background-color: #0e4166;
+  background-image: linear-gradient(to bottom, rgba(14, 65, 102, 0.86), #0e4166);
+} */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -126,6 +148,18 @@ body{
   display: none;
   transition: opacity 0.5s ease;
 }
+// 大于1400px小于2000px时
+@media screen and (min-width: 1400px) and (max-width: 2000px) {
+  #app{
+    width: 1120px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 34px;
+    padding-bottom: 34px;
+  }
+  
+}
+
 /* 在宽度小于600px时应用的样式 */
 @media (max-width: 599px) {
   body{

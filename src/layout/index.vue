@@ -8,7 +8,6 @@
 
 <style lang="scss">
 .page-container {
-  background-color: rgba($color: #fff, $alpha: .9);
   display: flex;
   flex-direction: column;
   height: 100%;

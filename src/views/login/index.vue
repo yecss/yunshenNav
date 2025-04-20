@@ -38,10 +38,10 @@
           plain
           :loading="registerLoading"
         >
-          注册
+          用户注册
         </el-button>
       </el-col>
-      <el-col class="btn-wrapper" :span="12">
+      <el-col class="btn-wrapper" :span="8">
         <el-button
           @click="goHome"
           type="success"
@@ -50,7 +50,7 @@
           返回主页
         </el-button>
       </el-col>
-      <el-col class="btn-wrapper" :span="12">
+      <el-col class="btn-wrapper" :span="8">
         <el-button
           @click="doLogin"
           type="primary"
@@ -118,7 +118,7 @@ const validateForm = () => {
   return true
 }
 const goHome = () => {
-  router.push('/')
+  router.push('/app')
 }
 const doLogin = () => {
   if (validateForm()) {
@@ -164,8 +164,10 @@ const defaultLogin = () => {
 </script>
 <style lang="scss">
 .form {
+  z-index: 99;
   header {
     text-align: center;
+    
   }
   margin: 160px auto;
   border-radius: 8px;
