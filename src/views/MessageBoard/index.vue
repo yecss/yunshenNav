@@ -1,5 +1,5 @@
 <template>
-  <div class="container-scroll max-w-5xl mx-auto p-8 bg-white shadow-lg rounded-lg animate-fadeIn" style="z-index: 99;width: 1200px;">
+  <div  class="container-scroll max-w-5xl mx-auto bg-white shadow-lg rounded-lg animate-fadeIn message-container">
     <h2 class="text-2xl font-bold mb-6 text-center">留言板</h2>
     <p>有什么需要加的网址，或者有好的功能建议都可以在此处留言哦。内容不限</p>
     <div class="mb-6 input-box">
@@ -31,7 +31,7 @@
         >提交留言</button>
       </div>
     </div>
-    <ul class="space-y-6 max-h-96 overflow-y-auto">
+    <ul class="space-y-6 overflow-y-auto" style="max-height: 340px;">
   <li
     v-for="(message, index) in paginatedMessages"
     :key="index"
@@ -54,7 +54,7 @@
 
     
     <!-- 分页 -->
-    <div class="flex justify-center mt-4">
+    <div class="flex justify-center mt-1 pagination">
       <button
         @click="prevPage"
         class="px-2 py-1 bg-gray-300 text-black rounded-lg hover:bg-gray-400 transition disabled:opacity-50"
@@ -223,6 +223,15 @@ export default {
 };
 </script>
 <style scoped>
+.message-container{
+  z-index: 99;
+  width: 1200px;
+  padding: 2rem 2rem 0 2rem;
+}
+.pagination{
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
 /* 大于1400px小于2000px */
 @media (min-width: 1400px) and (max-width: 2000px) {
   .container-scroll{

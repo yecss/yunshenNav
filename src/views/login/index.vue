@@ -31,7 +31,7 @@
       </el-row>
     </el-form>
     <el-row class="row row-btn">
-      <el-col class="btn-wrapper" :span="8">
+      <!-- <el-col class="btn-wrapper" :span="8">
         <el-button
           @click="doRegister"
           type="success"
@@ -40,8 +40,8 @@
         >
           用户注册
         </el-button>
-      </el-col>
-      <el-col class="btn-wrapper" :span="8">
+      </el-col> -->
+      <el-col class="btn-wrapper" :span="12">
         <el-button
           @click="goHome"
           type="success"
@@ -50,7 +50,7 @@
           返回主页
         </el-button>
       </el-col>
-      <el-col class="btn-wrapper" :span="8">
+      <el-col class="btn-wrapper" :span="12">
         <el-button
           @click="doLogin"
           type="primary"

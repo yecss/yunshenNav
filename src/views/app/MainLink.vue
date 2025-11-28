@@ -263,7 +263,7 @@
           
         </p>
         <p>
-          是否被屏蔽：
+          是否标记新：
           <el-switch
             v-model="dialogNewLink.isBlocked"
             active-color="#13ce66"
@@ -979,12 +979,14 @@ increase() {
   margin-top: 16px;
 }
 .second-box .link-item-blocked::after {
-  // content: '🚫'; /* 使用 Unicode 符号 */
-  // position: absolute;
-  // top: 0;
-  // right: 0;
-  // transform: translateY(-50%);
-  // font-size: 10px;
+  content: ''; /* 伪元素需要有内容，即使是空字符串 */
+  position: absolute; /* 绝对定位相对于 a 标签 */
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent; 
+  border-top: 10px solid #238551;
 }
 
 .second-box .link-item-recommend::after {
