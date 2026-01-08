@@ -64,7 +64,6 @@
 
     <!-- 展示区 -->
     <div class="box">
-      <!-- {{initLink2}} -->
       <div
         class="second-wrapper"
         v-for="(categoryItem, index) in initLink2"
@@ -83,6 +82,7 @@
             :href="linkItem.url"
             target="_blank"
             @contextmenu.prevent.stop="handlerRight(linkItem.id)"
+            @click="handleLinkClick(linkItem)"
           >
           <!-- <el-badge is-dot class="badget-item"></el-badge> -->
           {{ linkItem.name }}
@@ -371,7 +371,7 @@
 </template>
 
 <script>
-import {updateLink,addLink,updateCategroy,deleteCategroy,addCategory,deleteLink,updateLinkOrder} from "@/api/data/index"
+import {updateLink,addLink,updateCategroy,deleteCategroy,addCategory,deleteLink,updateLinkOrder, logClick} from "@/api/data/index"
 import CommonDialog from '@/layout/components/CommonDialog.vue'
 import Search from './Search.vue'
 import router from "@/router/index"
@@ -454,6 +454,21 @@ export default {
     }
   },
   methods: {
+    /* 记录点击功能 */
+    handleLinkClick(linkItem) {
+      // 准备要发送的数据
+      const logData = {
+        linkId: linkItem.id,
+        url: linkItem.url
+      };
+
+      // 方案 B: 使用你封装好的 axios (如果你想在后端成功后做点什么)
+      
+      logClick(logData).then(() => {
+         console.log('记录成功');
+      });
+     
+    },
     //临时弹窗
     tempClick() {
       ElMessage({
@@ -918,6 +933,8 @@ increase() {
   background-color: #fff;
   // border-radius: 0 6px 6px 0;
   // background-color: rgba(255,255,255,.84);
+  background-color: #ffffff9c; /* 2026年1月1日17:19:56 玻璃拟态 */
+  backdrop-filter: blur(10px); /* 2026年1月1日17:19:56 玻璃拟态 */
 }
 .drawer-wrapper {
   // position: relative;
@@ -965,14 +982,17 @@ increase() {
   z-index: 10;
   font-size: 16px;
   text-decoration: none;
-  color: black;
+  // color: black;
+  color: #2f373c;
   margin-right: 20px;
   padding: 8px;
   max-width: 160px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  background-color: #f3f3f3;
+  // background-color: hsla(0, 0%, 95%, 0.6);
+  backdrop-filter: blur(4px); /* 2026年1月1日17:19:56 玻璃拟态 */
+    // background-color: #ffffff9c; /* 2026年1月1日17:19:56 玻璃拟态 */
   // background-color: #ededed;
   transition: background-color 0.2s, color 0.2s;
   border-radius: 2px;

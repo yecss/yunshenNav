@@ -97,7 +97,7 @@ watch(dataIndex, (newvalue, oldValue) => {
 
 // 在组件挂载时执行
 onMounted(() => {
-  if (isLogin.value) {
+  /* if (isLogin.value) {
     getData()
       .then((res) => {
         let data = res.data
@@ -146,7 +146,39 @@ onMounted(() => {
           duration: 5 * 1000,
         });
       })
+  } */
+    const loadData = async () => {
+  try {
+    const response = await fetch('https://nav.yecss.com/getGuestData.json');
+    const result = await response.json();
+
+    // 按一级分类 sort_order 排序
+    sourceData.value = result.data.sort(
+      (a, b) =>
+        a.category_level_1.sort_order - b.category_level_1.sort_order
+    );
+
+    // 清空旧数据（防止重复 push）
+    urlList.firstCategroy = [];
+    urlList.iconList = [];
+
+    // 构建侧边栏一级分类
+    sourceData.value.forEach(item => {
+      urlList.firstCategroy.push(item.category_level_1);
+      console.log(urlList);
+      
+      urlList.iconList.push(item.category_level_1.icon);
+    });
+
+    // 默认显示第一个一级分类下的二级数据
+    urlList.secondLink = sourceData.value[0].level2_with_links;
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
-  
+};
+
+loadData();
+
 })
 </script>

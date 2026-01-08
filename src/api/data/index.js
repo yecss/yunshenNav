@@ -93,3 +93,12 @@ export const deleteMessage = (data) => {
     data
   });
 };
+
+//日志记录
+export function logClick(data) {
+  return request({
+    url: '/data/logClick', // 对应后端接口路径
+    method: 'post',
+    data
+  })
+}

@@ -93,12 +93,13 @@ body {
   overflow: hidden;
 }
 body{
-    background-image: url(./assets/bg1.jpg);
+    background-image: url(./assets/441.jpg);
     background-size: auto;
     background-repeat: repeat;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center center;
+    
 }
 body::before {
     content: "";
@@ -107,7 +108,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(0 0 0 / 10%); /* 这里是灰白色半透明遮罩 */
+    // background: rgb(0 0 0 / 10%); /* 这里是灰白色半透明遮罩 */
     pointer-events: none; /* 确保遮罩不影响鼠标事件 */
     z-index: 0; /* 确保遮罩在内容下方，如果你页面里没有定位元素的话也可以设成 -1 */
 }
@@ -162,8 +163,11 @@ body::before {
 
 /* 在宽度小于600px时应用的样式 */
 @media (max-width: 599px) {
+  .second-box .link-item{
+    background-color: #f2f2f2 !important;
+  }
   body{
-    background: #3f66b4;
+    background: #ffffff;
   }
   .wrapper{
     width: 100% !important;

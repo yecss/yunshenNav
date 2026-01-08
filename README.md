@@ -7,7 +7,8 @@
 - **官方网站**: https://nav.yecss.com
 - **GitHub 仓库**: https://github.com/yecss/yunshenNav
 - **作者**: yecss
-- **技术栈**: Vue3 + ElementPlus + TailwindCSS + Node.js + MySQL
+- **前端技术栈**：Vue3 + ElementPlus + Tailwind CSS + Sass + Axios + Vuex + Iconify
+- **后端技术栈**：Node.js + Express + MySQL + Jwt + Joi
 
 ## ✨ 核心功能
 
@@ -39,99 +40,46 @@
 
 ![](https://cdn.jsdelivr.net/gh/yecss/imageStore//picgo/Group%201.png)
 
-
-
-## 🛠️ 技术架构
-
-### 前端技术栈
-
-- **框架**: Vue 3
-- **UI 库**: Element Plus
-- **样式**: TailwindCSS
-
-### 后端技术栈
-
-- **运行环境**: Node.js
-- **Web 框架**: Express
-- **数据库**: MySQL
-- **API 设计**: RESTful API
-
 ## 🚀 快速开始
 
 ### 环境要求
 
-- Node.js >= 16.0.0
+- Node.js >= 20.0.0
 - MySQL >= 8.0
 - npm 或 yarn
 
 ### 本地开发
 
-#### 1. 克隆项目
+#### 1. 下载项目
 
 ```bash
 git clone https://github.com/yecss/yunshenNav.git
-cd yunshenNav
 ```
 
 #### 2. 安装前端依赖
 
 ```bash
 # 进入前端目录
-cd frontend
-npm install
+npm install # 或者 yarn install
 ```
 
 #### 3. 启动后端
 
-**yunshenBackend**：待
+**yunshenBackend**：教程待编写
 
-#### 4. 配置数据库
-
-```bash
-# 打开后端目录db/index.js
-# 配置mysql
-const db = mysql.createPool({
-  host: "",
-  port:3306,
-  user: "",
-  password: "",
-  database: "",
-});
-```
-
-#### 5. 初始化数据库
-
-```sql
--- 创建数据库
-CREATE DATABASE yunshen_nav;
-
--- 执行数据库初始化脚本
-source database/init.sql;
-```
-
-#### 6. 启动服务
+#### 4. 启动前端
 
 ```bash
-# 启动后端服务
-npm run serve
-
-# 启动前端服务
-npm run serve
+vue-cli-service serve
 ```
 
-#### 7. 管理员登录
+#### 5. 打开预览网址
 
-打开前端，点击管理登录
+http://localhost:8080/
 
-账号：admin
-
-密码：admin
-
-## 📞 联系方式
+## 📥 联系方式
 
 - **邮箱**: yecssnetwork@gmail.com
-- **项目地址**: https://github.com/yecss/yunshenNav
-- **官网**: https://nav.yecss.com
 
 ## 🙏 鸣谢
 

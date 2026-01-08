@@ -164,6 +164,7 @@ const defaultLogin = () => {
 </script>
 <style lang="scss">
 .form {
+  
   z-index: 99;
   header {
     text-align: center;

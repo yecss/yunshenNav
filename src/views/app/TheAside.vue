@@ -26,7 +26,7 @@
             v-for="(i, index) in firstCategroy"
             :key="index"
             @click="changeDataIndex(index)"
-            :class="{ 'bg-gray-200': activeIndex == index }"
+            :class="{ 'bg-gray-200 active-aside': activeIndex == index }"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 hover:text-gray-700 cursor-pointer"
           >
             <Icon
@@ -274,8 +274,11 @@ const handleToJson = () => {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-/* .aside{
-   border-radius: 6px 0 0 6px;
-   background-color: rgba(255,255,255,.9);
-} */
+.aside{
+  background-color: #ffffff9c; /* 2026年1月1日17:19:56 玻璃拟态 */
+  backdrop-filter: blur(10px); /* 2026年1月1日17:19:56 玻璃拟态 */
+}
+.active-aside{
+  background: #ffffff8a;
+}
 </style>
