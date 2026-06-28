@@ -41,7 +41,7 @@
         </li>
         <li v-if="isLogin" @click="logout" class="text-sm mt-3 bg-red-200 cursor-pointer rounded-md h-8 text-white leading-8">退出登录</li>
       </ul>
-      <Search ref="searchInp"></Search>
+      <Search ref="searchInp" :allLinks="allLinks" @site-search="handleSiteSearch"></Search>
       <h1 class="text-gray-500 text-2xl font-bold top-title">云深书签</h1>
       <button class="btn btn-ghost btn-circle" id="top-nav-btn" @click="tempClick">
         <svg
@@ -66,7 +66,7 @@
     <div class="box">
       <div
         class="second-wrapper"
-        v-for="(categoryItem, index) in initLink2"
+        v-for="(categoryItem, index) in displayLinks"
         :key="index"
       >
         <h2 class="second-title text-blue-700 text-base">{{ categoryItem.category.name }}</h2>
@@ -76,7 +76,7 @@
             :class="{'link-item-blocked': linkItem.is_blocked === 1,
               'link-item-recommend': linkItem.is_recommend === 1
             }"
-            
+
             v-for="(linkItem, index2) in categoryItem.links"
             :key="index2"
             :href="linkItem.url"
@@ -88,6 +88,10 @@
           {{ linkItem.name }}
           </a>
         </div>
+      </div>
+      <!-- 站内搜索无匹配时的空状态 -->
+      <div v-if="siteSearchActive && siteKeyword && displayLinks.length === 0" class="empty-tip">
+        未找到匹配「{{ siteKeyword }}」的书签
       </div>
     </div>
     <el-drawer
@@ -452,10 +456,71 @@ export default {
       dialogSelectLinkId:0,
       /* 删除弹出框的状态 */
       visible: false,
-      input1: ''
+      input1: '',
+      /* 站内搜索状态 */
+      siteKeyword: '', // 站内搜索关键词
+      siteSearchActive: false, // 是否处于站内搜索模式
+    }
+  },
+  computed: {
+    // 将所有书签扁平化，供站内搜索使用
+    allLinks() {
+      const result = [];
+      if (this.sourceData && this.sourceData.length) {
+        this.sourceData.forEach(cat1 => {
+          if (cat1.level2_with_links) {
+            cat1.level2_with_links.forEach(l2 => {
+              if (l2.links) {
+                l2.links.forEach(link => {
+                  result.push({
+                    ...link,
+                    categoryName: l2.category ? l2.category.name : ''
+                  });
+                });
+              }
+            });
+          }
+        });
+      }
+      return result;
+    },
+    // 用于主展示区的数据：站内搜索激活时按关键词过滤，否则展示当前分类
+    displayLinks() {
+      if (!this.siteSearchActive || !this.siteKeyword) {
+        return this.initLink2;
+      }
+      const kw = this.siteKeyword.toLowerCase();
+      // 站内搜索：遍历所有一级分类下的所有二级分类，跨全站筛选
+      const result = [];
+      if (this.sourceData && this.sourceData.length) {
+        this.sourceData.forEach(cat1 => {
+          if (cat1.level2_with_links) {
+            cat1.level2_with_links.forEach(l2 => {
+              if (l2.links) {
+                const filteredLinks = l2.links.filter(link =>
+                  (link.name && link.name.toLowerCase().includes(kw)) ||
+                  (link.url && link.url.toLowerCase().includes(kw))
+                );
+                if (filteredLinks.length > 0) {
+                  result.push({
+                    category: l2.category,
+                    links: filteredLinks,
+                  });
+                }
+              }
+            });
+          }
+        });
+      }
+      return result;
     }
   },
   methods: {
+    /* 处理站内搜索：实时更新关键词与激活状态 */
+    handleSiteSearch({ keyword, active }) {
+      this.siteSearchActive = active;
+      this.siteKeyword = active ? keyword : '';
+    },
     /* 记录点击功能 */
     handleLinkClick(linkItem) {
       // 准备要发送的数据
@@ -1045,5 +1110,12 @@ increase() {
   z-index: 20; //高于其他元素
   left: 0;
   top: 20px;
+}
+.empty-tip {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+  padding: 24px;
 }
 </style>

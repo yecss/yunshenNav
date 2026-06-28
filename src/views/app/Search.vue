@@ -19,15 +19,16 @@
           ></path>
         </svg>
       </div>
-      <input 
+      <input
         class="input-search"
+        :class="{'input-search-rounded': isSiteSearch}"
         type="text"
         ref="Input"
-        placeholder=""
+        :placeholder="isSiteSearch ? '输入关键词筛选站内书签' : ''"
         @keyup.enter="getBaidu"
         v-model="inpValue"
       />
-      <button class="btn-search" @click="getBaidu">
+      <button v-if="!isSiteSearch" class="btn-search" @click="getBaidu">
         <svg
           t="1662298423092"
           class="search-svg"
@@ -49,26 +50,9 @@
         </svg>
       </button>
       <ul class="select-search" :class="{'is-hidden':hiddenBlock}">
-        <li class="item-select" data-index="0" @click="getIndex($event)">
-          <img class="icon-select" src="../../assets/search-icon/google.svg" />
-          <span>谷歌</span>
-          <p></p>
-        </li>
-        <li class="item-select" data-index="1" @click="getIndex($event)">
-          <img class="icon-select" src="../../assets/search-icon/bing.svg" />
-          <span>必应</span>
-        </li>
-        <li class="item-select" data-index="2" @click="getIndex($event)">
-          <img class="icon-select" src="../../assets/search-icon/baidu.svg" />
-          <span>百度</span>
-        </li>
-        <li class="item-select" data-index="3" @click="getIndex($event)">
-          <img class="icon-select" src="../../assets/search-icon/zhihu.svg" />
-          <span>知乎</span>
-        </li>
-        <li class="item-select" data-index="4" @click="getIndex($event)">
-          <img class="icon-select" src="../../assets/search-icon/github.svg" />
-          <span>Github</span>
+        <li class="item-select" v-for="(icon, idx) in currentIocn" :key="idx" :data-index="idx" @click="getIndex($event)">
+          <img class="icon-select" :src="getIcon(icon)" />
+          <span>{{ searchNames[idx] }}</span>
         </li>
       </ul>
     </form>
@@ -79,10 +63,18 @@
 // import pubsub from "pubsub-js";
 export default {
   name: "Search-Input",
+  emits: ['site-search'],
+  props: {
+    allLinks: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       inpValue:'',
       searchEngine: [
+        "", // 站内搜索
         "https://www.google.com/search?q=",
         "https://cn.bing.com/search?q=",
         "https://www.baidu.com/s?wd=",
@@ -90,40 +82,68 @@ export default {
         "https://github.com/search?q=",
       ],
       currentIocn:[
-        'google.svg',
-        'bing.svg',
-        'baidu.svg',
-        'zhihu.svg',
-        'github.svg',
+        'search-icon/home.svg',
+        'search-icon/google.svg',
+        'search-icon/bing.svg',
+        'search-icon/baidu.svg',
+        'search-icon/zhihu.svg',
+        'search-icon/github.svg',
       ],
-      INDEX: 1,//默认搜索引擎
-      hiddenBlock: true
+      searchNames:['站内','谷歌','必应','百度','知乎','Github'],
+      INDEX: 0,//默认搜索引擎
+      hiddenBlock: true,
     };
+  },
+  computed: {
+    // 站内搜索是否激活
+    isSiteSearch() {
+      return this.INDEX === 0;
+    },
   },
   methods: {
     getIcon(name) {
-      return new URL(`../../assets/search-icon/${name}`, import.meta.url).href
+      return new URL(`../../assets/${name}`, import.meta.url).href
     },
     autoFocus() {
       this.$refs.Input.focus();
     },
+    // 向父组件通知站内搜索状态与关键词
+    emitSiteSearch() {
+      this.$emit('site-search', {
+        keyword: this.inpValue.trim(),
+        active: this.isSiteSearch
+      });
+    },
     // 按下回车搜索函数
     getBaidu() {
-      if(this.inpValue){
-        window.open(
+      if(!this.inpValue) return;
+      // 站内搜索：回车不再跳转，实时筛选已由父组件处理
+      if (this.isSiteSearch) {
+        return;
+      }
+      window.open(
         `${this.searchEngine[this.INDEX]}${this.inpValue}`,
         "_blank"
       );
-      }
     },
     showSearchSelect(){
       this.hiddenBlock = !this.hiddenBlock;
     },
     getIndex(e){
-      this.INDEX = e.currentTarget.getAttribute("data-index");
+      this.INDEX = Number(e.currentTarget.getAttribute("data-index"));
+      // 切换搜索引擎时通知父组件
+      this.emitSiteSearch();
+      // 切换到站内搜索时聚焦输入框
+      this.$nextTick(() => {
+        this.$refs.Input.focus();
+      });
     }
   },
   watch:{
+    inpValue() {
+      // 输入变化时通知父组件实时筛选
+      this.emitSiteSearch();
+    },
     hiddenBlock(val){
       if(!val){
         document.documentElement.addEventListener('click',()=>{
@@ -190,6 +210,9 @@ form {
 }
 .current-search .arrow-svg:hover{
   opacity: 1;
+}
+.input-search-rounded {
+  border-radius: 0px 6px 6px 0px;
 }
 .input-search {
   width: 344px;
