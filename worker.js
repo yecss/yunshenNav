@@ -138,19 +138,19 @@ export default {
       // ---- 游客数据 ----
       if (path === '/api/data/getGuestData' && method === 'GET') {
         const data = await readData(env);
-        return ok('OK', { data: data.categories });
+        return ok('数据获取成功', { data: data.categories });
       }
       if (path === '/api/data/getData' && method === 'POST') {
         const admin = await verifyToken(env, request.headers.get('Authorization'));
         if (!admin) return fail('未授权', 401);
         const data = await readData(env);
-        return ok('OK', { data: data.categories });
+        return ok('数据获取成功', { data: data.categories });
       }
 
       // ---- 留言板：公开 ----
       if (path === '/api/data/getMessages' && method === 'GET') {
         const data = await readData(env);
-        return ok('OK', { data: data.messages });
+        return ok('留言获取成功', { data: data.messages });
       }
       if (path === '/api/data/createMessage' && method === 'POST') {
         const body = await request.json();
