@@ -24,5 +24,6 @@ export default defineConfig({
   },
   server: {
     port: 8080,
+    client: { overlay: false },
   },
 })

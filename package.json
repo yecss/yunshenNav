@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vite",
     "build": "vite build",
-    "lint": "eslint src",
+    "lint": "eslint src --ext .js,.vue",
     "deploy": "npm run build && gh-pages -d dist",
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler deploy"
