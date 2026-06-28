@@ -149,7 +149,7 @@ onMounted(() => {
   } */
     const loadData = async () => {
   try {
-    const response = await fetch('https://nav.yecss.com/getGuestData.json');
+    const response = await fetch('https://nav-1253805353.cos-website.ap-guangzhou.myqcloud.com/getGuestData.json');
     const result = await response.json();
 
     // 按一级分类 sort_order 排序
@@ -165,13 +165,18 @@ onMounted(() => {
     // 构建侧边栏一级分类
     sourceData.value.forEach(item => {
       urlList.firstCategroy.push(item.category_level_1);
-      console.log(urlList);
       
       urlList.iconList.push(item.category_level_1.icon);
     });
 
     // 默认显示第一个一级分类下的二级数据
     urlList.secondLink = sourceData.value[0].level2_with_links;
+    ElMessage({
+          message: '数据获取成功',
+          type: 'success',
+          showClose: true,
+          duration: 1 * 1000,
+        });
 
   } catch (error) {
     console.error('Error fetching data:', error);

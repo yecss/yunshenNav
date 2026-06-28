@@ -5,6 +5,7 @@ const Components = require('unplugin-vue-components/webpack')
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave:false,
+  publicPath: '/yunshenNav/',
   configureWebpack: {
     devServer:{
       client:{overlay:false}

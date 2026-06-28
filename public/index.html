@@ -1,42 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN" itemscope itemtype="http://schema.org/WebSite">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    
-    <!-- 核心元数据优化 -->
-    <meta name="description" content="云深书签 - 免费在线书签管理工具，提供高效的多级分类网址导航服务，帮助用户快速整理与访问常用网站。">
-    <meta name="keywords" content="云深书签,网址导航,书签管理工具,多级分类书签,快速书签,Yecss,在线书签">
-    
-    <!-- 结构化数据 -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "云深书签",
-      "url": "https:/nav.yecss.com/",
-      "description": "云深书签 - 免费在线书签管理工具，提供高效的多级分类网址导航服务，帮助用户快速整理与访问常用网站。"
-    }
-    </script>
-    <title>云深书签 - 极简风网址导航</title>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-    <!-- 百度统计 -->
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?d998cfc65b563f0f2cf4d0eb03cb9347";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
-    
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but yunshen doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-  </body>
+<meta name="description" content="云深书签 - 免费在线书签管理工具，提供高效的多级分类网址导航服务，帮助用户快速整理与访问常用网站。"/>
+<meta name="keywords" content="云深书签,网址导航,书签管理工具,多级分类书签,快速书签,Yecss,在线书签"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "云深书签",
+  "url": "https:/nav.yecss.com/",
+  "description": "云深书签 - 免费在线书签管理工具"
+}
+</script>
+
+<title>云深书签 - 极简风网址导航</title>
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3P7Y1rZ5jqCpqHof",ck:"3P7Y1rZ5jqCpqHof",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+<script defer src="/yunshenNav/js/chunk-vendors.284923e7.js"></script>
+<script defer src="/yunshenNav/js/app.583b25e3.js"></script>
+
+<link href="/yunshenNav/css/chunk-vendors.dea5a2ba.css" rel="stylesheet">
+<link href="/yunshenNav/css/app.10b84f46.css" rel="stylesheet">
+
+<style>
+#migrateMask{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+}
+
+#migrateBox{
+background:#fff;
+max-width:480px;
+width:92%;
+border-radius:14px;
+padding:26px;
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+#migrateBox h2{
+margin-bottom:12px;
+font-size:20px;
+text-align:center;
+}
+
+#migrateBox p{
+font-size:14px;
+line-height:1.8;
+color:#555;
+}
+
+#migrateBtns{
+margin-top:20px;
+display:flex;
+gap:10px;
+}
+
+#migrateBtns button{
+flex:1;
+padding:10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:14px;
+}
+
+#goBtn{
+background:#409eff;
+color:#fff;
+}
+
+#cancelBtn{
+background:#eee;
+}
+
+#countdown{
+color:#409eff;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<noscript>
+<strong>We're sorry but yunshen doesn't work properly without JavaScript enabled.</strong>
+</noscript>
+
+
+
+
+<script>
+;(function () {
+const redirect = sessionStorage.redirect
+delete sessionStorage.redirect
+if (redirect && redirect !== location.href) {
+history.replaceState(null, null, redirect)
+}
+})()
+</script>
+
+</body>
 </html>
