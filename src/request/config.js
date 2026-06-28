@@ -1,9 +1,8 @@
 export default {
   method: 'get',
-  // 基础URL前缀
-  baseURL: 'https://api.yecss.com/',
-  // 本地配置
-  // baseURL:'http://127.0.0.1:28655',
+  // 部署后的 Cloudflare Worker 地址，把 <account> 换成你的 workers.dev 子域。
+  // 本地调试改成 'http://localhost:8787/api'，跑 `npx wrangler dev`。
+  baseURL: 'https://worker.apai.cc.cd/api',  // 本地调试，先运行 `npx wrangler dev`
   // 请求头信息
   headers: {
     'Content-Type': 'application/json',

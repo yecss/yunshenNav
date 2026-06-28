@@ -1,0 +1,10 @@
+name = "yunshen-nav-api"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+ADMIN_USER = "admin"
+
+[[kv_namespaces]]
+binding = "YUNSHEN_DATA"
+id = "989cee7bc940437684e58011bde6063c"

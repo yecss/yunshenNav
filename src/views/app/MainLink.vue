@@ -95,6 +95,7 @@
       :lockScroll="false"
       v-model="drawer"
       :with-header="true"
+      append-to-body
     >
       <div class="drawer-wrapper">
         <!-- 添加链接 -->
@@ -232,6 +233,7 @@
       :lockScroll="false"
       v-model="dialogVisible"
       width="30%"
+      append-to-body
     >
       <div class="pop-box link-change">
         <p>
