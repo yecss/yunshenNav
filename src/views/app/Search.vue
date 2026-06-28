@@ -2,7 +2,7 @@
   <div class="search-box">
     <form @submit.prevent>
       <div class="current-search" @click.stop="showSearchSelect">
-        <img class="current-img" :src="require('../../assets/search-icon/'+currentIocn[INDEX])" alt="" />
+        <img class="current-img" :src="getIcon(currentIocn[INDEX])" alt="" />
         <svg
           t="1662299197361"
           class="arrow-svg"
@@ -101,6 +101,9 @@ export default {
     };
   },
   methods: {
+    getIcon(name) {
+      return new URL(`../../assets/search-icon/${name}`, import.meta.url).href
+    },
     autoFocus() {
       this.$refs.Input.focus();
     },

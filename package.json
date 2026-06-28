@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "serve": "vite",
+    "build": "vite build",
+    "lint": "eslint src",
     "deploy": "npm run build && gh-pages -d dist",
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler deploy"
@@ -13,21 +13,14 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.6.0",
-    "core-js": "^3.8.3",
     "element-plus": "2.1.4",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@iconify/vue": "^4.1.1",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
+    "@iconify/vue": "^4.3.0",
+    "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
@@ -37,10 +30,10 @@
     "postcss": "^8.4.31",
     "prettier": "^2.4.1",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0",
     "tailwindcss": "^3.3.5",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.2",
+    "vite": "^5.0.0",
     "wrangler": "^4.105.0"
   }
 }
