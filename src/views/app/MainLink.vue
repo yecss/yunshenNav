@@ -269,7 +269,7 @@
               <el-button
                 size="default"
                 class="ml-1"
-                icon="LockClosed"
+                icon="Lock"
                 :disabled="!secondTitleSelectId"
                 @click="openPasswordDialog(2)"
               >
@@ -321,7 +321,7 @@
               <el-button
                 size="default"
                 class="ml-1"
-                icon="LockClosed"
+                icon="Lock"
                 @click="openPasswordDialog(1)"
               >
                 密码
@@ -1291,7 +1291,9 @@ increase() {
 </script>
 
 <style lang="scss" scoped>
-.el-select .el-input {
+/* :deep 必须用 —— .el-input 是 el-select 组件内部元素，
+   在 scoped 下拿不到本组件的 data-v 标记，写普通选择器不生效 */
+:deep(.el-select .el-input) {
   width: 130px;
 }
 
