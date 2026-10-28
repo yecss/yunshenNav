@@ -68,6 +68,54 @@ export const updateLinkOrder = (data)=>{
   })
 }
 
+export const updateCategoryOrder = (data)=>{
+  return request({
+    url:'/data/updateCategoryOrder',
+    method:'post',
+    data
+  })
+}
+
+/* ===== 分类加密 ===== */
+
+// 设置 / 修改 / 取消分类访问密码
+export const setCategoryPassword = (data)=>{
+  return request({
+    url:'/data/setCategoryPassword',
+    method:'post',
+    data
+  })
+}
+
+// 校验分类密码，返回解锁令牌 + 已解密内容
+export const verifyCategoryPassword = (data)=>{
+  return request({
+    url:'/data/verifyCategoryPassword',
+    method:'post',
+    data,
+    silent: true
+  })
+}
+
+// 凭解锁令牌获取已解密内容（刷新页面后恢复用）
+export const getCategoryContent = (data)=>{
+  return request({
+    url:'/data/getCategoryContent',
+    method:'post',
+    data,
+    silent: true
+  })
+}
+
+// 获取服务端数据版本号（用于校验本地缓存是否过期）
+export const getDataVersion = ()=>{
+  return request({
+    url:'/data/version',
+    method:'get',
+    silent: true
+  })
+}
+
 // 获取留言
 export const fetchMessages = () => {
   return request({

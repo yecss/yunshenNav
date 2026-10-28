@@ -21,7 +21,15 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# WorkBuddy local memory
+.workbuddy/
+
 # Cloudflare Wrangler
 .wrangler/
 .wrangler-config/
 .dev.vars
+.wb-kv-backup-clean.json
+.enc-secret.local
+.wb-*.txt
+.wb-*.mjs
+.wb-*.toml

@@ -16,7 +16,7 @@
     <div class="flex flex-col justify-between flex-1 mt-6 md:mt-0">
       <nav class="-mx-3 space-y-6">
         <div class="space-y-3 left-aside">
-          
+
           <label
             class="px-3 text-sm text-gray-500 uppercase"
           >
@@ -34,6 +34,12 @@
               style="font-size: 22px"
             />
             <span class="mx-2 text-base md:text-sm font-medium">{{ i.name }}</span>
+            <Icon
+              v-if="i.is_locked === 1"
+              :icon="'heroicons:lock-closed'"
+              class="lock-icon"
+              style="font-size: 14px"
+            />
           </a>
         </div>
 
@@ -43,6 +49,19 @@
           >
             其他
           </label>
+          <!-- 最新添加入口 -->
+          <a
+            @click="changeDataIndex(-1)"
+            :class="{ 'bg-gray-200 active-aside': activeIndex == -1 }"
+            class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+          >
+            <Icon
+              :icon="'heroicons:clock'"
+              style="font-size: 22px"
+            />
+
+            <span  class="mx-2 text-base font-medium md:text-sm">最新添加</span>
+          </a>
           <a
             @click="HandleMessageBoard"
             class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
@@ -252,6 +271,11 @@ const handleToJson = () => {
 
 .left-aside a{
   padding-left: 20px;
+}
+/* 加密分类的锁图标 */
+.lock-icon {
+  margin-left: auto;
+  color: #e6a23c;
 }
 /* 隐藏默认滚动条 */
 ::-webkit-scrollbar {

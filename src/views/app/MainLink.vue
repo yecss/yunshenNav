@@ -28,6 +28,16 @@
         class="mt-3 px-4 py-2 shadow rounded-md bg-gray-200 w-56"
       >
         <li
+          @click="changeDataIndex(-1)"
+          class="text-sm mt-3 bg-gray-400 cursor-pointer rounded-md h-8 text-white leading-8"
+          :class="{
+            'bg-gray-600': dataIndex === -1,
+            'text-blue-600': dataIndex !== -1,
+          }"
+        >
+          <a>最新添加</a>
+        </li>
+        <li
           v-for="(i, index) in firstCategroy"
           :key="index"
           @click="changeDataIndex(index)"
@@ -64,35 +74,120 @@
 
     <!-- 展示区 -->
     <div class="box">
-      <div
-        class="second-wrapper"
-        v-for="(categoryItem, index) in displayLinks"
-        :key="index"
-      >
-        <h2 class="second-title text-blue-700 text-base">{{ categoryItem.category.name }}</h2>
-        <div class="second-box">
+      <!-- 最新添加：日志流 -->
+      <div v-if="dataIndex === -1" class="latest-stream">
+        <div class="stream-header">
+          <h2 class="stream-heading">最新添加</h2>
+          <span class="stream-count">共 {{ latestLinks.length }} 条</span>
+        </div>
+        <div class="stream-list">
           <a
-            class="link-item"
-            :class="{'link-item-blocked': linkItem.is_blocked === 1,
-              'link-item-recommend': linkItem.is_recommend === 1
+            v-for="linkItem in latestLinks"
+            :key="linkItem.id"
+            class="stream-item"
+            :class="{
+              'stream-item-blocked': linkItem.is_blocked === 1,
+              'stream-item-recommend': linkItem.is_recommend === 1
             }"
-
-            v-for="(linkItem, index2) in categoryItem.links"
-            :key="index2"
             :href="linkItem.url"
             target="_blank"
-            @contextmenu.prevent.stop="handlerRight(linkItem.id)"
             @click="handleLinkClick(linkItem)"
           >
-          <!-- <el-badge is-dot class="badget-item"></el-badge> -->
-          {{ linkItem.name }}
+            <span class="stream-node"></span>
+            <div class="stream-body">
+              <div class="stream-title">{{ linkItem.name }}</div>
+              <div class="stream-meta">
+                <span class="stream-category">{{ linkItem.firstCategoryName }} / {{ linkItem.categoryName }}</span>
+                <span class="stream-url">{{ linkItem.url }}</span>
+              </div>
+            </div>
+            <span class="stream-time">{{ formatDate(linkItem.created_at) }}</span>
           </a>
         </div>
+        <div v-if="latestLinks.length === 0" class="empty-tip">暂无书签</div>
       </div>
-      <!-- 站内搜索无匹配时的空状态 -->
-      <div v-if="siteSearchActive && siteKeyword && displayLinks.length === 0" class="empty-tip">
-        未找到匹配「{{ siteKeyword }}」的书签
-      </div>
+
+      <!-- 普通分类展示 -->
+      <template v-else>
+        <!-- 一级分类被加密：整个内容区域锁定 -->
+        <div v-if="isFirstCategoryLocked" class="lock-panel">
+          <div class="lock-panel-inner">
+            <Icon
+              :icon="'heroicons:lock-closed'"
+              class="lock-panel-icon"
+              style="font-size: 40px"
+            />
+            <h2 class="lock-panel-title">该分类已加密</h2>
+            <p class="lock-panel-desc">
+              「{{ currentFirstCategoryName }}」的内容受密码保护，请输入访问密码查看。
+            </p>
+            <el-button type="primary" @click="openUnlockDialog(1, currentFirstCategoryId, currentFirstCategoryName)">
+              输入密码解锁
+            </el-button>
+          </div>
+        </div>
+
+        <template v-else>
+          <div
+            class="second-wrapper"
+            v-for="(categoryItem, index) in displayLinks"
+            :key="index"
+          >
+            <h2 class="second-title text-blue-700 text-base">
+              {{ categoryItem.category.name }}
+              <span v-if="categoryItem.category.is_locked === 1 && !isCategoryUnlocked(2, categoryItem.category.id)" class="lock-badge">
+                <Icon :icon="'heroicons:lock-closed'" style="font-size: 12px" />
+                已加密
+              </span>
+            </h2>
+
+            <!-- 二级分类被加密 -->
+            <div
+              v-if="categoryItem.category.is_locked === 1 && !isCategoryUnlocked(2, categoryItem.category.id)"
+              class="lock-panel lock-panel-sm"
+            >
+              <div class="lock-panel-inner">
+                <Icon
+                  :icon="'heroicons:lock-closed'"
+                  class="lock-panel-icon"
+                  style="font-size: 28px"
+                />
+                <p class="lock-panel-desc">该分类内容已加密，输入密码后可查看。</p>
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click="openUnlockDialog(2, categoryItem.category.id, categoryItem.category.name)"
+                >
+                  输入密码解锁
+                </el-button>
+              </div>
+            </div>
+
+            <div v-else class="second-box">
+              <a
+                class="link-item"
+                :class="{'link-item-blocked': linkItem.is_blocked === 1,
+                  'link-item-recommend': linkItem.is_recommend === 1
+                }"
+
+                v-for="(linkItem, index2) in categoryItem.links"
+                :key="index2"
+                :href="linkItem.url"
+                target="_blank"
+                @contextmenu.prevent.stop="handlerRight(linkItem.id)"
+                @click="handleLinkClick(linkItem)"
+              >
+              <!-- <el-badge is-dot class="badget-item"></el-badge> -->
+              {{ linkItem.name }}
+              </a>
+            </div>
+          </div>
+        </template>
+        <!-- 站内搜索无匹配时的空状态 -->
+        <div v-if="siteSearchActive && siteKeyword && displayLinks.length === 0" class="empty-tip">
+          未找到匹配「{{ siteKeyword }}」的书签
+        </div>
+      </template>
     </div>
     <el-drawer
       title="功能区"
@@ -163,13 +258,23 @@
                   :label="item.category.name"
                 ></el-option>
               </el-select>
-            
+
               <el-button
                 size="default"
                 class="ml-1"
                 icon="Edit"
                 @click="handleEditCategroy((isFrist = false))"
               ></el-button>
+
+              <el-button
+                size="default"
+                class="ml-1"
+                icon="LockClosed"
+                :disabled="!secondTitleSelectId"
+                @click="openPasswordDialog(2)"
+              >
+                密码
+              </el-button>
             </div>
 
             <div style="margin-top: 15px">
@@ -182,7 +287,7 @@
                   提交
                 </el-button>
               </template>
-                
+
               </el-input>
             </div>
           </div>
@@ -212,6 +317,15 @@
                 icon="Edit"
                 @click="handleEditCategroy((isFrist = true))"
               ></el-button>
+
+              <el-button
+                size="default"
+                class="ml-1"
+                icon="LockClosed"
+                @click="openPasswordDialog(1)"
+              >
+                密码
+              </el-button>
             </div>
 
             <div style="margin-top: 15px">
@@ -317,15 +431,25 @@
     <!-- 第一层级 -->
     <CommonDialog
       v-model:dialogVisible="dialogFirstTitle"
+      :showFooter="false"
       @confirm="dialogFirstTitle = false"
     >
-      <el-row>
-        <el-col>
-          <el-input v-model="newFirstTitle" />
-        </el-col>
-      </el-row>
-      <el-row class="mt-4">
-        <el-col class="text-left">
+      <div class="first-category-dialog">
+        <div class="form-item">
+          <label>分类名称</label>
+          <el-input v-model="newFirstTitle" placeholder="请输入分类名称" />
+        </div>
+        <div class="form-item">
+          <label>排序</label>
+          <div class="sort-controls">
+            <el-tag effect="plain" class="order-tag">{{ firstCategroy[firstTitleSelectIndex]?.sort_order }}</el-tag>
+            <el-button-group>
+              <el-button plain :disabled="firstTitleSelectIndex <= 0" @click="moveFirstCategory('up')">前进</el-button>
+              <el-button plain :disabled="firstTitleSelectIndex >= firstCategroy.length - 1" @click="moveFirstCategory('down')">后退</el-button>
+            </el-button-group>
+          </div>
+        </div>
+        <div class="dialog-actions">
           <el-button
             icon="Delete"
             type="danger"
@@ -333,16 +457,38 @@
           >
             删除
           </el-button>
-          <el-button
-            icon="Check"
-            type="primary"
-            @click="updateCategroy((isFrist = true))"
-          >
-            更新
-          </el-button>
-        </el-col>
-      </el-row>
+          <div class="action-right">
+            <el-button @click="dialogFirstTitle = false">取消</el-button>
+            <el-button
+              icon="Check"
+              type="primary"
+              @click="updateCategroy((isFrist = true))"
+            >
+              更新
+            </el-button>
+          </div>
+        </div>
+      </div>
     </CommonDialog>
+
+    <!-- 解锁弹窗 -->
+    <UnlockDialog
+      v-model="unlockDialogVisible"
+      :level="unlockTarget.level"
+      :category-id="unlockTarget.categoryId"
+      :category-name="unlockTarget.categoryName"
+      @unlocked="handleUnlocked"
+    />
+
+    <!-- 设置访问密码弹窗 -->
+    <PasswordDialog
+      v-model="passwordDialogVisible"
+      :level="passwordTarget.level"
+      :category-id="passwordTarget.categoryId"
+      :category-name="passwordTarget.categoryName"
+      :locked="passwordTarget.locked"
+      @saved="handlePasswordSaved"
+    />
 
     <!-- 二级标题 -->
     <CommonDialog
@@ -377,20 +523,27 @@
 </template>
 
 <script>
-import {updateLink,addLink,updateCategroy,deleteCategroy,addCategory,deleteLink,updateLinkOrder, logClick} from "@/api/data/index"
+import {updateLink,addLink,updateCategroy,deleteCategroy,addCategory,deleteLink,updateLinkOrder,updateCategoryOrder, logClick} from "@/api/data/index"
 import CommonDialog from '@/layout/components/CommonDialog.vue'
+import UnlockDialog from './components/UnlockDialog.vue'
+import PasswordDialog from './components/PasswordDialog.vue'
 import Search from './Search.vue'
 import router from "@/router/index"
 import store from "@/store/index";
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { Icon } from '@iconify/vue';
 import { ElMessage } from 'element-plus';
+import { isUnlocked } from '@/utils/lock'
 export default {
   name: 'MainLink',
   props: ['initLink', 'firstCategroy', 'dataIndex', 'sourceData'],
   components: {
     CommonDialog,
+    UnlockDialog,
+    PasswordDialog,
     Search,
+    Icon,
   },
   setup() {
     const store = useStore();
@@ -460,6 +613,20 @@ export default {
       /* 站内搜索状态 */
       siteKeyword: '', // 站内搜索关键词
       siteSearchActive: false, // 是否处于站内搜索模式
+      /* 分类加密相关状态 */
+      unlockDialogVisible: false, // 解锁弹窗显示状态
+      unlockTarget: { // 解锁目标
+        level: 1,
+        categoryId: null,
+        categoryName: '',
+      },
+      passwordDialogVisible: false, // 设置密码弹窗显示状态
+      passwordTarget: { // 密码设置目标
+        level: 1,
+        categoryId: null,
+        categoryName: '',
+        locked: false,
+      },
     }
   },
   computed: {
@@ -483,6 +650,38 @@ export default {
         });
       }
       return result;
+    },
+    // 最新添加的链接：遍历所有分类，按创建时间倒序取前 20 条
+    latestLinks() {
+      const all = [];
+      if (this.sourceData && this.sourceData.length) {
+        this.sourceData.forEach(cat1 => {
+          if (cat1.level2_with_links) {
+            cat1.level2_with_links.forEach(l2 => {
+              if (l2.links) {
+                l2.links.forEach(link => {
+                  all.push({
+                    ...link,
+                    categoryName: l2.category ? l2.category.name : '',
+                    firstCategoryName: cat1.category_level_1.name
+                  });
+                });
+              }
+            });
+          }
+        });
+      }
+      // 优先按 created_at 倒序，无时间戳时回退按 id 倒序
+      return all
+        .sort((a, b) => {
+          const ta = a.created_at || 0;
+          const tb = b.created_at || 0;
+          if (ta && tb) return tb - ta;
+          if (ta) return -1;
+          if (tb) return 1;
+          return b.id - a.id;
+        })
+        .slice(0, 20);
     },
     // 用于主展示区的数据：站内搜索激活时按关键词过滤，否则展示当前分类
     displayLinks() {
@@ -513,9 +712,80 @@ export default {
         });
       }
       return result;
+    },
+    // 当前一级分类对象
+    currentFirstCategory() {
+      if (this.dataIndex < 0 || this.dataIndex >= this.firstCategroy.length) return null;
+      return this.firstCategroy[this.dataIndex];
+    },
+    currentFirstCategoryId() {
+      return this.currentFirstCategory ? this.currentFirstCategory.id : null;
+    },
+    currentFirstCategoryName() {
+      return this.currentFirstCategory ? this.currentFirstCategory.name : '';
+    },
+    // 当前一级分类是否被加密且未解锁
+    isFirstCategoryLocked() {
+      const cat = this.currentFirstCategory;
+      if (!cat || cat.is_locked !== 1) return false;
+      // 管理员始终可见全部内容
+      if (this.isLogin) return false;
+      return !this.isCategoryUnlocked(1, cat.id);
     }
   },
   methods: {
+    /* ===== 分类加密 ===== */
+    /* 判断某分类当前是否已解锁（管理员视为始终解锁） */
+    isCategoryUnlocked(level, categoryId) {
+      if (this.isLogin) return true;
+      return isUnlocked(level, categoryId);
+    },
+    /* 打开解锁弹窗 */
+    openUnlockDialog(level, categoryId, categoryName) {
+      this.unlockTarget = { level, categoryId, categoryName };
+      this.unlockDialogVisible = true;
+    },
+    /* 解锁成功后通知父组件，把明文内容注入共享数据 */
+    handleUnlocked({ level, categoryId, data }) {
+      this.$emit('unlockContent', { level, categoryId, data })
+    },
+    /* 打开设置访问密码弹窗 */
+    openPasswordDialog(level) {
+      if (level === 1) {
+        const cat = this.firstCategroy[this.firstTitleSelectIndex];
+        if (!cat) {
+          ElMessage.warning('请先选择一级分类');
+          return;
+        }
+        this.passwordTarget = {
+          level: 1,
+          categoryId: cat.id,
+          categoryName: cat.name,
+          locked: cat.is_locked === 1,
+        };
+      } else {
+        const item = this.initLink2.find(
+          (i) => i.category.id === this.secondTitleSelectId
+        );
+        if (!item) {
+          ElMessage.warning('请先选择二级分类');
+          return;
+        }
+        this.passwordTarget = {
+          level: 2,
+          categoryId: item.category.id,
+          categoryName: item.category.name,
+          locked: item.category.is_locked === 1,
+        };
+      }
+      this.passwordDialogVisible = true;
+    },
+    /* 密码设置完成后刷新本地数据 */
+    handlePasswordSaved({ level, categoryId }) {
+      // 本地缓存失效，重新拉取数据以获得最新的加密状态
+      this.clearDataCache();
+      this.$emit('reloadData');
+    },
     /* 处理站内搜索：实时更新关键词与激活状态 */
     handleSiteSearch({ keyword, active }) {
       this.siteSearchActive = active;
@@ -530,11 +800,29 @@ export default {
       };
 
       // 方案 B: 使用你封装好的 axios (如果你想在后端成功后做点什么)
-      
+
       logClick(logData).then(() => {
          console.log('记录成功');
       });
-     
+
+    },
+    /* 清除数据缓存 */
+    clearDataCache() {
+      localStorage.removeItem('yunshenNav_data_cache');
+    },
+    /* 格式化创建时间 */
+    formatDate(timestamp) {
+      if (!timestamp) return '';
+      const d = new Date(Number(timestamp));
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).replace(/\//g, '-');
     },
     //临时弹窗
     tempClick() {
@@ -585,10 +873,10 @@ export default {
 
         // 清空输入框中的内容
         this.newsecondCategroy.category.name = '';
+        this.clearDataCache();
       }).catch((err) => {
         console.error('新增二级分类失败', err);
-      });
-    },
+      });    },
     /* 删除一二级分类 ok */
     deleteCategroy(isFrist) {
       if (isFrist) {
@@ -630,11 +918,10 @@ export default {
 
         // 清空选择框
         this.secondTitleSelectId = null;
+        this.clearDataCache();
       }
     }).catch(error => {
       console.error('删除失败', error);
-      // 处理删除失败的逻辑
-      alert('删除失败，请稍后再试');
     });
   }
 }
@@ -682,22 +969,71 @@ export default {
           newName: newName,
           level: 2
         })
+        this.clearDataCache();
       }
     },
     // 显示修改层级标题的弹出
     handleEditCategroy(isFrist) {
-      
+
       if (isFrist) {
         this.dialogFirstTitle = true
 
         // console.log(this.firstCategroy[this.firstTitleSelectIndex].name);
         this.newFirstTitle = this.firstCategroy[this.firstTitleSelectIndex].name
-        
-        
+
+
       } else {
         this.dialogVisTitle = true
         // this.newSecondTitle = this.initLink2.children[this.secondTitleSelectId].name
       }
+    },
+    /* 一级分类排序：前进/后退 */
+    moveFirstCategory(direction) {
+      const index = this.firstTitleSelectIndex;
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+
+      if (targetIndex < 0 || targetIndex >= this.firstCategroy.length) {
+        return;
+      }
+
+      const current = this.firstCategroy[index];
+      const target = this.firstCategroy[targetIndex];
+
+      // 交换 sort_order
+      const tempOrder = current.sort_order;
+      current.sort_order = target.sort_order;
+      target.sort_order = tempOrder;
+
+      // 交换数组位置
+      this.firstCategroy.splice(index, 1);
+      this.firstCategroy.splice(targetIndex, 0, current);
+
+      // 同步 sourceData 顺序
+      const sourceIndex = this.sourceData.findIndex(item => item.category_level_1.id === current.id);
+      const sourceTargetIndex = this.sourceData.findIndex(item => item.category_level_1.id === target.id);
+      if (sourceIndex !== -1 && sourceTargetIndex !== -1) {
+        const temp = this.sourceData[sourceIndex];
+        this.sourceData[sourceIndex] = this.sourceData[sourceTargetIndex];
+        this.sourceData[sourceTargetIndex] = temp;
+      }
+
+      // 更新选中索引
+      this.firstTitleSelectIndex = targetIndex;
+
+      // 通知父组件同步 iconList
+      this.$emit('sortFirstCategory', { fromIndex: index, toIndex: targetIndex });
+
+      // 调用后端接口更新排序
+      updateCategoryOrder({
+        categoryId: current.id,
+        newSortOrder: current.sort_order,
+        level: 1
+      });
+      updateCategoryOrder({
+        categoryId: target.id,
+        newSortOrder: target.sort_order,
+        level: 1
+      });
     },
     /* 修改数据索引 */
     changeDataIndex(index) {
@@ -724,6 +1060,7 @@ export default {
         // console.log('链接已删除', this.dialogSelectLinkId);
         // 调用后端接口进行删除
         deleteLink({id:this.dialogSelectLinkId});
+        this.clearDataCache();
       } else {
         console.error('找不到匹配的链接进行删除');
       }
@@ -752,6 +1089,7 @@ export default {
         // console.log("链接已更新:", this.dialogNewLink);
         // 调用后端接口进行更新
         updateLink(this.dialogNewLink);
+        this.clearDataCache();
       }
     } else {
       console.error("找不到匹配的链接进行更新");
@@ -819,15 +1157,15 @@ export default {
         this.newLink.id = response.linkId;
         // 后端成功响应，更新本地数据
         this.initLink2[this.selectIndex].links.push(
-          JSON.parse(JSON.stringify(this.newLink))
+          { ...JSON.parse(JSON.stringify(this.newLink)), created_at: Date.now() }
         )
-
         // 清空表单
         this.newLink.url = ''
         this.newLink.name = ''
         this.newLink.sort_order = 0
 
         // console.log('新增链接成功！', response.data);
+        this.clearDataCache();
       }
     })
     .catch(error => {
@@ -873,6 +1211,7 @@ export default {
           linkId: linkToMove.id,
           newSortOrder: linkToMove.sort_order
         });
+        this.clearDataCache();
       }
     }
   }
@@ -917,6 +1256,7 @@ increase() {
           linkId: linkToMove.id,
           newSortOrder: linkToMove.sort_order
         });
+        this.clearDataCache();
       }
     }
   }
@@ -953,6 +1293,67 @@ increase() {
 <style lang="scss" scoped>
 .el-select .el-input {
   width: 130px;
+}
+
+/* ===== 分类加密 ===== */
+.lock-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  padding: 40px 20px;
+  margin-top: 16px;
+  border: 1px dashed #e6a23c;
+  border-radius: 12px;
+  background-color: #fdf6ec;
+}
+
+.lock-panel-sm {
+  min-height: auto;
+  padding: 22px 16px;
+  margin: 10px 0 18px;
+  border-radius: 10px;
+}
+
+.lock-panel-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lock-panel-icon {
+  color: #e6a23c;
+  margin-bottom: 10px;
+}
+
+.lock-panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #303133;
+  margin: 0 0 8px;
+}
+
+.lock-panel-desc {
+  font-size: 13px;
+  color: #909399;
+  line-height: 1.7;
+  margin: 0 0 16px;
+  max-width: 420px;
+}
+
+.lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #e6a23c;
+  border: 1px solid #e6a23c;
+  border-radius: 4px;
+  vertical-align: middle;
 }
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
@@ -1031,8 +1432,7 @@ increase() {
 .second-title {
   text-align: left;
   border-bottom: 1px rgb(231 234 237) solid;
-}
-.second-wrapper {
+}.second-wrapper {
   margin-top: 30px;
 }
 .second-wrapper:nth-of-type(1) {
@@ -1083,8 +1483,138 @@ increase() {
   right: 0;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent; 
+  border-left: 10px solid transparent;
   border-top: 10px solid #0684e5;
+}
+/* ===== 最新添加：日志流 ===== */
+.latest-stream {
+  padding: 4px 0;
+  /* #app 全局是 text-align: center，这里统一改为左对齐 */
+  text-align: left;
+}
+.latest-stream h2,
+.latest-stream span,
+.latest-stream div,
+.latest-stream a {
+  text-align: left;
+}
+.stream-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(231 234 237) solid;
+  padding-bottom: 10px;
+}
+.stream-heading {
+  margin: 0;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+.stream-count {
+  font-size: 13px;
+  color: #999;
+}
+.stream-list {
+  position: relative;
+  padding-left: 22px;
+  margin-top: 20px;
+}
+/* 竖线 */
+.stream-list::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: #e4e7ed;
+}
+.stream-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  border-radius: 8px;
+  background: #ffffffb3;
+  border: 1px solid #eef0f3;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.stream-item:hover {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(2px);
+}
+/* 节点圆点 */
+.stream-node {
+  position: absolute;
+  left: -22px;
+  top: 50%;
+  margin-top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #00b592;
+  transition: all 0.2s;
+}
+.stream-item:hover .stream-node {
+  background: #00b592;
+}
+.stream-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stream-title {
+  font-size: 15px;
+  color: #2f373c;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.stream-item:hover .stream-title {
+  color: #00b592;
+}
+.stream-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  color: #999;
+}
+.stream-category {
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: #f0f2f5;
+  color: #7a7e85;
+}
+.stream-url {
+  max-width: 320px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #b4b7bd;
+}
+.stream-time {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #b4b7bd;
+  font-variant-numeric: tabular-nums;
+}
+/* 推荐/标记状态 */
+.stream-item-recommend .stream-node {
+  border-color: #0684e5;
+}
+.stream-item-blocked .stream-node {
+  border-color: #238551;
 }
 .second-box .link-item:hover {
   color: #fff;
@@ -1117,5 +1647,42 @@ increase() {
   font-size: 14px;
   color: #999;
   padding: 24px;
+}
+
+/* 一级分类编辑弹窗 */
+.first-category-dialog {
+  padding: 10px 0;
+}
+.first-category-dialog .form-item {
+  margin-bottom: 20px;
+}
+.first-category-dialog .form-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #606266;
+  font-weight: 500;
+}
+.first-category-dialog .sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.first-category-dialog .order-tag {
+  min-width: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+.first-category-dialog .dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e4e7ed;
+}
+.first-category-dialog .action-right {
+  display: flex;
+  gap: 10px;
 }
 </style>

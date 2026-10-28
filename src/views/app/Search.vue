@@ -90,7 +90,7 @@ export default {
         'search-icon/github.svg',
       ],
       searchNames:['站内','谷歌','必应','百度','知乎','Github'],
-      INDEX: 0,//默认搜索引擎
+      INDEX: 2,//默认搜索引擎：必应
       hiddenBlock: true,
     };
   },

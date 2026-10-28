@@ -2,10 +2,12 @@
   <div>
     <el-dialog v-model="childDialogVisible" :lockScroll="true" append-to-body>
       <slot></slot>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="handleConfirm(false)">取 消</el-button>
-        <el-button type="primary" @click="handleConfirm(true)">确 定</el-button>
-      </span>
+      <template v-if="showFooter" #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleConfirm(false)">取 消</el-button>
+          <el-button type="primary" @click="handleConfirm(true)">确 定</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -17,6 +19,10 @@ export default {
     dialogVisible: {
       type: Boolean,
       default: false,
+    },
+    showFooter: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
