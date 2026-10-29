@@ -1,0 +1,113 @@
+/* ============================================================
+   全局基础样式
+   只放真正全局的东西：重置、页面骨架、滚动条。
+   组件私有样式一律写在各自 .vue 的 scoped 里。
+   ============================================================ */
+
+:root {
+  --light-color: #f4f4f4;
+  --primary-color: #2c3e50;
+  --border-color: #ddd;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', Arial, sans-serif;
+  background-image: url('../assets/441.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 1120px;
+  height: 100%;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  margin: 0 auto;
+  overflow: hidden;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: var(--primary-color);
+  /* 默认左对齐：需要居中的局部样式自己声明，避免各组件写 text-align: left 去抵消 */
+  text-align: left;
+}
+
+/* 通用空态提示 */
+.empty-tip {
+  padding: 24px;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+}
+
+/* 统一滚动条外观 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(16 31 28 / 10%);
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 28px;
+  cursor: pointer;
+  background-color: rgb(175 177 182 / 90%);
+  background-clip: padding-box;
+  border-radius: 2em;
+  transition: background-color 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(122 122 123 / 30%);
+}
+
+/* ============ 响应式 ============ */
+
+/* 手机：去掉背景与大留白（侧边栏的隐藏规则写在 BookmarkSidebar 组件内） */
+@media (max-width: 599px) {
+  body {
+    background: #fff;
+  }
+
+  #app {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+/* 平板 / 小屏桌面 */
+@media (min-width: 600px) and (max-width: 1399px) {
+  body {
+    padding: 30px 90px;
+  }
+
+  #app {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 2000px) {
+  #app {
+    padding-top: 34px;
+    padding-bottom: 34px;
+  }
+}

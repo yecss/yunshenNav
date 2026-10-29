@@ -33,3 +33,6 @@ pnpm-debug.log*
 .wb-*.txt
 .wb-*.mjs
 .wb-*.toml
+
+# 本地端到端验证时产生的浏览器配置
+.cdp-profile/

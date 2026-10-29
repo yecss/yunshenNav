@@ -1,31 +1,17 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import { setUnauthorizedHandler } from './api'
 
 import 'tailwindcss/tailwind.css'
-import 'element-plus/theme-chalk/src/message.scss'
 import 'element-plus/dist/index.css'
+import './styles/base.css'
 
+const app = createApp(App)
 
-/* 全局注册 */
-import { ElMessageBox,ElMessage } from 'element-plus';
+// 令牌失效时统一跳转登录页（http 层不直接依赖路由）
+setUnauthorizedHandler(() => {
+  if (router.currentRoute.value.name !== 'login') router.push('/login')
+})
 
-
-const app = createApp(App);
-
-app.use(ElMessageBox);
-app.use(ElMessage);
-
-app.config.globalProperties.$message = ElMessage
-app.config.globalProperties.$prompt = ElMessageBox.prompt;
-app.config.globalProperties.$alert = ElMessageBox.alert;
-
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
-}
-
-
-app.use(store).use(router).mount("#app");
+app.use(router).mount('#app')

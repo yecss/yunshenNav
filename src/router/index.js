@@ -1,53 +1,43 @@
-import { createRouter, createWebHistory } from "vue-router";
-import Layout from "@/layout/index"
-import store from "@/store";
+import { createRouter, createWebHistory } from 'vue-router'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+
+/**
+ * 路由表
+ * 书签页是主入口，登录页与留言板都在同一套布局内切换。
+ */
 const routes = [
   {
-    path: "/",
-    name:"home",
-    component:Layout,
-    redirect:'/app',
-    children:[
+    path: '/',
+    component: DefaultLayout,
+    redirect: '/app',
+    children: [
       {
-        path:'login',
-        name:'Login',
-        component:()=> import("@/views/login/index.vue")
+        path: 'app',
+        name: 'bookmarks',
+        component: () => import('@/views/bookmarks/BookmarkView.vue'),
       },
       {
-        path:'messageboard',
-        name:'MessageBoard',
-        component:()=> import("@/views/MessageBoard/index.vue")
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/auth/LoginView.vue'),
       },
       {
-        path:'/app',
-        name:"App",
-        meta:{
-          requireAuth: true
-        },
-        component:()=>import("@/views/app/index")
-      }
-      
-    ]
-  }
-
-];
+        path: 'messageboard',
+        name: 'messageBoard',
+        component: () => import('@/views/message/MessageBoardView.vue'),
+      },
+    ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    redirect: '/app',
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-});
+})
 
-// 全局前置路由守卫，控制登录
-/* router.beforeEach((to, from, next) => {
-  
-  const token = store.getters['user/isLogin']
-  if (!token && to.name !== 'Login') {
-      next({
-          name: 'Login',
-      })
-  } else {
-      next()
-  }
-}) */
-
-export default router;
+export default router

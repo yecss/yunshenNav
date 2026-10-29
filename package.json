@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vite",
     "build": "vite build",
-    "lint": "eslint src --ext .js,.vue",
+    "lint": "eslint src worker scripts --ext .js,.vue,.cjs",
+    "test:worker": "node scripts/verify-worker.cjs",
     "deploy": "npm run build && gh-pages -d dist",
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler deploy"
@@ -15,8 +16,7 @@
     "axios": "^1.6.0",
     "element-plus": "2.1.4",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@iconify/vue": "^4.3.0",
